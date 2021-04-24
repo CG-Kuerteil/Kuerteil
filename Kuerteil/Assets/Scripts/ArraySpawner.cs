@@ -39,7 +39,7 @@ public class ArraySpawner : MonoBehaviour
         {
             RegenArray();
         }
-        //mainFeld[mitte, mitte] = 2;
+
         PrintArray(mainFeld);
         PrintCSV(mainFeld);
 
@@ -64,20 +64,31 @@ public class ArraySpawner : MonoBehaviour
                 }
                 if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0 )
                 {
+                    //Richtung oben
                     mainFeld[i, j] = 1;
+                    //SpawnRandomObject(i, j);
                 }
-                if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
+                /*if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
                 {
                     mainFeld[i, j] = 1;
                 }
+                
+                if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
+                {
+                    mainFeld[i, j] = 1;
+                }
+                if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
+                {
+                    mainFeld[i, j] = 1;
+                }*/
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SpawnRandomObject(int x, int y)
     {
-        
+        int random = UnityEngine.Random.Range(0, 10);
+
     }
 
     private void PrintArray(int[,] m)
@@ -113,7 +124,7 @@ public class ArraySpawner : MonoBehaviour
             }
             //writer.Write(sb.ToString());
             writer.WriteLine(sb.ToString());
-            Debug.Log(sb.ToString());
+            //Debug.Log(sb.ToString());
             sb = new StringBuilder();
         }
         writer.Close();
