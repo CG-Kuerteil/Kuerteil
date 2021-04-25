@@ -9,8 +9,12 @@ using Random = UnityEngine.Random;
 public class ArraySpawner : MonoBehaviour
 {
     public Transform gang;
-    public Transform hub;
-    public Transform miniSpiel;
+    public Transform gangSmall;
+    public Transform hub1;
+    public Transform hub2;
+    public Transform hub3;
+    public Transform hub4;
+    //public Transform miniSpiel;
 
     public int dimension = 21;
     public int anzahlMinispiele;
@@ -20,7 +24,11 @@ public class ArraySpawner : MonoBehaviour
     public int gangWahrscheinlichkeit = 8;
     private int mitte;
     public string filepath;
-    private float offsetLength = 8f;
+
+    //Laenge vom 1x2 Gang
+    private float offsetLengthLong = 8f;
+    //Laenge von 1x1 Elementen
+    private float offsetLengthNormal = 4f;
 
 
     // Start is called before the first frame update
@@ -29,9 +37,9 @@ public class ArraySpawner : MonoBehaviour
         filepath = "CSVData.csv";
         mainFeld = new int[dimension, dimension];
         mitte = dimension / 2;
-        for (int i = 0; i < dimension; i++)
+        for (int i = 1; i < dimension; i++)
         {
-            for (int j = 0; j < dimension; j++)
+            for (int j = 1; j < dimension; j++)
             {
                 mainFeld[i,j] = 0;
                 if (i == mitte && j == mitte)
@@ -48,7 +56,7 @@ public class ArraySpawner : MonoBehaviour
 
         
         PrintCSV(mainFeld);
-        //SpawnElements();
+        SpawnElements();
 
     }
 
@@ -58,6 +66,10 @@ public class ArraySpawner : MonoBehaviour
         {
             for (int j = 1; j < dimension - 1; j++)
             {
+                if (i >= dimension -2 || i <= 2 || j >= dimension - 2 || j <= 2)
+                {
+                    continue;
+                }
                 if (mainFeld[i, j] == 1)
                 {
                     if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
@@ -82,7 +94,7 @@ public class ArraySpawner : MonoBehaviour
                 //Gang richtung oben
                 if (mainFeld[i, j] == 1 &&mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
                 {
-                    int rand = Random.Range(1, 11);
+                    int rand = Random.Range(1, 12);
                     if (rand >= 1 && rand <= 8)
                     {
                         //Debug.Log("Richtung oben mit rand= " + rand);
@@ -92,7 +104,7 @@ public class ArraySpawner : MonoBehaviour
                         //return;
                         
                     }
-                    if (rand >= 9 && rand <= 10)
+                    if (rand >= 9 && rand <= 11)
                     {
                         //Debug.Log("Richtung oben mit links oder recht mit rand= " + rand);
                         //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
@@ -125,7 +137,7 @@ public class ArraySpawner : MonoBehaviour
                 //Gang richtung Unten
                 if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
                 {
-                    int rand = Random.Range(1, 11);
+                    int rand = Random.Range(1, 12);
                     if (rand >= 1 && rand <= 8)
                     {
                         //Richtung oben
@@ -134,7 +146,7 @@ public class ArraySpawner : MonoBehaviour
                         //return;
 
                     }
-                    if (rand >= 9 && rand <= 10)
+                    if (rand >= 9 && rand <= 11)
                     {
                         //Debug.Log("Richtung: unten mit links oder rechts");
                         //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
@@ -166,7 +178,7 @@ public class ArraySpawner : MonoBehaviour
                 //+-----+-----+-----+-----+-----+[Gang richtung Rechts]+-----+-----+-----+-----+-----+\\
                 if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
                 {
-                    int rand = Random.Range(1, 11);
+                    int rand = Random.Range(1, 12);
                     if (rand >= 1 && rand <= 8)
                     {
                         //Debug.Log("Richtung rechts mit rand= " + rand);
@@ -176,7 +188,7 @@ public class ArraySpawner : MonoBehaviour
                         //return;
 
                     }
-                    if (rand >= 9 && rand <= 10)
+                    if (rand >= 9 && rand <= 11)
                     {
                         //Debug.Log("Richtung: rechts mit oben oder unten mit rand= " + rand);
                         //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
@@ -209,7 +221,7 @@ public class ArraySpawner : MonoBehaviour
                 //+-----+-----+-----+-----+-----+[Gang richtung Links]+-----+-----+-----+-----+-----+\\
                 if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
                 {
-                    int rand = Random.Range(1, 11);
+                    int rand = Random.Range(1, 12);
                     if (rand >= 1 && rand <= 8)
                     {
                         //Debug.Log("Richtung rechts mit rand= " + rand);
@@ -219,7 +231,7 @@ public class ArraySpawner : MonoBehaviour
                         //return;
 
                     }
-                    if (rand >= 9 && rand <= 10)
+                    if (rand >= 9 && rand <= 11)
                     {
                         //Debug.Log("Richtung: rechts mit oben oder unten mit rand= " + rand);
                         //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
@@ -253,34 +265,100 @@ public class ArraySpawner : MonoBehaviour
 
     private void SpawnElements()
     {
-        for (int i = 0; i < dimension; i++)
+        for (int i = 1; i < dimension - 1; i++)
         {
-            for (int j = 0; j < dimension; j++)
+            for (int j = 1; j < dimension - 1; j++)
             {
+                if (i == dimension -1 || i == 0 || j == dimension - 1 || j == 0)
+                {
+                    continue;
+                }
+                if (mainFeld[i, j] == 1)
+                {
+                    if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
+                    {
+                        Instantiate(hub1, new Vector3(i*offsetLengthNormal, 0, j*offsetLengthNormal), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
+                    {
+                        Instantiate(hub1, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
+                    {
+                        Instantiate(hub1, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
+                    {
+                        Instantiate(hub1, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.identity);
+                    }
+                }
+
+                //2er Ecke einfuegen
+                if (mainFeld[i, j] == 1)
+                {
+                    if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
+                    {
+                        Instantiate(hub2, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
+                    {
+                        Instantiate(hub2, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
+                    {
+                        //richtig
+                        Instantiate(hub2, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
+                    {
+                        Instantiate(hub2, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                    }
+                }
+
+                //gang einfuegen
+                if (mainFeld[i, j] == 1)
+                {
+                    if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
+                    {
+                        Instantiate(gangSmall, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.identity);
+                    }
+                    else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
+                    {
+                        Instantiate(gangSmall, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                    }
+                }
+
+
+                //3er ecke einfuegen
+                if (mainFeld[i, j] == 1)
+                {
+                    if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
+                    {
+                        Instantiate(hub3, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
+                    {
+                        Instantiate(hub3, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
+                    {
+                        //richtig
+                        Instantiate(hub3, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                    }
+                    else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
+                    {
+                        Instantiate(hub3, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                    }
+                }
+
                 if (mainFeld[i, j] == 1)
                 {
                     if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
                     {
-                        //Anfang
-                        if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0 )
-                        {
-                            //Anfang
-                            SpawnRandomObject(i, j, Quaternion.identity);
-                        }
+                        Instantiate(hub4, new Vector3(i * offsetLengthNormal, 0, j * offsetLengthNormal), Quaternion.identity);
                     }
                 }
-    
             }
-        }
-    }
-
-
-    private void SpawnRandomObject(int x, int z, Quaternion rotate)
-    {
-        int random = UnityEngine.Random.Range(0, 10);
-        if (random >= 0 && random < 8)
-        {
-            Instantiate(gang, new Vector3(x*offsetLength, 0, z*offsetLength), rotate); 
         }
     }
 

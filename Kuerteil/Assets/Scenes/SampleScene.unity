@@ -245,9 +245,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ab1d443b65ecd4eb56657882f57e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dimension: 21
+  gang: {fileID: 4917956439285112192, guid: f1acac41464afc34c843255ed4b9e1b4, type: 3}
+  gangSmall: {fileID: 7249444258092820612, guid: 72ec50beb1a9f314290c9eb050dd7bf8, type: 3}
+  hub1: {fileID: 3156753243952553884, guid: 16125eff1f9cc3b4b82e217b69e43206, type: 3}
+  hub2: {fileID: 3156753243952553884, guid: f96bb1a5af7cd7e4396535876290c1e2, type: 3}
+  hub3: {fileID: 2821006182528058619, guid: 260bb1da9f1234e4d84214df8ab55cf2, type: 3}
+  hub4: {fileID: 2273242263581137075, guid: 624f01a6a4889e74ab1d3303bc026c5b, type: 3}
+  dimension: 41
   anzahlMinispiele: 0
+  iterations: 20
   gangWahrscheinlichkeit: 8
+  filepath: 
 --- !u!4 &874203769
 Transform:
   m_ObjectHideFlags: 0
