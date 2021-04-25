@@ -21,7 +21,7 @@ public class ArraySpawner : MonoBehaviour
     private int[,] mainFeld;
     public int iterations = 20;
 
-    public int gangWahrscheinlichkeit = 8;
+    public int gangWahrscheinlichkeit = 5;
     private int mitte;
     public string filepath;
 
@@ -92,10 +92,10 @@ public class ArraySpawner : MonoBehaviour
 
                 //+-----+-----+-----+-----+-----+[Gang richtung Oben]+-----+-----+-----+-----+-----+\\
                 //Gang richtung oben
-                if (mainFeld[i, j] == 1 &&mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
+                if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 1 && mainFeld[i - 1, j] == 0 && (mainFeld[i, j - 1] == 0 || mainFeld[i, j + 1] == 0))
                 {
-                    int rand = Random.Range(1, 12);
-                    if (rand >= 1 && rand <= 8)
+                    int rand = Random.Range(1, 11);
+                    if (rand >= 1 && rand <= gangWahrscheinlichkeit)
                     {
                         //Debug.Log("Richtung oben mit rand= " + rand);
                         //Richtung oben
@@ -104,7 +104,7 @@ public class ArraySpawner : MonoBehaviour
                         //return;
                         
                     }
-                    if (rand >= 9 && rand <= 11)
+                    if (rand > gangWahrscheinlichkeit && rand <= 10)
                     {
                         //Debug.Log("Richtung oben mit links oder recht mit rand= " + rand);
                         //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
@@ -135,10 +135,10 @@ public class ArraySpawner : MonoBehaviour
 
                 //+-----+-----+-----+-----+-----+[Gang richtung unten]+-----+-----+-----+-----+-----+\\
                 //Gang richtung Unten
-                if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
+                if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 0 && mainFeld[i - 1, j] == 1 && (mainFeld[i, j - 1] == 0 || mainFeld[i, j + 1] == 0))
                 {
-                    int rand = Random.Range(1, 12);
-                    if (rand >= 1 && rand <= 8)
+                    int rand = Random.Range(1, 11);
+                    if (rand >= 1 && rand <= gangWahrscheinlichkeit)
                     {
                         //Richtung oben
                         mainFeld[i + 1, j] = 1;
@@ -146,7 +146,7 @@ public class ArraySpawner : MonoBehaviour
                         //return;
 
                     }
-                    if (rand >= 9 && rand <= 11)
+                    if (rand > gangWahrscheinlichkeit && rand <= 10)
                     {
                         //Debug.Log("Richtung: unten mit links oder rechts");
                         //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
@@ -176,10 +176,10 @@ public class ArraySpawner : MonoBehaviour
                 }
 
                 //+-----+-----+-----+-----+-----+[Gang richtung Rechts]+-----+-----+-----+-----+-----+\\
-                if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
+                if (mainFeld[i, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i, j - 1] == 1 && (mainFeld[i - 1, j] == 0 || mainFeld[i + 1, j] == 0))
                 {
-                    int rand = Random.Range(1, 12);
-                    if (rand >= 1 && rand <= 8)
+                    int rand = Random.Range(1, 11);
+                    if (rand >= 1 && rand <= gangWahrscheinlichkeit)
                     {
                         //Debug.Log("Richtung rechts mit rand= " + rand);
                         //Richtung oben
@@ -188,7 +188,7 @@ public class ArraySpawner : MonoBehaviour
                         //return;
 
                     }
-                    if (rand >= 9 && rand <= 11)
+                    if (rand > gangWahrscheinlichkeit && rand <= 10)
                     {
                         //Debug.Log("Richtung: rechts mit oben oder unten mit rand= " + rand);
                         //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
@@ -219,10 +219,10 @@ public class ArraySpawner : MonoBehaviour
 
 
                 //+-----+-----+-----+-----+-----+[Gang richtung Links]+-----+-----+-----+-----+-----+\\
-                if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
+                if (mainFeld[i, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i, j - 1] == 0 && (mainFeld[i - 1, j] == 0 || mainFeld[i + 1, j] == 0))
                 {
-                    int rand = Random.Range(1, 12);
-                    if (rand >= 1 && rand <= 8)
+                    int rand = Random.Range(1, 11);
+                    if (rand >= 1 && rand <= gangWahrscheinlichkeit)
                     {
                         //Debug.Log("Richtung rechts mit rand= " + rand);
                         //Richtung oben
@@ -231,7 +231,7 @@ public class ArraySpawner : MonoBehaviour
                         //return;
 
                     }
-                    if (rand >= 9 && rand <= 11)
+                    if (rand > gangWahrscheinlichkeit && rand <= 10)
                     {
                         //Debug.Log("Richtung: rechts mit oben oder unten mit rand= " + rand);
                         //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
