@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4917956439285112192}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: gang_tall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,6 +85,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d3eded0aa7e479f40a91c6a1e3c0a932, type: 3}
       propertyPath: m_Name
       value: CUBE_bauteile_gang_long
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d3eded0aa7e479f40a91c6a1e3c0a932, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: d3eded0aa7e479f40a91c6a1e3c0a932, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3eded0aa7e479f40a91c6a1e3c0a932, type: 3}
