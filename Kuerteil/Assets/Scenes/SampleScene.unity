@@ -254,7 +254,7 @@ MonoBehaviour:
   minispiel_4: {fileID: 1722296389850620089, guid: 7458bda24abf4324e9156c8ab82dc9c9, type: 3}
   dimension: 101
   anzahlMinispiele: 0
-  iterations: 30
+  iterations: 20
   gangWahrscheinlichkeit: 8
   filepath: 
 --- !u!4 &874203769
