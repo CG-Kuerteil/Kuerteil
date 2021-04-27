@@ -67,7 +67,6 @@ public class ArraySpawner : MonoBehaviour
     private void InitSnake()
     {
         Vector3Int direction = Vector3Int.left;
-
         Vector3Int newDirection = Vector3Int.zero;
 
         int i = mitte;
