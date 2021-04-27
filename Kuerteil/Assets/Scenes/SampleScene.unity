@@ -247,7 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gang: {fileID: 4917956439285112192, guid: f1acac41464afc34c843255ed4b9e1b4, type: 3}
   gangSmall: {fileID: 7249444258092820612, guid: 381ca76a1d020cb40afe25ad21595b59, type: 3}
-  hub1: {fileID: 3156753243952553884, guid: 16125eff1f9cc3b4b82e217b69e43206, type: 3}
+  hub1: {fileID: 3156753243952553884, guid: dd0857cdd8d8b234488b7f6e1a4387df, type: 3}
   hub2: {fileID: 3156753243952553884, guid: fd1c38784b19fe041902c9c2381d373e, type: 3}
   hub3: {fileID: 2821006182528058619, guid: 4066e708c7a0bb64cb2a8b7f2e36c703, type: 3}
   hub4: {fileID: 2273242263581137075, guid: 1505f0174b78cf546893cc64e8853955, type: 3}

@@ -52,14 +52,12 @@ public class ArraySpawner : MonoBehaviour
         }
         InitSnake();
 
-
         /*GenMiniGames();
         gor (int i = 0; i < iterations; i++)
         {
             RegenArray();
             //PrintArray(mainFeld);
         }*/
-
         
         PrintCSV(mainFeld);
         PrintArray(mainFeld);
@@ -487,7 +485,6 @@ public class ArraySpawner : MonoBehaviour
             {
                 if (i == dimension -1 || i == 0 || j == dimension - 1 || j == 0)
                 {
-                    Debug.Log("bin drinn!");
                     //links
                     if (mainFeld[i, j] == 1 && j == 0 && i > 0 && i < dimension-1)
                     {
@@ -506,6 +503,14 @@ public class ArraySpawner : MonoBehaviour
                         else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1)
                         {
                             Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+                        }
+                        else if (mainFeld[i -1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i + 1, j] == 1)
+                        {
+                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                        }
+                        else if (mainFeld[i - 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i + 1, j] == 0)
+                        {
+                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
                         }
                     }
                     //rechts
@@ -527,6 +532,14 @@ public class ArraySpawner : MonoBehaviour
                         {
                             Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
                         }
+                        else if (mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0 && mainFeld[i + 1, j] == 1)
+                        {
+                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                        }
+                        else if (mainFeld[i - 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i + 1, j] == 0)
+                        {
+                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+                        }
                     }
                     //oben
                     else if (mainFeld[i, j] == 1 && i == 0 && j > 0 && j < dimension - 1)
@@ -539,13 +552,21 @@ public class ArraySpawner : MonoBehaviour
                         {
                             Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
                         }
-                        else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j - 1] == 0 && mainFeld[i, j + 1] == 1)
+                        else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i, j + 1] == 1)
                         {
                             Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
                         }
                         else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i, j + 1] == 1)
                         {
                             Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                        }
+                        else if (mainFeld[i, j + 1] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i + 1, j] == 0)
+                        {
+                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                        }
+                        else if (mainFeld[i, j + 1] == 0 && mainFeld[i, j - 1] == 1 && mainFeld[i + 1, j] == 0)
+                        {
+                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
                         }
                     }
                     //uten
@@ -566,6 +587,15 @@ public class ArraySpawner : MonoBehaviour
                         else if (mainFeld[i - 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i, j + 1] == 1)
                         {
                             Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                        }
+                        //TODO:
+                        else if (mainFeld[i, j + 1] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i - 1, j] == 0)
+                        {
+                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                        }
+                        else if (mainFeld[i, j + 1] == 0 && mainFeld[i, j - 1] == 1 && mainFeld[i - 1, j] == 0)
+                        {
+                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
                         }
                     }
                     if (mainFeld[i, j] == 1 && i == 0 && j == 0)
@@ -598,9 +628,8 @@ public class ArraySpawner : MonoBehaviour
                     }
                     continue;
                 }
-                
-                //Debug.Log("nicht drinnen mit: i=" + i + " und j=" + j);
 
+                //1er ecke spawnen
                 if (mainFeld[i, j] == 1)
                 {
                     if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
