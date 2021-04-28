@@ -30,7 +30,10 @@ public class GameControl : MonoBehaviour
 
     public void SceneWechseln(int index)
     {
-        Save();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Save();
+        }
         SceneManager.LoadScene(index);
         //Scene loaded...
         if (SceneManager.GetActiveScene().buildIndex == 1)
@@ -53,15 +56,18 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetChild(1).GetComponent<MouseLook>().canLook == true)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            playerObj.GetChild(1).GetComponent<MouseLook>().canLook = false;
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetChild(1).GetComponent<MouseLook>().canLook == false)
-        {
-            playerObj.GetChild(1).GetComponent<MouseLook>().canLook = true;
-            Cursor.lockState = CursorLockMode.Locked;
+            if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetChild(1).GetComponent<MouseLook>().canLook == true)
+            {
+                playerObj.GetChild(1).GetComponent<MouseLook>().canLook = false;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetChild(1).GetComponent<MouseLook>().canLook == false)
+            {
+                playerObj.GetChild(1).GetComponent<MouseLook>().canLook = true;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
     }
 
