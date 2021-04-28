@@ -8,6 +8,13 @@ using Random = UnityEngine.Random;
 
 public class ArraySpawner : MonoBehaviour
 {
+    private static ArraySpawner arraySpawner;
+
+    public ArraySpawner GetArraySpawner()
+    {
+        return arraySpawner;
+    }
+
     public Transform gang;
     public Transform gangSmall;
     public Transform hub1;
@@ -17,6 +24,8 @@ public class ArraySpawner : MonoBehaviour
     public Transform minispiel_4;
     public Transform minispiel_5;
     //public Transform miniSpiel;
+
+
 
     public int dimension = 21;
     public int anzahlMinispiele;
@@ -32,36 +41,60 @@ public class ArraySpawner : MonoBehaviour
     //Laenge von 1x1 Elementen
     private float offsetLengthNormal = 4f;
 
-
+    private void Awake()
+    {
+        if (arraySpawner == null)
+        {
+            arraySpawner = this;
+        }
+        else if(arraySpawner != this)
+        {
+            Destroy(arraySpawner);
+        }
+    }
+    public int[,] GetMainFeld()
+    {
+        return this.mainFeld;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+    public void InitializeGeneration()
+    {
         filepath = "CSVData.csv";
-        mainFeld = new int[dimension, dimension];
-        mitte = dimension / 2;
-        for (int i = 1; i < dimension; i++)
+        if (mainFeld == null)
         {
-            for (int j = 1; j < dimension; j++)
+            mainFeld = new int[dimension, dimension];
+            mitte = dimension / 2;
+
+            for (int i = 1; i < dimension; i++)
             {
-                mainFeld[i,j] = 0;
-                if (i == mitte && j == mitte)
+                for (int j = 1; j < dimension; j++)
                 {
-                    mainFeld[i, j] = 1;
+                    mainFeld[i, j] = 0;
+                    if (i == mitte && j == mitte)
+                    {
+                        mainFeld[i, j] = 1;
+                    }
                 }
             }
+            InitSnake();
         }
-        InitSnake();
-
-        /*GenMiniGames();
-        gor (int i = 0; i < iterations; i++)
+        else
         {
-            RegenArray();
-            //PrintArray(mainFeld);
-        }*/
+            mitte = mainFeld.Length / 2;
+        }
         
         PrintCSV(mainFeld);
         PrintArray(mainFeld);
         SpawnElements();
+    }
+
+    internal void SetMainFeld(int[,] mainFeld)
+    {
+        this.mainFeld = mainFeld;
     }
 
     private void InitSnake()
@@ -198,7 +231,7 @@ public class ArraySpawner : MonoBehaviour
                 i = temp.x;
                 j = temp.z;
 
-                PrintArray(mainFeld);
+                //PrintArray(mainFeld);
                 alreadyTurned = false;
                 iterations--;
             }
@@ -257,225 +290,6 @@ public class ArraySpawner : MonoBehaviour
         Vector3Int rotation = new Vector3Int(xTemp, 0, zTemp);
 
         return Vector3Int.FloorToInt(rotation);
-    }
-
-    private void GenMiniGames()
-    {
-        int maxAnzahlAnMiniGames;
-        if ((dimension / 10 ) + 1 < anzahlMinispiele)
-        {
-            maxAnzahlAnMiniGames = dimension / 10 + 1;
-        }
-        else
-        {
-            maxAnzahlAnMiniGames = anzahlMinispiele;
-        }
-
-
-        for (int i = 0; i < dimension-1; i++)
-        {
-            for (int j = 0; j < dimension-1; j++)
-            {
-
-            }
-        }
-    }
-
-    private void RegenArray()
-    {
-        for (int i = 1; i < dimension - 1; i++)
-        {
-            for (int j = 1; j < dimension - 1; j++)
-            {
-                if (i >= dimension -2 || i <= 2 || j >= dimension - 2 || j <= 2)
-                {
-                    continue;
-                }
-                if (mainFeld[i, j] == 1)
-                {
-                    if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
-                    {
-                        //Anfang
-                        mainFeld[i + 1, j] = 1;
-                        mainFeld[i, j + 1] = 1;
-                        mainFeld[i - 1, j] = 1;
-                        mainFeld[i, j - 1] = 1;
-                        PrintArray(mainFeld);
-                    }
-                    
-                }
-
-                //+-----+-----+-----+-----+-----+[Gang richtung Oben]+-----+-----+-----+-----+-----+\\
-                //Gang richtung oben
-                if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 1 && mainFeld[i - 1, j] == 0 && (mainFeld[i, j - 1] == 0 || mainFeld[i, j + 1] == 0))
-                {
-                    int rand = Random.Range(1, 11);
-                    if (rand >= 1 && rand <= gangWahrscheinlichkeit)
-                    {
-                        //Debug.Log("Richtung oben mit rand= " + rand);
-                        //Richtung oben
-                        mainFeld[i - 1, j] = 1;
-                        Debug.Log("richtung Oben: Schritt nach vorne: " + (i-1) + "," + (j));
-                        //return;
-                        
-                    }
-                    if (rand > gangWahrscheinlichkeit && rand <= 10)
-                    {
-                        //Debug.Log("Richtung oben mit links oder recht mit rand= " + rand);
-                        //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
-                        rand = Random.Range(1, 4);
-                        if (rand == 1)
-                        {
-                            //nur links
-                            mainFeld[i, j - 1] = 1;
-                            Debug.Log("richtung Oben: Schritt nach Links: " + (i) + "," + (j-1));
-                        }
-                        else if (rand == 2)
-                        {
-                            //nur rechts
-                            mainFeld[i, j + 1] = 1;
-                            Debug.Log("richtung Oben: Schritt nach Rechts: " + (i) + "," + (j + 1));
-                        }
-                        else if (rand == 3)
-                        {
-                            //links und rechts
-                            mainFeld[i, j + 1] = 1;
-                            mainFeld[i, j - 1] = 1;
-                            Debug.Log("richtung Oben: Schritt nach Rechts: " + (i) + "," + (j + 1)+ "\t und Schritt nach Links: " + (i) + "," + (j - 1));
-                        }
-                        //return;
-                    }
-                    PrintArray(mainFeld);
-                }
-
-                //+-----+-----+-----+-----+-----+[Gang richtung unten]+-----+-----+-----+-----+-----+\\
-                //Gang richtung Unten
-                if (mainFeld[i, j] == 1 && mainFeld[i + 1, j] == 0 && mainFeld[i - 1, j] == 1 && (mainFeld[i, j - 1] == 0 || mainFeld[i, j + 1] == 0))
-                {
-                    int rand = Random.Range(1, 11);
-                    if (rand >= 1 && rand <= gangWahrscheinlichkeit)
-                    {
-                        //Richtung oben
-                        mainFeld[i + 1, j] = 1;
-                        Debug.Log("richtung unten: Schritt nach vorne: " + (i + 1) + "," + (j));
-                        //return;
-
-                    }
-                    if (rand > gangWahrscheinlichkeit && rand <= 10)
-                    {
-                        //Debug.Log("Richtung: unten mit links oder rechts");
-                        //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
-                        rand = Random.Range(1, 4);
-                        if (rand == 1)
-                        {
-                            //nur links
-                            mainFeld[i, j - 1] = 1;
-                            Debug.Log("richtung unten: Schritt nach links: " + (i) + "," + (j - 1));
-                        }
-                        else if (rand == 2)
-                        {
-                            //nur rechts
-                            mainFeld[i, j + 1] = 1;
-                            Debug.Log("richtung unten: Schritt nach rechts: " + (i) + "," + (j + 1));
-                        }
-                        else if (rand == 3)
-                        {
-                            //links und rechts
-                            mainFeld[i, j + 1] = 1;
-                            mainFeld[i, j - 1] = 1;
-                            Debug.Log("richtung unten: Schritt nach links: " + (i) + "," + (j + 1) + "\t und Schritt nach rechts: " + (i) + "," + (j - 1));
-                        }
-                        //return;
-                    }
-                    PrintArray(mainFeld);
-                }
-
-                //+-----+-----+-----+-----+-----+[Gang richtung Rechts]+-----+-----+-----+-----+-----+\\
-                if (mainFeld[i, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i, j - 1] == 1 && (mainFeld[i - 1, j] == 0 || mainFeld[i + 1, j] == 0))
-                {
-                    int rand = Random.Range(1, 11);
-                    if (rand >= 1 && rand <= gangWahrscheinlichkeit)
-                    {
-                        //Debug.Log("Richtung rechts mit rand= " + rand);
-                        //Richtung oben
-                        mainFeld[i, j + 1] = 1;
-                        Debug.Log("richtung Rechts: Schritt nach vorne: " + (i) + "," + (j-1));
-                        //return;
-
-                    }
-                    if (rand > gangWahrscheinlichkeit && rand <= 10)
-                    {
-                        //Debug.Log("Richtung: rechts mit oben oder unten mit rand= " + rand);
-                        //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
-                        rand = Random.Range(1, 4);
-                        if (rand == 1)
-                        {
-                            //nur oben
-                            mainFeld[i - 1, j] = 1;
-                            Debug.Log("richtung Rechts: Schritt nach links: " + (i - 1) + "," + (j));
-                        }
-                        else if (rand == 2)
-                        {
-                            //nur unten
-                            mainFeld[i + 1, j] = 1;
-                            Debug.Log("richtung Rechts: Schritt nach Rechts: " + (i + 1) + "," + (j));
-                        }
-                        else if (rand == 3)
-                        {
-                            //oebn und unten
-                            mainFeld[i - 1, j] = 1;
-                            mainFeld[i + 1, j] = 1;
-                            Debug.Log("richtung Rechts: Schritt nach links: " + (i - 1) + "," + (j) + "\t und Schritt nach rechts: " + (i + 1) + "," + (j));
-                        }
-                        //return;
-                    }
-                    PrintArray(mainFeld);
-                }
-
-
-                //+-----+-----+-----+-----+-----+[Gang richtung Links]+-----+-----+-----+-----+-----+\\
-                if (mainFeld[i, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i, j - 1] == 0 && (mainFeld[i - 1, j] == 0 || mainFeld[i + 1, j] == 0))
-                {
-                    int rand = Random.Range(1, 11);
-                    if (rand >= 1 && rand <= gangWahrscheinlichkeit)
-                    {
-                        //Debug.Log("Richtung rechts mit rand= " + rand);
-                        //Richtung oben
-                        mainFeld[i, j - 1] = 1;
-                        Debug.Log("richtung Links: Schritt nach vorne: " + (i) + "," + (j - 1));
-                        //return;
-
-                    }
-                    if (rand > gangWahrscheinlichkeit && rand <= 10)
-                    {
-                        //Debug.Log("Richtung: rechts mit oben oder unten mit rand= " + rand);
-                        //(1x1) - Hub schon platziert (weil mainFeld[i, j] == 1)
-                        rand = Random.Range(1, 4);
-                        if (rand == 1)
-                        {
-                            //nur oben
-                            mainFeld[i + 1, j] = 1;
-                            Debug.Log("richtung Links: Schritt nach rechts: " + (i + 1) + "," + (j));
-                        }
-                        else if (rand == 2)
-                        {
-                            //nur unten
-                            mainFeld[i - 1, j] = 1;
-                            Debug.Log("richtung Links: Schritt nach links: " + (i - 1) + "," + (j));
-                        }
-                        else if (rand == 3)
-                        {
-                            //oebn und unten
-                            mainFeld[i - 1, j] = 1;
-                            mainFeld[i + 1, j] = 1;
-                            Debug.Log("richtung Links: Schritt nach rechts: " + (i + 1) + "," + (j) + "\t und Schritt nach links: " + (i - 1) + "," + (j));
-                        }
-                        //return;
-                    }
-                    PrintArray(mainFeld);
-                }
-            }
-        }
     }
 
     private void SpawnElements()
@@ -537,7 +351,7 @@ public class ArraySpawner : MonoBehaviour
                         {
                             Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
                         }
-                        else if (mainFeld[i - 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i + 1, j] == 0)
+                        else if (mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i + 1, j] == 0)
                         {
                             Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
                         }
