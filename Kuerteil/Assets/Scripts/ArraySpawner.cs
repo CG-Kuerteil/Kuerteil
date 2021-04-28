@@ -15,14 +15,14 @@ public class ArraySpawner : MonoBehaviour
         return arraySpawner;
     }
 
-    public Transform gang;
+
     public Transform gangSmall;
     public Transform hub1;
     public Transform hub2;
     public Transform hub3;
     public Transform hub4;
-    public Transform minispiel_4;
-    public Transform minispiel_5;
+
+    public Transform minispiel_portal;
     //public Transform miniSpiel;
 
 
@@ -86,12 +86,30 @@ public class ArraySpawner : MonoBehaviour
         {
             mitte = mainFeld.Length / 2;
         }
-        
+        SpawnPortals();
         PrintCSV(mainFeld);
         PrintArray(mainFeld);
         SpawnElements();
     }
 
+    private void SpawnPortals()
+    {
+        int i, j;
+        while (anzahlMinispiele > 0)
+        {
+            i = Random.Range(0, (dimension - 1));
+            j = Random.Range(0, (dimension - 1));
+            if (mainFeld[i, j] == 1)
+            {
+                Instantiate(minispiel_portal, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+            }
+            else
+            {
+                continue;
+            }
+            anzahlMinispiele--;
+        }
+    }
     internal void SetMainFeld(int[,] mainFeld)
     {
         this.mainFeld = mainFeld;

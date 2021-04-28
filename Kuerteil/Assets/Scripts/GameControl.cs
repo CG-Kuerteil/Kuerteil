@@ -5,6 +5,7 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using SerializableTypes;
+using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
@@ -27,8 +28,21 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    public void SceneWechseln(int index)
+    {
+        Save();
+        SceneManager.LoadScene(index);
+        //Scene loaded...
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Load();
+        }
+    }
+
     private void Start()
     {
+        DontDestroyOnLoad(control);
+
         Cursor.lockState = CursorLockMode.Locked;
         arraySpawner = gameObject.GetComponent<ArraySpawner>();
 
