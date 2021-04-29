@@ -7,19 +7,22 @@ public class MenuScript : MonoBehaviour
 {
     private void OnGUI()
     {
-        if (GUI.Button(new Rect(10, 100, 100, 40), "Save"))
-        {
-            GameControl.control.Save();
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        if (GUI.Button(new Rect(10, 160, 100, 40), "Load"))
-        {
-            GameControl.control.Load();
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        if (GUI.Button(new Rect(10, 220, 100, 40), "Exit"))
-        {
-            SceneManager.LoadScene(0);
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        { 
+            if (GUI.Button(new Rect(10, 100, 100, 40), "Save"))
+            {
+                GameControl.control.Save();
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            if (GUI.Button(new Rect(10, 160, 100, 40), "Load"))
+            {
+                GameControl.control.Load();
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            if (GUI.Button(new Rect(10, 220, 100, 40), "Exit"))
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 }
