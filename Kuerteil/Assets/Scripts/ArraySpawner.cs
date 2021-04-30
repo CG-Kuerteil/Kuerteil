@@ -83,7 +83,7 @@ public class ArraySpawner : MonoBehaviour
         else
         {
             mitte = mainFeld.Length / 2;
-            dimension = mainFeld.Length;
+            //dimension = mainFeld.Length;
         }
         SpawnPortals();
         PrintCSV(mainFeld);

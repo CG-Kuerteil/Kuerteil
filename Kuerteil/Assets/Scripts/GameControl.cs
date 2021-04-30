@@ -68,14 +68,14 @@ public class GameControl : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetChild(1).GetComponent<MouseLook>().canLook == true)
+            if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetComponent<FirstPersonController>().canLook == true)
             {
-                playerObj.GetChild(1).GetComponent<MouseLook>().canLook = false;
+                playerObj.GetComponent<FirstPersonController>().canLook = false;
                 Cursor.lockState = CursorLockMode.None;
             }
-            else if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetChild(1).GetComponent<MouseLook>().canLook == false)
+            else if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetComponent<FirstPersonController>().canLook == false)
             {
-                playerObj.GetChild(1).GetComponent<MouseLook>().canLook = true;
+                playerObj.GetComponent<FirstPersonController>().canLook = true;
                 Cursor.lockState = CursorLockMode.Locked;
             }
         }
