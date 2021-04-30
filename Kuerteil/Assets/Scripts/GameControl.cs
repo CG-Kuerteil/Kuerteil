@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    private static bool alreadyPlaerSpawned = false;
     public static GameControl control;
     public Transform player;
     private ArraySpawner arraySpawner;
@@ -26,6 +27,21 @@ public class GameControl : MonoBehaviour
         {
             Destroy(control);
         }
+
+        DontDestroyOnLoad(control);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        arraySpawner = gameObject.GetComponent<ArraySpawner>();
+
+        arraySpawner.InitializeGeneration();
+        if (alreadyPlaerSpawned == false)
+        {
+            playerObj = Instantiate(player, new Vector3(-2f, 0f, -2f), Quaternion.identity);
+            Debug.Log("Player Spawned!");
+            alreadyPlaerSpawned = true;
+        }
+        playerObj = GameObject.FindGameObjectWithTag("Player").transform;
+        DontDestroyOnLoad(playerObj);
     }
 
     public void SceneWechseln(int index)
@@ -44,13 +60,7 @@ public class GameControl : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(control);
-
-        Cursor.lockState = CursorLockMode.Locked;
-        arraySpawner = gameObject.GetComponent<ArraySpawner>();
-
-        arraySpawner.InitializeGeneration();
-        playerObj = Instantiate(player, new Vector3(-2f, 0f, -2f), Quaternion.identity);
+        
     }
 
     // Update is called once per frame
@@ -101,12 +111,15 @@ public class GameControl : MonoBehaviour
             Debug.Log("LOADED...");
             fs.Close();
 
-            DestroyObjects("Player");
+            //DestroyObjects("Player");
             DestroyObjects("Ground");
-            
+            playerObj = GameObject.FindGameObjectWithTag("Player").transform;
             arraySpawner.SetMainFeld(gameData.mainFeld);
             arraySpawner.InitializeGeneration();
-            playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
+            playerObj.transform.position = gameData.palyerPosition;
+            playerObj.transform.position = new Vector3(playerObj.transform.position.x, 1.2f, playerObj.transform.position.z);
+            playerObj.transform.rotation = gameData.palyerRotation;
+            //playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
             Debug.Log(gameData.palyerPosition);
         }
         else

@@ -94,8 +94,9 @@ public class ArraySpawner : MonoBehaviour
 
     private void SpawnPortals()
     {
+        int s = anzahlMinispiele;
         int i, j;
-        while (anzahlMinispiele > 0)
+        while (s > 0)
         {
             i = Random.Range(0, (dimension - 1));
             j = Random.Range(0, (dimension - 1));
@@ -107,7 +108,7 @@ public class ArraySpawner : MonoBehaviour
             {
                 continue;
             }
-            anzahlMinispiele--;
+            s--;
         }
     }
     internal void SetMainFeld(int[,] mainFeld)

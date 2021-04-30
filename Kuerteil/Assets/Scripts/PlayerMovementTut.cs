@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementTut : MonoBehaviour
 
@@ -9,7 +10,7 @@ public class PlayerMovementTut : MonoBehaviour
     public float speed = 12f;
     public float gravity = -9.81f;
     public float jumpDistance = 3f;
-
+    public Transform taschenlampe;
 
     Vector3 velocity;
     bool isGrounded;
@@ -27,6 +28,14 @@ public class PlayerMovementTut : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            taschenlampe.gameObject.SetActive(false);
+        }
+        else
+        {
+            taschenlampe.gameObject.SetActive(true);
+        }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
