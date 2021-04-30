@@ -14,7 +14,10 @@ public class ArraySpawner : MonoBehaviour
     {
         return arraySpawner;
     }
-
+    public int dimension = 21;
+    public int iterations = 20;
+    public int gangWahrscheinlichkeit = 5;
+    public string filepath;
 
     public Transform gangSmall;
     public Transform hub1;
@@ -23,21 +26,16 @@ public class ArraySpawner : MonoBehaviour
     public Transform hub4;
 
     public Transform minispiel_portal;
-    //public Transform miniSpiel;
-
-
-
-    public int dimension = 21;
     public int anzahlMinispiele;
-    private int[,] mainFeld;
-    public int iterations = 20;
 
-    public int gangWahrscheinlichkeit = 5;
+    public Transform _Light;
+    public int anzahlLights = 20;
+    private int[,] mainFeld;
+
     private int mitte;
-    public string filepath;
 
     //Laenge vom 1x2 Gang
-    private float offsetLengthLong = 20f;
+    //private float offsetLengthLong = 20f;
     //Laenge von 1x1 Elementen
     private float offsetLengthNormal = 4f;
 
@@ -85,11 +83,33 @@ public class ArraySpawner : MonoBehaviour
         else
         {
             mitte = mainFeld.Length / 2;
+            dimension = mainFeld.Length;
         }
         SpawnPortals();
         PrintCSV(mainFeld);
-        PrintArray(mainFeld);
+        //PrintArray(mainFeld);
         SpawnElements();
+        SpawnLights();
+    }
+
+    private void SpawnLights()
+    {
+        int s = anzahlLights;
+        int i, j;
+        while (s > 0)
+        {
+            i = Random.Range(0, (dimension - 1));
+            j = Random.Range(0, (dimension - 1));
+            if (mainFeld[i, j] == 1)
+            {
+                Instantiate(_Light, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 2, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+            }
+            else
+            {
+                continue;
+            }
+            s--;
+        }
     }
 
     private void SpawnPortals()

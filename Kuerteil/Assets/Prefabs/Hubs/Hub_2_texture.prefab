@@ -89,7 +89,7 @@ PrefabInstance:
     - target: {fileID: -1096994553620477306, guid: a024930703c18a8439e8ae3699bf3b70, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c3c8b2e7507849f43a31e15b9d7c3dc2, type: 2}
+      objectReference: {fileID: 2100000, guid: 5ffe771db4b6b1a4babbbb27cd18facc, type: 2}
     - target: {fileID: 919132149155446097, guid: a024930703c18a8439e8ae3699bf3b70, type: 3}
       propertyPath: m_Name
       value: CUBE_bauteile_hub_7

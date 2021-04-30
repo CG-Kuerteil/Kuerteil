@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Plane.005_Plane.006_Plane.005_Plane.006_Boden.001Mat
-    second: {fileID: 2100000, guid: d1308064540b76a488431b360cee6b89, type: 2}
+    second: {fileID: 2100000, guid: 5ffe771db4b6b1a4babbbb27cd18facc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

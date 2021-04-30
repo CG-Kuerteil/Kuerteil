@@ -162,6 +162,8 @@ MonoBehaviour:
   minispiel_portal: {fileID: 5418309560198272943, guid: ea9445a749846b64fa0c41187c4e2ddc, type: 3}
   dimension: 101
   anzahlMinispiele: 5
+  anzahlLights: 50
+  _Light: {fileID: 448369543855398297, guid: c606663ffbc87044cb3e05aec4d91903, type: 3}
   iterations: 6000
   gangWahrscheinlichkeit: 9
   filepath: 
@@ -177,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d7dd193207d4a46bf40a28608e1808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8229289621862342359, guid: 11b328a13cf693b4785a00c47374cc25, type: 3}
+  player: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
 --- !u!4 &204018570
 Transform:
   m_ObjectHideFlags: 0
