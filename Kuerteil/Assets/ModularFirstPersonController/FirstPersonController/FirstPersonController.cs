@@ -16,6 +16,9 @@ using UnityEngine.UI;
 
 public class FirstPersonController : MonoBehaviour
 {
+    private AudioFiles audioFiles;
+    private AudioSource audioSource;
+
     public bool canLook = true;
 
     private Rigidbody rb;
@@ -153,7 +156,13 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
-        if(lockCursor)
+        #region AudioSetp
+        audioFiles = GetComponent<AudioFiles>();
+        audioSource = GetComponent<AudioSource>();
+
+        #endregion
+
+        if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -523,6 +532,33 @@ public class FirstPersonController : MonoBehaviour
             }
             // Applies HeadBob movement
             joint.localPosition = new Vector3(jointOriginalPos.x + Mathf.Sin(timer) * bobAmount.x, jointOriginalPos.y + Mathf.Sin(timer) * bobAmount.y, jointOriginalPos.z + Mathf.Sin(timer) * bobAmount.z);
+            if (isWalking == true && isGrounded == true)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(audioFiles.PickRandom());
+                }
+                /*if (isSprinting)
+                {
+                    if (!audioSource.isPlaying)
+                    {
+                        audioSource.PlayOneShot(audioFiles.PickRandom());
+                    }
+                    else
+                    {
+                        audioSource.Stop();
+                        audioSource.PlayOneShot(audioFiles.PickRandom());
+                    }
+                }
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(audioFiles.PickRandom());
+                }
+                else
+                {
+                    //
+                }*/
+            }
         }
         else
         {
@@ -558,6 +594,13 @@ public class FirstPersonController : MonoBehaviour
         GUILayout.Label("By Jess Case", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Normal, fontSize = 12 });
         GUILayout.Label("version 1.0.1", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Normal, fontSize = 12 });
         EditorGUILayout.Space();
+
+        #region Custom Audio Setup
+        GUILayout.Label("Custom Audio Setup", new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold, fontSize = 13 }, GUILayout.ExpandWidth(true));
+        EditorGUILayout.Space();
+
+        
+        #endregion
 
         #region Camera Setup
 
