@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3156753243952553884}
   m_Layer: 6
   m_Name: Hub_2_texture
-  m_TagString: Ground
+  m_TagString: lab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,6 +85,10 @@ PrefabInstance:
     - target: {fileID: -4217099832918797547, guid: a024930703c18a8439e8ae3699bf3b70, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4217099832918797547, guid: a024930703c18a8439e8ae3699bf3b70, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: -1096994553620477306, guid: a024930703c18a8439e8ae3699bf3b70, type: 3}
       propertyPath: m_Materials.Array.data[0]

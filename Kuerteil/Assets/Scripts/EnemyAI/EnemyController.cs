@@ -11,7 +11,9 @@ public class EnemyController : MonoBehaviour
     NavMeshAgent agent;
     private SphereCollider col;
     bool _ShootRayCast = false;
-    Animator animator;
+
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +37,9 @@ public class EnemyController : MonoBehaviour
                 {
                     Debug.Log("player in sight!!!");
                     float distance = Vector3.Distance(target.transform.position, transform.position);
-
+                    agent.isStopped = false;
                     agent.SetDestination(target.transform.position);
-                    animator.SetBool("walk", true);
+                    animator.Play("Walking");
                     if (distance <= agent.stoppingDistance)
                     {
                         //TODO: Attack the target
@@ -47,32 +49,30 @@ public class EnemyController : MonoBehaviour
                 }
                 else
                 {
+                    if (agent.remainingDistance == 0)
+                    {
+                        animator.Play("EvilSlayer");
+                    }
                     Debug.Log("raycast not hit, gameObject: " + hit.collider.GetInstanceID());
 
                 }
             }
             else
             {
+                if (agent.remainingDistance == 0)
+                {
+                    animator.Play("EvilSlayer");
+                }
                 Debug.Log("raycast not hit :(");
             }
         }
         else
         {
-            animator.SetBool("walk", false);
-        }
-
-        /*
-        if (distance <= _LookRadius)
-        {
-            agent.SetDestination(target.position);
-
-            if (distance <= agent.stoppingDistance)
+            if (agent.remainingDistance == 0)
             {
-                //TODO: Attack the target
-                //Face the target
-                FaceTarget();
+                animator.Play("EvilSlayer");
             }
-        }*/
+        }
     }
 
     private void FaceTarget()

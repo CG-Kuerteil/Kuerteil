@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3156753243952553884}
   m_Layer: 6
   m_Name: Hub_1_texture
-  m_TagString: Ground
+  m_TagString: lab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,7 +92,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5d7c566f9aa5d354c901f9cb283de36d, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d7c566f9aa5d354c901f9cb283de36d, type: 3}

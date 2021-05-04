@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 204018568}
   - component: {fileID: 204018569}
   - component: {fileID: 204018571}
+  - component: {fileID: 204018572}
+  - component: {fileID: 204018573}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -154,9 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ab1d443b65ecd4eb56657882f57e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dimension: 101
-  iterations: 6000
-  gangWahrscheinlichkeit: 9
+  dimension: 10
+  iterations: 10
+  gangWahrscheinlichkeit: 4
   filepath: 
   gangSmall: {fileID: 7249444258092820612, guid: 381ca76a1d020cb40afe25ad21595b59, type: 3}
   hub1: {fileID: 3156753243952553884, guid: dd0857cdd8d8b234488b7f6e1a4387df, type: 3}
@@ -164,9 +166,9 @@ MonoBehaviour:
   hub3: {fileID: 2821006182528058619, guid: 4066e708c7a0bb64cb2a8b7f2e36c703, type: 3}
   hub4: {fileID: 2273242263581137075, guid: 1505f0174b78cf546893cc64e8853955, type: 3}
   minispiel_portal: {fileID: 5418309560198272943, guid: ea9445a749846b64fa0c41187c4e2ddc, type: 3}
-  anzahlMinispiele: 5
+  anzahlMinispiele: 0
   _Light: {fileID: 448369543855398297, guid: c606663ffbc87044cb3e05aec4d91903, type: 3}
-  anzahlLights: 80
+  anzahlLights: 1
 --- !u!114 &204018569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +208,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee381c7cd99fd05499ee425c5893b512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &204018572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204018567}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a1647df917cd174990081a61ea15efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &204018573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204018567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d9ad503f2161a4b90a328ef68e88f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshRoot: {fileID: 0}
 --- !u!1 &1357968288
 GameObject:
   m_ObjectHideFlags: 0

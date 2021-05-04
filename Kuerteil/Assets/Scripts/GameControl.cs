@@ -34,6 +34,13 @@ public class GameControl : MonoBehaviour
         arraySpawner = gameObject.GetComponent<ArraySpawner>();
 
         arraySpawner.InitializeGeneration();
+
+        //Create NavMesh
+        List<GameObject> tempList = new List<GameObject>();
+        tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
+        GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
+        GetComponent<NavMeshGenerator>().BuildNavMesh();
+
         if (alreadyPlaerSpawned == false)
         {
             playerObj = Instantiate(player, new Vector3(-2f, 0f, -2f), Quaternion.identity);
@@ -112,10 +119,17 @@ public class GameControl : MonoBehaviour
             fs.Close();
 
             //DestroyObjects("Player");
-            DestroyObjects("Ground");
+            DestroyObjects("lab");
             playerObj = GameObject.FindGameObjectWithTag("Player").transform;
             arraySpawner.SetMainFeld(gameData.mainFeld);
             arraySpawner.InitializeGeneration();
+
+            //Create NavMesh
+            List<GameObject> tempList = new List<GameObject>();
+            tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
+            GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
+            GetComponent<NavMeshGenerator>().BuildNavMesh();
+
             playerObj.transform.position = gameData.palyerPosition;
             playerObj.transform.position = new Vector3(playerObj.transform.position.x, 1.2f, playerObj.transform.position.z);
             playerObj.transform.rotation = gameData.palyerRotation;
