@@ -1,32 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NAvMeshGenerator : MonoBehaviour
+public class NavMeshGenerator : MonoBehaviour
 {
-    private GameObject[] navMeshes;
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private GameObject navMeshRoot = null;
+
+    private List<GameObject> navMeshElements = new List<GameObject>();
+    public void SetNavMeshElements(List<GameObject> values)
     {
-        
+        navMeshElements.Clear();
+        navMeshElements.AddRange(values);
     }
 
-    public void GenerateNAvMeshes()
+    private void Awake()
     {
-        navMeshes = GameObject.FindGameObjectsWithTag("lab");
-        Debug.Log("To Bake " + navMeshes.Length + " surfaces");
-        for (int i = 0; i < navMeshes.Length; i++)
-        {
-            navMeshes[i].GetComponent<NavMeshSurface>().UpdateNavMesh(navMeshes[i].GetComponent<NavMeshSurface>().navMeshData);
-            Debug.Log("Baked " + i + " surfaces");
+        if (navMeshRoot == null) { 
+            navMeshRoot = new GameObject("NavMeshRoot");
+            navMeshRoot.tag = "lab";
         }
-        Debug.Log("Baked " + navMeshes.Length + " surfaces");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BuildNavMesh()
     {
-        
+        int agentTypeCount = NavMesh.GetSettingsCount();
+        if (agentTypeCount < 1) { return; }
+        for (int i = 0; i < navMeshElements.Count; ++i) { navMeshElements[i].transform.SetParent(navMeshRoot.transform, true); }
+        for (int i = 0; i < agentTypeCount; ++i)
+        {
+            NavMeshBuildSettings settings = NavMesh.GetSettingsByIndex(i);
+            NavMeshSurface navMeshSurface = navMeshRoot.AddComponent<NavMeshSurface>();
+            navMeshSurface.agentTypeID = settings.agentTypeID;
+
+            NavMeshBuildSettings actualSettings = navMeshSurface.GetBuildSettings();
+            navMeshSurface.useGeometry = NavMeshCollectGeometry.PhysicsColliders; // or you can use RenderMeshes
+
+            navMeshSurface.BuildNavMesh();
+        }
+
     }
+
 }

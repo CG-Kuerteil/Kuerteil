@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
+
 public class EnemyController : MonoBehaviour
 {
+    private GameObject[] _AvailablePaths;
     public float _LookRadius = 10f;
-
+    public Transform _PositionMarker;
     GameObject target;
     NavMeshAgent agent;
     private SphereCollider col;
     bool _ShootRayCast = false;
-
+    private Vector3 _LastKnownPosition;
     private Animator animator;
 
     // Start is called before the first frame update
@@ -49,7 +52,7 @@ public class EnemyController : MonoBehaviour
                 }
                 else
                 {
-                    if (agent.remainingDistance == 0)
+                    if (agent.transform.position == _LastKnownPosition)
                     {
                         animator.Play("EvilSlayer");
                     }
@@ -59,20 +62,43 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                if (agent.remainingDistance == 0)
+                float dist = agent.remainingDistance;
+                if (dist != Mathf.Infinity && agent.remainingDistance <= 1.9f)
                 {
-                    animator.Play("EvilSlayer");
+                    //Arrived.
+                    GenerateNewPosition();
+                }
+                else
+                {
+                    Debug.Log("Remaining Distance: " + agent.remainingDistance);
                 }
                 Debug.Log("raycast not hit :(");
             }
         }
         else
         {
-            if (agent.remainingDistance == 0)
+            float dist = agent.remainingDistance; 
+            if (dist != Mathf.Infinity && agent.remainingDistance <= 1.9f) 
             {
-                animator.Play("EvilSlayer");
+                //Arrived.
+                GenerateNewPosition();
+            }
+            else
+            {
+                Debug.Log("Remaining Distance: " + agent.remainingDistance);
             }
         }
+    }
+
+    private void GenerateNewPosition()
+    {
+        _AvailablePaths = GameObject.FindGameObjectsWithTag("EnemyPathPoint");
+        int _NextPoint = Random.Range(0, _AvailablePaths.Length);
+        Vector3 nextPos = _AvailablePaths[_NextPoint].transform.position;
+        agent.SetDestination(nextPos);
+        
+        Instantiate(_PositionMarker, nextPos, Quaternion.identity);
+        Debug.Log("new position generated...");
     }
 
     private void FaceTarget()

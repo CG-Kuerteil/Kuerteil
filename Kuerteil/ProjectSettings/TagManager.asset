@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - lab
+  - EnemyPathPoint
   layers:
   - Default
   - TransparentFX

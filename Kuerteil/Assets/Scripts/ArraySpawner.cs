@@ -9,7 +9,8 @@ using Random = UnityEngine.Random;
 public class ArraySpawner : MonoBehaviour
 {
     private static ArraySpawner arraySpawner;
-
+    public GameObject _EnemyOne;
+    public int _AnzahlGegner;
     public ArraySpawner GetArraySpawner()
     {
         return arraySpawner;
@@ -90,6 +91,26 @@ public class ArraySpawner : MonoBehaviour
         //PrintArray(mainFeld);
         SpawnElements();
         SpawnLights();
+    }
+
+    public void SpawnEnemies()
+    {
+        int n = _AnzahlGegner;
+        int i, j;
+        while (n > 0)
+        {
+            i = Random.Range(0, (dimension - 1));
+            j = Random.Range(0, (dimension - 1));
+            if (mainFeld[i, j] == 1)
+            {
+                Instantiate(_EnemyOne, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 2, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+            }
+            else
+            {
+                continue;
+            }
+            n--;
+        }
     }
 
     private void SpawnLights()

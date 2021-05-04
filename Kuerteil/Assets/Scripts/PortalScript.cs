@@ -19,6 +19,9 @@ public class PortalScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        GameControl.control.SceneWechseln(SceneToTravelTo);
+        if (collision.tag == "Player")
+        {
+            GameControl.control.SceneWechseln(SceneToTravelTo);
+        }
     }
 }

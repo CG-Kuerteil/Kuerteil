@@ -8,7 +8,7 @@ using SerializableTypes;
 using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
-{
+{ 
     private static bool alreadyPlaerSpawned = false;
     public static GameControl control;
     public Transform player;
@@ -35,11 +35,7 @@ public class GameControl : MonoBehaviour
 
         arraySpawner.InitializeGeneration();
 
-        //Create NavMesh
-        List<GameObject> tempList = new List<GameObject>();
-        tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
-        GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
-        GetComponent<NavMeshGenerator>().BuildNavMesh();
+        
 
         if (alreadyPlaerSpawned == false)
         {
@@ -67,7 +63,13 @@ public class GameControl : MonoBehaviour
 
     private void Start()
     {
-        
+        //Create NavMesh
+        List<GameObject> tempList = new List<GameObject>();
+        tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
+        GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
+        GetComponent<NavMeshGenerator>().BuildNavMesh();
+
+        arraySpawner.SpawnEnemies();
     }
 
     // Update is called once per frame
