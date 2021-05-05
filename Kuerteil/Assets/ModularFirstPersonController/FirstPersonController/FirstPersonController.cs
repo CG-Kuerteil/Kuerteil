@@ -16,7 +16,7 @@ using UnityEngine.UI;
 
 public class FirstPersonController : MonoBehaviour
 {
-    private AudioFiles audioFiles;
+    //private float _MinDistance = 1;
     private AudioSource audioSource;
 
     public bool canLook = true;
@@ -157,7 +157,6 @@ public class FirstPersonController : MonoBehaviour
     void Start()
     {
         #region AudioSetp
-        audioFiles = GetComponent<AudioFiles>();
         audioSource = GetComponent<AudioSource>();
 
         #endregion
@@ -410,6 +409,14 @@ public class FirstPersonController : MonoBehaviour
                 velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
                 velocityChange.y = 0;
 
+                if (isWalking && !isCrouched)
+                {
+                    if (!audioSource.isPlaying)
+                    {
+                        audioSource.PlayOneShot(GameControl.control.audio.PickRandom());
+                    }
+                }
+
                 // Player is only moving when valocity change != 0
                 // Makes sure fov change only happens during movement
                 if (velocityChange.x != 0 || velocityChange.z != 0)
@@ -447,12 +454,33 @@ public class FirstPersonController : MonoBehaviour
                 velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
                 velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
                 velocityChange.y = 0;
+                if (isWalking && !isCrouched)
+                {
+                    if (!audioSource.isPlaying)
+                    {
+                        audioSource.PlayOneShot(GameControl.control.audio.PickRandomLong());
+                    }
+                }
 
                 rb.AddForce(velocityChange, ForceMode.VelocityChange);
             }
         }
 
         #endregion
+        /*if (isWalking == true && isGrounded == true)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(audioFiles.PickRandomLong());
+            }
+            if (isSprinting)
+            {
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.PlayOneShot(audioFiles.PickRandom());
+                }
+            }
+        }*/
     }
 
     // Sets isGrounded based on a raycast sent straigth down from the player object
@@ -532,33 +560,13 @@ public class FirstPersonController : MonoBehaviour
             }
             // Applies HeadBob movement
             joint.localPosition = new Vector3(jointOriginalPos.x + Mathf.Sin(timer) * bobAmount.x, jointOriginalPos.y + Mathf.Sin(timer) * bobAmount.y, jointOriginalPos.z + Mathf.Sin(timer) * bobAmount.z);
-            if (isWalking == true && isGrounded == true)
+            
+            /*if (_MinDistance < (jointOriginalPos.y + Mathf.Sin(timer) * bobAmount.y))
             {
-                if (!audioSource.isPlaying)
-                {
-                    audioSource.PlayOneShot(audioFiles.PickRandom());
-                }
-                /*if (isSprinting)
-                {
-                    if (!audioSource.isPlaying)
-                    {
-                        audioSource.PlayOneShot(audioFiles.PickRandom());
-                    }
-                    else
-                    {
-                        audioSource.Stop();
-                        audioSource.PlayOneShot(audioFiles.PickRandom());
-                    }
-                }
-                if (!audioSource.isPlaying)
-                {
-                    audioSource.PlayOneShot(audioFiles.PickRandom());
-                }
-                else
-                {
-                    //
-                }*/
+                _MinDistance = (jointOriginalPos.y + Mathf.Sin(timer) * bobAmount.y);
+                Debug.Log("HeadBob: "+_MinDistance+ "HeadBob-Timer: " + timer);
             }
+            Debug.Log("HeadBob-Timer: " + timer);*/
         }
         else
         {

@@ -14,6 +14,7 @@ public class GameControl : MonoBehaviour
     public Transform player;
     private ArraySpawner arraySpawner;
     private Transform playerObj;
+    public AudioFiles audio;
 
     // Start is called before the first frame update
     void Awake()
@@ -45,6 +46,8 @@ public class GameControl : MonoBehaviour
         }
         playerObj = GameObject.FindGameObjectWithTag("Player").transform;
         DontDestroyOnLoad(playerObj);
+
+        audio = GetComponent<AudioFiles>();
     }
 
     public void SceneWechseln(int index)

@@ -7,6 +7,9 @@ using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
+    private AudioFiles audioFiles;
+    private AudioSource audioSource;
+
     private GameObject[] _AvailablePaths;
     public float _LookRadius = 10f;
     public Transform _PositionMarker;
@@ -25,11 +28,22 @@ public class EnemyController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         col = GetComponent<SphereCollider>();
+
+        #region AudioSetp
+        audioSource = GetComponent<AudioSource>();
+        #endregion
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (agent.isActiveAndEnabled)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(GameControl.control.audio.PickRandom());
+            }
+        }
         if (_ShootRayCast == true)
         {
             RaycastHit hit;
@@ -56,7 +70,7 @@ public class EnemyController : MonoBehaviour
                     {
                         animator.Play("EvilSlayer");
                     }
-                    Debug.Log("raycast not hit, gameObject: " + hit.collider.GetInstanceID());
+                    //Debug.Log("raycast not hit, gameObject: " + hit.collider.GetInstanceID());
 
                 }
             }
@@ -70,9 +84,9 @@ public class EnemyController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Remaining Distance: " + agent.remainingDistance);
+                    //Debug.Log("Remaining Distance: " + agent.remainingDistance);
                 }
-                Debug.Log("raycast not hit :(");
+                //Debug.Log("raycast not hit :(");
             }
         }
         else
@@ -85,7 +99,7 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Remaining Distance: " + agent.remainingDistance);
+                //Debug.Log("Remaining Distance: " + agent.remainingDistance);
             }
         }
     }
