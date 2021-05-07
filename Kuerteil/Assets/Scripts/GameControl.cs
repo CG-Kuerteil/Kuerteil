@@ -39,13 +39,12 @@ public class GameControl : MonoBehaviour
 
         arraySpawner.InitializeGeneration();
 
-        
 
-        if (alreadyPlaerSpawned == false)
+
+        if (GameObject.FindGameObjectWithTag("Player") == null)
         {
             player = Instantiate(playerPref, new Vector3(-2f, 0f, -2f), Quaternion.identity);
             Debug.Log("Player Spawned!");
-            alreadyPlaerSpawned = true;
         }
         //playerObj = GameObject.FindGameObjectWithTag("Player");
         DontDestroyOnLoad(player);
@@ -124,6 +123,7 @@ public class GameControl : MonoBehaviour
 
             //DestroyObjects("Player");
             DestroyObjects("lab");
+            DestroyObjects("Ground");
 
             player = GameObject.FindGameObjectWithTag("Player");
             arraySpawner.SetMainFeld(gameData.mainFeld);
@@ -138,9 +138,11 @@ public class GameControl : MonoBehaviour
 
 
             player.transform.position = gameData.palyerPosition;
-            player.transform.position = new Vector3(player.transform.position.x, 5.2f, player.transform.position.z);
+            player.transform.position = new Vector3(player.transform.position.x, 1.2f, player.transform.position.z);
             player.transform.rotation = gameData.palyerRotation;
+
             //playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
+
             Debug.Log(gameData.palyerPosition);
         }
         else
@@ -171,4 +173,3 @@ class GameData
 
     public SQuaternion palyerRotation = new SQuaternion();
 }
-
