@@ -67,6 +67,15 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    public void Exit()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Save();
+        }
+        SceneManager.LoadScene(0);
+    }
+
     private void Start()
     {
         //Create NavMesh
@@ -115,18 +124,21 @@ public class GameControl : MonoBehaviour
 
             //DestroyObjects("Player");
             DestroyObjects("lab");
+
             player = GameObject.FindGameObjectWithTag("Player");
             arraySpawner.SetMainFeld(gameData.mainFeld);
             arraySpawner.InitializeGeneration();
 
             //Create NavMesh
+            GetComponent<NavMeshGenerator>().BuildNavRoot();
             List<GameObject> tempList = new List<GameObject>();
             tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
             GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
             GetComponent<NavMeshGenerator>().BuildNavMesh();
 
+
             player.transform.position = gameData.palyerPosition;
-            player.transform.position = new Vector3(player.transform.position.x, 1.2f, player.transform.position.z);
+            player.transform.position = new Vector3(player.transform.position.x, 5.2f, player.transform.position.z);
             player.transform.rotation = gameData.palyerRotation;
             //playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
             Debug.Log(gameData.palyerPosition);

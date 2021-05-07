@@ -24,6 +24,15 @@ public class NavMeshGenerator : MonoBehaviour
         }
     }
 
+    public void BuildNavRoot()
+    {
+        if (navMeshRoot == null)
+        {
+            navMeshRoot = new GameObject("NavMeshRoot");
+            navMeshRoot.tag = "lab";
+        }
+    }
+
     public void BuildNavMesh()
     {
         int agentTypeCount = NavMesh.GetSettingsCount();
