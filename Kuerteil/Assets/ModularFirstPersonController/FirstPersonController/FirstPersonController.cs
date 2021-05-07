@@ -19,6 +19,7 @@ public class FirstPersonController : MonoBehaviour
     //private float _MinDistance = 1;
     private AudioSource audioSource;
 
+    //is true -> palyer can look
     public bool canLook = true;
 
     private Rigidbody rb;
@@ -375,6 +376,10 @@ public class FirstPersonController : MonoBehaviour
                 HeadBob();
             }
         }
+        else
+        {
+            Debug.Log("CANLOOK= " + canLook);
+        }
     }
 
     void FixedUpdate()
@@ -413,7 +418,7 @@ public class FirstPersonController : MonoBehaviour
                 {
                     if (!audioSource.isPlaying)
                     {
-                        audioSource.PlayOneShot(GameControl.control.audio.PickRandom());
+                        audioSource.PlayOneShot(GameControl.instance.audio.PickRandom());
                     }
                 }
 
@@ -458,7 +463,7 @@ public class FirstPersonController : MonoBehaviour
                 {
                     if (!audioSource.isPlaying)
                     {
-                        audioSource.PlayOneShot(GameControl.control.audio.PickRandomLong());
+                        audioSource.PlayOneShot(GameControl.instance.audio.PickRandomLong());
                     }
                 }
 

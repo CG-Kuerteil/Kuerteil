@@ -10,26 +10,29 @@ using UnityEngine.SceneManagement;
 public class GameControl : MonoBehaviour
 { 
     private static bool alreadyPlaerSpawned = false;
-    public static GameControl control;
-    public Transform player;
+    public static GameControl instance;
+    public GameObject playerPref;
     private ArraySpawner arraySpawner;
-    private Transform playerObj;
+    public GameObject player;
     public AudioFiles audio;
+
+    //false = menu closed vv
+    public bool _MenuState = false;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (control == null)
+        if (instance == null)
         {
-            control = this;
+            instance = this;
 
         }
-        else if (control != this)
+        else if (instance != this)
         {
-            Destroy(control);
+            Destroy(instance);
         }
 
-        DontDestroyOnLoad(control);
+        DontDestroyOnLoad(instance);
 
         Cursor.lockState = CursorLockMode.Locked;
         arraySpawner = gameObject.GetComponent<ArraySpawner>();
@@ -40,13 +43,13 @@ public class GameControl : MonoBehaviour
 
         if (alreadyPlaerSpawned == false)
         {
-            playerObj = Instantiate(player, new Vector3(-2f, 0f, -2f), Quaternion.identity);
+            player = Instantiate(playerPref, new Vector3(-2f, 0f, -2f), Quaternion.identity);
             Debug.Log("Player Spawned!");
             alreadyPlaerSpawned = true;
         }
-        playerObj = GameObject.FindGameObjectWithTag("Player").transform;
-        DontDestroyOnLoad(playerObj);
-
+        //playerObj = GameObject.FindGameObjectWithTag("Player");
+        DontDestroyOnLoad(player);
+        player.GetComponent<FirstPersonController>().canLook = true;
         audio = GetComponent<AudioFiles>();
     }
 
@@ -78,19 +81,6 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetComponent<FirstPersonController>().canLook == true)
-            {
-                playerObj.GetComponent<FirstPersonController>().canLook = false;
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else if (Input.GetKeyUp(KeyCode.Tab) && playerObj.GetComponent<FirstPersonController>().canLook == false)
-            {
-                playerObj.GetComponent<FirstPersonController>().canLook = true;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-        }
     }
 
     public void Save()
@@ -102,9 +92,9 @@ public class GameControl : MonoBehaviour
         GameData gameData = new GameData();
         gameData.health = 100f;
 
-        gameData.palyerPosition = playerObj.transform.position;
+        gameData.palyerPosition = player.transform.position;
 
-        gameData.palyerRotation = playerObj.transform.rotation;
+        gameData.palyerRotation = player.transform.rotation;
         
         gameData.mainFeld = arraySpawner.GetArraySpawner().GetMainFeld();
         bf.Serialize(fs, gameData);
@@ -125,7 +115,7 @@ public class GameControl : MonoBehaviour
 
             //DestroyObjects("Player");
             DestroyObjects("lab");
-            playerObj = GameObject.FindGameObjectWithTag("Player").transform;
+            player = GameObject.FindGameObjectWithTag("Player");
             arraySpawner.SetMainFeld(gameData.mainFeld);
             arraySpawner.InitializeGeneration();
 
@@ -135,9 +125,9 @@ public class GameControl : MonoBehaviour
             GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
             GetComponent<NavMeshGenerator>().BuildNavMesh();
 
-            playerObj.transform.position = gameData.palyerPosition;
-            playerObj.transform.position = new Vector3(playerObj.transform.position.x, 1.2f, playerObj.transform.position.z);
-            playerObj.transform.rotation = gameData.palyerRotation;
+            player.transform.position = gameData.palyerPosition;
+            player.transform.position = new Vector3(player.transform.position.x, 1.2f, player.transform.position.z);
+            player.transform.rotation = gameData.palyerRotation;
             //playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
             Debug.Log(gameData.palyerPosition);
         }

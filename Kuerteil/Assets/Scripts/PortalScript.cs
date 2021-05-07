@@ -21,7 +21,7 @@ public class PortalScript : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            GameControl.control.SceneWechseln(SceneToTravelTo);
+            GameControl.instance.SceneWechseln(SceneToTravelTo);
         }
     }
 }
