@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
+    path: Assets/Scenes/Main Scene/Main Menu.unity
     guid: ea1204f2da5216949abd6acbd0a721b9
   - enabled: 1
-    path: Assets/Scenes/Main Scene.unity
+    path: Assets/Scenes/Hauptmenu/Main Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/MinigameScenen/Raetsel_1.unity
+    path: Assets/Scenes/Kampf_Minispiel/MinigameScenen/Raetsel_1.unity
     guid: 922ae482c3a7ee04fb3467260ac4e480
   - enabled: 1
     path: Assets/Scenes/MinigameScenen/Quiz_template.unity
