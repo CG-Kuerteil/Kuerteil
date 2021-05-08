@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc728fc61c31a984fbc2fd601afdf308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToTravelTo: 2
+  SceneToTravelTo: 3
 --- !u!65 &6291956747193022328
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -6,12 +6,12 @@ using System.Text;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ArraySpawner : MonoBehaviour
+public class LabyrinthCreator : MonoBehaviour
 {
-    private static ArraySpawner arraySpawner;
+    private static LabyrinthCreator arraySpawner;
     public GameObject _EnemyOne;
     public int _AnzahlGegner;
-    public ArraySpawner GetArraySpawner()
+    public LabyrinthCreator GetArraySpawner()
     {
         return arraySpawner;
     }

@@ -8,11 +8,11 @@ using SerializableTypes;
 using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
-{ 
-    private static bool alreadyPlaerSpawned = false;
+{
     public static GameControl instance;
+
     public GameObject playerPref;
-    private ArraySpawner arraySpawner;
+    private LabyrinthCreator arraySpawner;
     public GameObject player;
     public AudioFiles audio;
 
@@ -35,9 +35,12 @@ public class GameControl : MonoBehaviour
         DontDestroyOnLoad(instance);
 
         Cursor.lockState = CursorLockMode.Locked;
-        arraySpawner = gameObject.GetComponent<ArraySpawner>();
+        arraySpawner = gameObject.GetComponent<LabyrinthCreator>();
 
-        arraySpawner.InitializeGeneration();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            arraySpawner.InitializeGeneration();
+        }
 
 
 
@@ -45,6 +48,10 @@ public class GameControl : MonoBehaviour
         {
             player = Instantiate(playerPref, new Vector3(-2f, 0f, -2f), Quaternion.identity);
             Debug.Log("Player Spawned!");
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
         }
         //playerObj = GameObject.FindGameObjectWithTag("Player");
         DontDestroyOnLoad(player);
@@ -77,13 +84,16 @@ public class GameControl : MonoBehaviour
 
     private void Start()
     {
-        //Create NavMesh
-        List<GameObject> tempList = new List<GameObject>();
-        tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
-        GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
-        GetComponent<NavMeshGenerator>().BuildNavMesh();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            //Create NavMesh
+            List<GameObject> tempList = new List<GameObject>();
+            tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
+            GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
+            GetComponent<NavMeshGenerator>().BuildNavMesh();
 
-        arraySpawner.SpawnEnemies();
+            arraySpawner.SpawnEnemies();
+        }
     }
 
     // Update is called once per frame
