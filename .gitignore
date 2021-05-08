@@ -39,3 +39,5 @@ sysinfo.txt
 *.unitypackage
 Kuerteil/CSVData.csv
 *.csv
+*.csv
+/Kuerteil/CSVData.csv
