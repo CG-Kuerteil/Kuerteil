@@ -1,26 +1,8 @@
 fileFormatVersion: 2
-guid: 9cf4216d74f9e92458acdc136e73dd07
+guid: cd3150e38790744468010ae10bec665e
 ModelImporter:
   serializedVersion: 21100
-  internalIDToNameTable:
-  - first:
-      1: 100000
-    second: //RootNode
-  - first:
-      4: 400000
-    second: //RootNode
-  - first:
-      21: 2100000
-    second: Dungeon_Mat_01
-  - first:
-      23: 2300000
-    second: //RootNode
-  - first:
-      33: 3300000
-    second: //RootNode
-  - first:
-      43: 4300000
-    second: Ground_03
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -61,7 +43,7 @@ ModelImporter:
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
-    fileIdsGeneration: 1
+    fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
@@ -74,13 +56,13 @@ ModelImporter:
     minBoneWeight: 0.001
     meshOptimizationFlags: 1
     indexFormat: 1
-    secondaryUVAngleDistortion: 1
-    secondaryUVAreaDistortion: 1
-    secondaryUVHardAngle: 180
-    secondaryUVMarginMethod: 1
+    secondaryUVAngleDistortion: 5
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
     secondaryUVMinLightmapResolution: 10
     secondaryUVMinObjectScale: 1
-    secondaryUVPackMargin: 4
+    secondaryUVPackMargin: 64
     useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
@@ -113,7 +95,7 @@ ModelImporter:
   animationType: 0
   humanoidOversampling: 1
   avatarSetup: 0
-  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
