@@ -10,10 +10,14 @@ public class MenuScript : MonoBehaviour
 
     private void Start()
     {
+        if (_MenuView == null)
+        {
+            _MenuView = GameObject.FindGameObjectWithTag("MenuView");
+        }
     }
     private void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex != 0 && GameControl.instance._GameOver == false)
         {
             if (Input.GetKeyUp(KeyCode.Tab) && _MenuView.GetComponent<Animator>().GetBool("menuOpen") == false)
             {

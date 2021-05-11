@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 3599234995527263148}
   - component: {fileID: 6291956747193022328}
   m_Layer: 0
-  m_Name: Minigame_Portal
+  m_Name: Portal_To_2 1
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc728fc61c31a984fbc2fd601afdf308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToTravelTo: 3
+  _SceneToTravelTo: 3
 --- !u!65 &6291956747193022328
 BoxCollider:
   m_ObjectHideFlags: 0

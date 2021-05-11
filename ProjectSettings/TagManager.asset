@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - lab
   - EnemyPathPoint
+  - Fire
+  - MenuView
+  - HP_UP
   layers:
   - Default
   - TransparentFX

@@ -6,17 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main Scene/Main Menu.unity
+    path: Assets/Scenes/Haupt Menu/Main Menu.unity
     guid: ea1204f2da5216949abd6acbd0a721b9
   - enabled: 1
-    path: Assets/Scenes/Hauptmenu/Main Scene.unity
+    path: Assets/Scenes/Haupt Scene/Main Scene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/JumpARun_Minispiel/JumpAndRun_1.unity
     guid: 02d45acb4e00d9043b349679a975afc5
   - enabled: 1
     path: Assets/Scenes/Kampf_Minispiel/Kampf_1.unity
-    guid: 4dea3cf4136f1a245a9895143c73f592
+    guid: 1612ccceb33a4b74ca7645b4338fd186
   - enabled: 1
     path: Assets/Scenes/Raestel_Minspiel/Raetsel_1.unity
     guid: 6750a097698d27a46817c21f459570ef
