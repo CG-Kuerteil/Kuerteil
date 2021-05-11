@@ -41,7 +41,7 @@ public class GameControl : MonoBehaviour
         }
         else if (instance != this)
         {
-            Destroy(instance);
+            Destroy(gameObject);
             return;
         }
 
@@ -49,6 +49,11 @@ public class GameControl : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
 
+        InitComponents();
+    }
+
+    private void InitComponents()
+    {
         arraySpawner = gameObject.GetComponent<LabyrinthCreator>();
 
         if (SceneManager.GetActiveScene().buildIndex == 1)
@@ -64,6 +69,7 @@ public class GameControl : MonoBehaviour
         else
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            player.transform.position = new Vector3(-2f, 0f, -2f);
         }
 
         DontDestroyOnLoad(player);
@@ -74,11 +80,15 @@ public class GameControl : MonoBehaviour
     public void SceneWechseln(int index)
     {
         SceneManager.LoadScene(index);
+        //InitComponents();
+        InitControllers(index);
         if (index == 1)
         {
             _GameOver = false;
+            Destroy(gameObject);
         }
-        InitControllers(index);
+        //InitControllers(index);
+        //InitComponents();
     }
 
     public void GameOver()

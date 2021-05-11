@@ -12,7 +12,7 @@ public class LabyrinthCreator : MonoBehaviour
     public int _AnzahlGegner;
 
     public int dimension = 21;
-    public int iterations = 20;
+    public int _Iterations = 20;
     public int gangWahrscheinlichkeit = 5;
     public string filepath;
 
@@ -158,7 +158,7 @@ public class LabyrinthCreator : MonoBehaviour
     {
         Vector3Int direction = Vector3Int.left;
         Vector3Int newDirection = Vector3Int.zero;
-
+        int iterations = _Iterations;
         int i = mitte;
         int j = mitte;
         bool alreadyTurned = true;
