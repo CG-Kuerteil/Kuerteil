@@ -16,8 +16,20 @@ public class GameControl : MonoBehaviour
     public GameObject player;
     public AudioFiles audio;
 
+    //Scene 3 - Kampf
+    public float _FireDamage = 1f;
+    public float _HP_Pickup = 40f;
+
+    public GameObject _Minigame_3_Controller;
+    public GameObject _Minigame_2_Controller;
+    public GameObject _Minigame_4_Controller;
+
     //false = menu closed vv
     public bool _MenuState = false;
+
+    public int _NumberOfTries = 3;
+
+    public bool _GameOver { get; private set; }
 
     // Start is called before the first frame update
     void Awake()
@@ -30,19 +42,19 @@ public class GameControl : MonoBehaviour
         else if (instance != this)
         {
             Destroy(instance);
+            return;
         }
 
         DontDestroyOnLoad(instance);
 
         Cursor.lockState = CursorLockMode.Locked;
+
         arraySpawner = gameObject.GetComponent<LabyrinthCreator>();
 
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             arraySpawner.InitializeGeneration();
         }
-
-
 
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
@@ -53,7 +65,7 @@ public class GameControl : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
-        //playerObj = GameObject.FindGameObjectWithTag("Player");
+
         DontDestroyOnLoad(player);
         player.GetComponent<FirstPersonController>().canLook = true;
         audio = GetComponent<AudioFiles>();
@@ -61,25 +73,31 @@ public class GameControl : MonoBehaviour
 
     public void SceneWechseln(int index)
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            Save();
-        }
         SceneManager.LoadScene(index);
-        //Scene loaded...
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (index == 1)
         {
-            Load();
+            _GameOver = false;
         }
+        InitControllers(index);
     }
 
+    public void GameOver()
+    {
+        Debug.Log("GameOver...");
+        Exit();
+    }
     public void Exit()
     {
+        _GameOver = true;
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            Save();
+
+            //Save();
         }
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Cursor.lockState = CursorLockMode.None;
+        Destroy(instance.gameObject);
     }
 
     private void Start()
@@ -93,6 +111,24 @@ public class GameControl : MonoBehaviour
             GetComponent<NavMeshGenerator>().BuildNavMesh();
 
             arraySpawner.SpawnEnemies();
+        }
+    }
+
+    private void InitControllers(int index)
+    {
+        if (index == 2)
+        {
+            Instantiate(_Minigame_2_Controller, Vector3.zero, Quaternion.identity);
+        }
+        if (index == 3)
+        {
+            Debug.Log("Instanciated minig ame_3...");
+            Instantiate(_Minigame_3_Controller, Vector3.zero, Quaternion.identity);
+            _NumberOfTries--;
+        }
+        if (index == 4)
+        {
+            Instantiate(_Minigame_4_Controller, Vector3.zero, Quaternion.identity);
         }
     }
 
@@ -114,7 +150,7 @@ public class GameControl : MonoBehaviour
 
         gameData.palyerRotation = player.transform.rotation;
         
-        gameData.mainFeld = arraySpawner.GetArraySpawner().GetMainFeld();
+        gameData.mainFeld = arraySpawner.GetMainFeld();
         bf.Serialize(fs, gameData);
         fs.Close();
         Debug.Log("SAVED...");

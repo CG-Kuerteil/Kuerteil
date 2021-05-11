@@ -9,6 +9,7 @@ TagManager:
   - EnemyPathPoint
   - Fire
   - MenuView
+  - HP_UP
   layers:
   - Default
   - TransparentFX

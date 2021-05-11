@@ -31,6 +31,7 @@ GameObject:
   - component: {fileID: 4459864850019384741}
   - component: {fileID: 4459864850019384740}
   - component: {fileID: 7857851269938140955}
+  - component: {fileID: 6291760628499215051}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Player
@@ -288,6 +289,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6291760628499215051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459864850019384750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ac3d7e03aad0a46aba7ff47dc56e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _HP: 100
+  _Slider: {fileID: 5214807428733467768}
 --- !u!1 &4459864850190357393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,6 +1079,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6589350885979276394, guid: 753ac665ee30e9549bed26b9fef29129, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589350885979276394, guid: 753ac665ee30e9549bed26b9fef29129, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8774437136295745007, guid: 753ac665ee30e9549bed26b9fef29129, type: 3}
       propertyPath: m_TagString
       value: MenuView
@@ -1075,6 +1098,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1911075204721518059, guid: 753ac665ee30e9549bed26b9fef29129, type: 3}
   m_PrefabInstance: {fileID: 5655090336634621902}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5214807428733467768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 442580955926901686, guid: 753ac665ee30e9549bed26b9fef29129, type: 3}
+  m_PrefabInstance: {fileID: 5655090336634621902}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7667646567454412477
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -205,7 +205,13 @@ MonoBehaviour:
   playerPref: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
   player: {fileID: 0}
   audio: {fileID: 0}
+  _FireDamage: 1
+  _HP_Pickup: 40
+  _Minigame_3_Controller: {fileID: 2489015121182201494, guid: 5035777f22b061e43bef08180a69069f, type: 3}
+  _Minigame_2_Controller: {fileID: 2489015121182201494, guid: 333ec3bc2b05cc44f9c4e309bc5d63fa, type: 3}
+  _Minigame_4_Controller: {fileID: 2489015121182201494, guid: f9b9ba465f7ec1b48955cb61ea4fd29e, type: 3}
   _MenuState: 0
+  _NumberOfTries: 3
 --- !u!114 &4651296428044860337
 MonoBehaviour:
   m_ObjectHideFlags: 0

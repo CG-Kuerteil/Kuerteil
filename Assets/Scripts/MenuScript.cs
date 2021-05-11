@@ -17,7 +17,7 @@ public class MenuScript : MonoBehaviour
     }
     private void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 3)
+        if (SceneManager.GetActiveScene().buildIndex != 0 && GameControl.instance._GameOver == false)
         {
             if (Input.GetKeyUp(KeyCode.Tab) && _MenuView.GetComponent<Animator>().GetBool("menuOpen") == false)
             {

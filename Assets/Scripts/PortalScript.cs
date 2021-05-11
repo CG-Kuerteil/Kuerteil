@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PortalScript : MonoBehaviour
 {
-    public int SceneToTravelTo = 2;
+    public int _SceneToTravelTo = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,8 @@ public class PortalScript : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            GameControl.instance.SceneWechseln(SceneToTravelTo);
+            GameControl.instance.SceneWechseln(_SceneToTravelTo);
+            Debug.Log("Minigame done! new Scene: "+_SceneToTravelTo);
         }
     }
 }

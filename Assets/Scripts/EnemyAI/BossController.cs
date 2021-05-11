@@ -17,7 +17,7 @@ public class BossController : MonoBehaviour
 
     public Slider _HPSlider;
     public GameObject _DieVFX;
-
+    public bool _GameOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,24 +32,27 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _HPSlider.GetComponentInParent<Transform>().rotation = Quaternion.LookRotation(MinigameControl.instance._Player.transform.position, Vector3.up);
+        if (GameControl.instance._GameOver == false)
+        {
+            _HPSlider.GetComponentInParent<Transform>().rotation = Quaternion.LookRotation(GameControl.instance.player.transform.position, Vector3.up);
             
-        if (Vector3.Distance(transform.position, _Target.position) <= _AttackDistance)
-        {
-            _Animator.Play("Attack");
-        }
-        else
-        {
-            if (_InRange == true)
+            if (Vector3.Distance(transform.position, _Target.position) <= _AttackDistance)
             {
-                agent.SetDestination(_Target.position);
-                _Animator.Play("Walking");
+                _Animator.Play("Attack");
             }
             else
             {
-                if (agent.remainingDistance <= agent.stoppingDistance)
+                if (_InRange == true)
                 {
-                    _Animator.Play("Idle");
+                    agent.SetDestination(_Target.position);
+                    _Animator.Play("Walking");
+                }
+                else
+                {
+                    if (agent.remainingDistance <= agent.stoppingDistance)
+                    {
+                        _Animator.Play("Idle");
+                    }
                 }
             }
         }

@@ -8,13 +8,9 @@ using Random = UnityEngine.Random;
 
 public class LabyrinthCreator : MonoBehaviour
 {
-    private static LabyrinthCreator arraySpawner;
     public GameObject _EnemyOne;
     public int _AnzahlGegner;
-    public LabyrinthCreator GetArraySpawner()
-    {
-        return arraySpawner;
-    }
+
     public int dimension = 21;
     public int iterations = 20;
     public int gangWahrscheinlichkeit = 5;
@@ -42,14 +38,15 @@ public class LabyrinthCreator : MonoBehaviour
 
     private void Awake()
     {
-        if (arraySpawner == null)
+        /*if (instance == null)
         {
-            arraySpawner = this;
+            instance = this;
         }
-        else if(arraySpawner != this)
+        else if(instance != this)
         {
-            Destroy(arraySpawner);
-        }
+            Destroy(instance);
+            return;
+        }*/
     }
     public int[,] GetMainFeld()
     {
