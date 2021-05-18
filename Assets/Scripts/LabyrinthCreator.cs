@@ -134,7 +134,7 @@ public class LabyrinthCreator : MonoBehaviour
         int rand = Random.Range(0, _DekoListe.Length);
 
         SpawnElement(_DekoListe[rand], i, j, r);
-        //Instantiate(_DekoListe[r], new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 2, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+
         Debug.Log("Deko gespawned: " + _DekoListe[rand].name);
     }
 
@@ -400,14 +400,6 @@ public class LabyrinthCreator : MonoBehaviour
             _DekoRatio = _DekoRatioMax;
             SpawnDeko(i, j, r);
             Debug.Log("i new Value: " + i);
-        }
-    }
-
-    private void CheckForBorder(int i, int j)
-    {
-        if (true)
-        {
-
         }
     }
 
