@@ -318,21 +318,65 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: dimension
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _DekoRatio
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Iterations
-      value: 4000
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: anzahlLights
-      value: 40
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _AnzahlDekoGO
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _AnzahlGegner
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _DekoRatioMax
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _WallDekoAnzahl
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: anzahlMinispiele
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _DekoListe.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _DekoListe.Array.data[0]
+      value: 
+      objectReference: {fileID: 4422158401103843142, guid: 3c7fb8b87d8155a4899b8c572eddd542, type: 3}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _DekoListe.Array.data[1]
+      value: 
+      objectReference: {fileID: 4422158401103843142, guid: d4b609122ace2a7489f7c99f7234bdfe, type: 3}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _DekoListe.Array.data[2]
+      value: 
+      objectReference: {fileID: 4422158401103843142, guid: d4b609122ace2a7489f7c99f7234bdfe, type: 3}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _WallDekoListe.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _WallDekoListe.Array.data[0]
+      value: 
+      objectReference: {fileID: 4422158401103843142, guid: de4520cfa39e2704f8b6c5e39482149d, type: 3}
     - target: {fileID: 4651296428044860349, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: m_Name
       value: GameControl

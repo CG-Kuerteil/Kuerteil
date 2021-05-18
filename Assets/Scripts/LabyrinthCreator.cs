@@ -8,6 +8,17 @@ using Random = UnityEngine.Random;
 
 public class LabyrinthCreator : MonoBehaviour
 {
+    [SerializeField]
+    private Transform[] _WallDekoListe;
+    [SerializeField]
+    private int _WallDekoAnzahl;
+
+    [SerializeField]
+    private Transform[] _DekoListe;
+    [SerializeField]
+    private int _DekoRatio;
+    private int _DekoRatioMax;
+
     public GameObject _EnemyOne;
     public int _AnzahlGegner;
 
@@ -31,34 +42,41 @@ public class LabyrinthCreator : MonoBehaviour
 
     private int mitte;
 
-    //Laenge vom 1x2 Gang
-    //private float offsetLengthLong = 20f;
-    //Laenge von 1x1 Elementen
     private float offsetLengthNormal = 4f;
 
-    private void Awake()
-    {
-        /*if (instance == null)
-        {
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(instance);
-            return;
-        }*/
-    }
     public int[,] GetMainFeld()
     {
         return this.mainFeld;
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+    }
+
+    /// <summary>
+    /// Spawns Wall dekos on WallSocket obj
+    /// Deletes all Wall Socket objs in the Scene in the end
+    /// </summary>
+    public void SpawnWallDeko()
+    {
+        GameObject[] sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
+        int count = _WallDekoAnzahl;
+        int rand;
+        int sockel;
+
+        while (count > 0)
+        {
+            sockel = Random.Range(0, sockelList.Length);
+            rand = Random.Range(0, _WallDekoListe.Length);
+            Vector3 tmp = new Vector3(sockelList[sockel].transform.position.x, 0, sockelList[sockel].transform.position.z);
+            Instantiate(_WallDekoListe[rand], tmp, sockelList[sockel].transform.rotation);
+            count--;
+        }
     }
     public void InitializeGeneration()
     {
+        _DekoRatioMax = _DekoRatio;
         filepath = "CSVData.csv";
         if (mainFeld == null)
         {
@@ -88,6 +106,7 @@ public class LabyrinthCreator : MonoBehaviour
         //PrintArray(mainFeld);
         SpawnElements();
         SpawnLights();
+        SpawnWallDeko();
     }
 
     public void SpawnEnemies()
@@ -108,6 +127,15 @@ public class LabyrinthCreator : MonoBehaviour
             }
             n--;
         }
+    }
+
+    public void SpawnDeko(int i, int j, float r)
+    {
+        int rand = Random.Range(0, _DekoListe.Length);
+
+        SpawnElement(_DekoListe[rand], i, j, r);
+        //Instantiate(_DekoListe[r], new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 2, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+        Debug.Log("Deko gespawned: " + _DekoListe[rand].name);
     }
 
     private void SpawnLights()
@@ -339,6 +367,12 @@ public class LabyrinthCreator : MonoBehaviour
         return newDirection;
     }
 
+    /// <summary>
+    /// Rotates "oldAngle" "angle"s degress around Y-Axis
+    /// </summary>
+    /// <param name="oldAngle"></param>
+    /// <param name="angle"></param>
+    /// <returns></returns>
     Vector3Int CalculateAngle(Vector3Int oldAngle, float angle)
     {
         float angleInRad = angle * Mathf.Deg2Rad;
@@ -349,133 +383,174 @@ public class LabyrinthCreator : MonoBehaviour
         return Vector3Int.FloorToInt(rotation);
     }
 
+    /// <summary>
+    /// Spawnes the Transform t in given Y-Rotation at point (i,0,j). Where the position is relative to the Filedmatrix
+    /// </summary>
+    /// <param name="t"></param>
+    /// <param name="i"></param>
+    /// <param name="j"></param>
+    /// <param name="r"></param>
+    private void SpawnElement(Transform t, int i, int j, float r)
+    {
+        Instantiate(t, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0, r, 0)));
+        _DekoRatio--;
+        if (_DekoRatio < 0)
+        {
+            Debug.Log("i < 0: " + i);
+            _DekoRatio = _DekoRatioMax;
+            SpawnDeko(i, j, r);
+            Debug.Log("i new Value: " + i);
+        }
+    }
+
+    private void CheckForBorder(int i, int j)
+    {
+        if (true)
+        {
+
+        }
+    }
+
     private void SpawnElements()
     {
         for (int i = 0; i < dimension; i++)
         {
             for (int j = 0; j < dimension; j++)
             {
+                #region rand
                 if (i == dimension -1 || i == 0 || j == dimension - 1 || j == 0)
                 {
+                    #region links
                     //links
                     if (mainFeld[i, j] == 1 && j == 0 && i > 0 && i < dimension-1)
                     {
                         if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1)
                         {
-                            Instantiate(hub3, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                            SpawnElement(hub3, i, j, 0);
                         }
                         else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                            SpawnElement(hub3, i, j, 90f);
                         }
                         else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                            SpawnElement(hub2, i, j, 0);
                         }
                         else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1)
                         {
-                            Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+                            SpawnElement(gangSmall, i, j, 0);
                         }
                         else if (mainFeld[i -1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i + 1, j] == 1)
                         {
-                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                            SpawnElement(hub1, i, j, 180);
                         }
                         else if (mainFeld[i - 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i + 1, j] == 0)
                         {
-                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+                            SpawnElement(hub1, i, j, 0);
                         }
                     }
+                    #endregion
+
+                    #region rechts
                     //rechts
                     else if (mainFeld[i, j] == 1 && j == dimension-1 && i > 0 && i < dimension - 1)
                     {
                         if (mainFeld[i + 1, j] == 1 && mainFeld[i, j - 1] == 1 && mainFeld[i - 1, j] == 1)
                         {
-                            Instantiate(hub3, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                            SpawnElement(hub3, i, j, 180);
                         }
                         else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j - 1] == 1 && mainFeld[i - 1, j] == 0)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                            SpawnElement(hub2, i, j, 180);
                         }
                         else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j - 1] == 1 && mainFeld[i - 1, j] == 1)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                            SpawnElement(hub2, i, j, -90);
                         }
                         else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i - 1, j] == 1)
                         {
-                            Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+                            SpawnElement(gangSmall, i, j, 0);
                         }
                         else if (mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0 && mainFeld[i + 1, j] == 1)
                         {
-                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                            SpawnElement(hub1, i, j, 180);
                         }
                         else if (mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i + 1, j] == 0)
                         {
-                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+                            SpawnElement(hub1, i, j, 0);
                         }
                     }
+                    #endregion
+
+                    #region oben
                     //oben
                     else if (mainFeld[i, j] == 1 && i == 0 && j > 0 && j < dimension - 1)
                     {
                         if (mainFeld[i + 1, j] == 1 && mainFeld[i, j - 1] == 1 && mainFeld[i, j + 1] == 1)
                         {
-                            Instantiate(hub3, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                            SpawnElement(hub3, i, j, 90);
                         }
                         else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j - 1] == 1 && mainFeld[i, j + 1] == 0)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                            SpawnElement(hub2, i, j, 180);
                         }
                         else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i, j + 1] == 1)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                            SpawnElement(hub2, i, j, 90);
                         }
                         else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i, j + 1] == 1)
                         {
-                            Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                            SpawnElement(gangSmall, i, j, 90);
                         }
                         else if (mainFeld[i, j + 1] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i + 1, j] == 0)
                         {
-                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                            SpawnElement(hub1, i, j, 90);
                         }
                         else if (mainFeld[i, j + 1] == 0 && mainFeld[i, j - 1] == 1 && mainFeld[i + 1, j] == 0)
                         {
-                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                            SpawnElement(hub1, i, j, -90);
                         }
                     }
+                    #endregion
+
+                    #region unten
                     //uten
                     else if (mainFeld[i, j] == 1 && i == dimension-1 && j > 0 && j < dimension - 1)
                     {
                         if (mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1 && mainFeld[i, j + 1] == 1)
                         {
-                            Instantiate(hub3, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                            SpawnElement(hub3, i, j, -90);
                         }
                         else if (mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1 && mainFeld[i, j + 1] == 0)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                            SpawnElement(hub2, i, j,-90);
                         }
                         else if (mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i, j + 1] == 1)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                            SpawnElement(hub2, i, j, 0);
                         }
                         else if (mainFeld[i - 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i, j + 1] == 1)
                         {
-                            Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                            SpawnElement(gangSmall, i, j, 90);
                         }
-                        //TODO:
                         else if (mainFeld[i, j + 1] == 1 && mainFeld[i, j - 1] == 0 && mainFeld[i - 1, j] == 0)
                         {
-                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                            SpawnElement(hub1, i, j, 90);
                         }
                         else if (mainFeld[i, j + 1] == 0 && mainFeld[i, j - 1] == 1 && mainFeld[i - 1, j] == 0)
                         {
-                            Instantiate(hub1, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                            SpawnElement(hub1, i, j, -90);
                         }
                     }
+                    #endregion
+
+                    #region ecken
                     //Ecke, links oben
                     if (mainFeld[i, j] == 1 && i == 0 && j == 0)
                     {
                         if (mainFeld[i, j+1] == 1 && mainFeld[i+1, j] == 1)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                            SpawnElement(hub2, i, j, 90);
                         }
                     }
                     //Ecke, links unten
@@ -483,7 +558,7 @@ public class LabyrinthCreator : MonoBehaviour
                     {
                         if (mainFeld[i-1, j] == 1 && mainFeld[i, j+1] == 1)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                            SpawnElement(hub2, i, j, 0);
                         }
                     }
                     //Ecke, rechts oben
@@ -491,7 +566,7 @@ public class LabyrinthCreator : MonoBehaviour
                     {
                         if (mainFeld[i + 1, j] == 1 && mainFeld[i, j - 1] == 1)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                            SpawnElement(hub2, i, j, 180);
                         }
                     }
                     //Ecke, rechts unten
@@ -499,12 +574,15 @@ public class LabyrinthCreator : MonoBehaviour
                     {
                         if (mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
                         {
-                            Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                            SpawnElement(hub2, i, j, -90);
                         }
                     }
+                    #endregion
                     continue;
                 }
+                #endregion
 
+                #region 1er ecke
                 //1er ecke spawnen
                 if (mainFeld[i, j] == 1)
                 {
@@ -531,67 +609,73 @@ public class LabyrinthCreator : MonoBehaviour
                 {
                     if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 0)
                     {
-                        Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                        SpawnElement(hub2, i, j, 90);
                     }
                     else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
                     {
-                        Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                        SpawnElement(hub2, i, j, 180);
                     }
                     else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
                     {
                         //richtig
-                        Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                        SpawnElement(hub2, i, j, 0);
                     }
                     else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
                     {
-                        Instantiate(hub2, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                        SpawnElement(hub2, i, j, -90);
                     }
                 }
+                #endregion
 
+                #region gang
                 //gang spawnen
                 if (mainFeld[i, j] == 1)
                 {
                     if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
                     {
-                        Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+                        SpawnElement(gangSmall, i, j, 0);
                     }
                     else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
                     {
-                        Instantiate(gangSmall, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                        SpawnElement(gangSmall, i, j, 90);
                     }
                 }
+                #endregion
 
-
+                #region 3er ecke
                 //3er ecke spawnen
                 if (mainFeld[i, j] == 1)
                 {
                     if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0 && mainFeld[i, j - 1] == 1)
                     {
-                        Instantiate(hub3, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                        SpawnElement(hub3, i, j, 90);
                     }
                     else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 0 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
                     {
-                        Instantiate(hub3, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 180f, 0f)));
+                        SpawnElement(hub3, i, j, 180);
                     }
                     else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
                     {
                         //richtig
-                        Instantiate(hub3, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, -90f, 0f)));
+                        SpawnElement(hub3, i, j, -90);
                     }
                     else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 0)
                     {
-                        Instantiate(hub3, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0f, 0f, 0f)));
+                        SpawnElement(hub3, i, j, 0);
                     }
                 }
+                #endregion
 
+                #region 4er Ecke
                 //4er Ecke(=4hub) einfuegen
                 if (mainFeld[i, j] == 1)
                 {
                     if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1 && mainFeld[i, j - 1] == 1)
                     {
-                        Instantiate(hub4, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
+                        SpawnElement(hub4, i, j, 0);
                     }
                 }
+                #endregion
             }
         }
     }
