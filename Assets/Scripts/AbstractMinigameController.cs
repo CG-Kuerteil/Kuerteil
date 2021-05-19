@@ -6,14 +6,10 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// A Singleton class which manages each minigame Scenes.
 /// </summary>
-public abstract class AbstractMinigameController<T> : MonoBehaviour where T : AbstractMinigameController<T>
+public abstract class AbstractMinigameController<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T _instance;
 
-    private void Awake()
-    {
-        gameObject.AddComponent<T>();
-    }
     /// <summary>
     /// The public Isntance of this class.
     /// </summary>

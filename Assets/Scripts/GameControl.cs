@@ -9,10 +9,14 @@ using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
+    [SerializeField]
+    public Vector3 PlayerSpawnPosition = new Vector3(-2, 1, -2);
+
     public static GameControl instance;
 
     public GameObject playerPref;
     private LabyrinthCreator arraySpawner;
+
     public GameObject player;
     public AudioFiles audio;
 
@@ -64,20 +68,19 @@ public class GameControl : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
-            player = Instantiate(playerPref, new Vector3(-2f, 0f, -2f), Quaternion.identity);
+            player = Instantiate(playerPref, PlayerSpawnPosition, Quaternion.identity);
             Debug.Log("Player Spawned!");
         }
         else
         {
             player = GameObject.FindGameObjectWithTag("Player");
-            player.transform.position = new Vector3(-2f, 0f, -2f);
+            player.transform.position = PlayerSpawnPosition;
         }
         
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             arraySpawner.InitializeGeneration();
         }
-
 
         DontDestroyOnLoad(player);
         player.GetComponent<FirstPersonController>().canLook = true;
@@ -109,9 +112,9 @@ public class GameControl : MonoBehaviour
 
             //Save();
         }
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
         Destroy(GameObject.FindGameObjectWithTag("Player"));
         Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene(0);
         Destroy(instance.gameObject);
     }
 
@@ -137,10 +140,9 @@ public class GameControl : MonoBehaviour
         }
         if (index == 3)
         {
-            Debug.Log("Instanciated minig ame_3...");
             var s = Instantiate(_Minigame_3_Controller, Vector3.zero, Quaternion.identity);
-            //s.GetComponent<KampfMinigameController>().MinigameSceneIndex = 3;
-            //s.GetComponent<KampfMinigameController>().NumberOfTries = _NumberOfTries;
+            s.GetComponent<KampfMinigameController>().MinigameSceneIndex = 3;
+            s.GetComponent<KampfMinigameController>().NumberOfTries = _NumberOfTries;
             _NumberOfTries--;
         }
         if (index == 4)

@@ -9,4 +9,16 @@ public class KampfMinigameController : AbstractMinigameController<KampfMinigameC
     {
         Debug.Log("Spawned KampfMinigameController");
     }
+
+    private void Awake()
+    {
+        if (Instance != this && Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 }
