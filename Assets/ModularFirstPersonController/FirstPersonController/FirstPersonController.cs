@@ -338,8 +338,9 @@ public class FirstPersonController : MonoBehaviour
 
             #region Jump
 
+            CheckGround();
             // Gets input and calls jump method
-            if(enableJump && Input.GetKeyDown(jumpKey) && isGrounded)
+            if(enableJump && (Input.GetKeyDown(jumpKey) || Input.GetAxis("Mouse ScrollWheel") > 0.0f) && isGrounded)
             {
                 Jump();
             }
@@ -369,7 +370,6 @@ public class FirstPersonController : MonoBehaviour
 
             #endregion
 
-            CheckGround();
 
             if(enableHeadBob)
             {
@@ -491,9 +491,35 @@ public class FirstPersonController : MonoBehaviour
     // Sets isGrounded based on a raycast sent straigth down from the player object
     private void CheckGround()
     {
-        Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
+        //Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
+        Vector3 origin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         Vector3 direction = transform.TransformDirection(Vector3.down);
-        float distance = .75f;
+        CapsuleCollider collider = GetComponent<CapsuleCollider>();
+        //float distance = .75f;
+        float distance = collider.height * 0.5f + 0.0001f;
+
+        /*if (Physics.CapsuleCast(transform.position + (transform.up * 0.5f), transform.position + (transform.up * -0.5f), collider.radius, direction, 0.1f))
+        {
+            Debug.DrawRay(origin, direction * distance, Color.red);
+            isGrounded = true;
+        }
+        else
+        {
+            Debug.DrawRay(origin, direction * distance, Color.green);
+            isGrounded = false;
+        }*/
+
+        /*if (Physics.CapsuleCast(transform.position + (transform.up * 0.5f), transform.position + (transform.up * -0.5f), collider.radius, direction, 0.1f))
+        {
+            Debug.DrawRay(origin, direction * distance, Color.red);
+            isGrounded = true;
+        }
+        else
+        {
+            Debug.DrawRay(origin, direction * distance, Color.green);
+            isGrounded = false;
+        }*/
+
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
         {
@@ -502,12 +528,20 @@ public class FirstPersonController : MonoBehaviour
         }
         else
         {
+            Debug.DrawRay(origin, direction * distance, Color.green);
             isGrounded = false;
         }
+        Debug.Log(isGrounded);
     }
 
     private void Jump()
-    {
+    {   
+        // if velocity.y is more than 1, dont jump
+        if (rb.velocity.y > 0.0f)
+        {
+            Debug.Log(rb.velocity.y);
+            isGrounded = false;
+        }
         // Adds force to the player rigidbody to jump
         if (isGrounded)
         {
@@ -516,10 +550,10 @@ public class FirstPersonController : MonoBehaviour
         }
 
         // When crouched and using toggle system, will uncrouch for a jump
-        if(isCrouched && !holdToCrouch)
+        /*if(isCrouched && !holdToCrouch)
         {
             Crouch();
-        }
+        }*/
     }
 
     private void Crouch()
