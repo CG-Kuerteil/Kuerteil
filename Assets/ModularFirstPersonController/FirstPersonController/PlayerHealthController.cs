@@ -64,7 +64,7 @@ public class PlayerHealthController : MonoBehaviour
             Debug.Log("Player dead...");
             if (SceneManager.GetActiveScene().buildIndex == 3)
             {
-                MinigameControl.instance.Died();
+                MinigameControlOld.instance.Died();
                 Revive();
             }
             else if (SceneManager.GetActiveScene().buildIndex == 1)

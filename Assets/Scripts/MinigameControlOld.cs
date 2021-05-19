@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinigameControl : MonoBehaviour
+public class MinigameControlOld : MonoBehaviour
 {
     public GameObject _TeleporterPref;
     //public GameObject _EnemyPref;
@@ -10,7 +10,7 @@ public class MinigameControl : MonoBehaviour
 
     public int _NumberOfTries;
 
-    public static MinigameControl instance;
+    public static MinigameControlOld instance;
 
     private void Awake()
     {

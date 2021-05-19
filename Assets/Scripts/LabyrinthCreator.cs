@@ -34,6 +34,8 @@ public class LabyrinthCreator : MonoBehaviour
     public Transform hub4;
 
     public Transform minispiel_portal;
+    [SerializeField]
+    private GameObject[] _Portale;
     public int anzahlMinispiele;
 
     public Transform _Light;
@@ -58,22 +60,6 @@ public class LabyrinthCreator : MonoBehaviour
     /// Spawns Wall dekos on WallSocket obj
     /// Deletes all Wall Socket objs in the Scene in the end
     /// </summary>
-    public void SpawnWallDeko()
-    {
-        GameObject[] sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
-        int count = _WallDekoAnzahl;
-        int rand;
-        int sockel;
-
-        while (count > 0)
-        {
-            sockel = Random.Range(0, sockelList.Length);
-            rand = Random.Range(0, _WallDekoListe.Length);
-            Vector3 tmp = new Vector3(sockelList[sockel].transform.position.x, 0, sockelList[sockel].transform.position.z);
-            Instantiate(_WallDekoListe[rand], tmp, sockelList[sockel].transform.rotation);
-            count--;
-        }
-    }
     public void InitializeGeneration()
     {
         _DekoRatioMax = _DekoRatio;
@@ -101,12 +87,30 @@ public class LabyrinthCreator : MonoBehaviour
             mitte = mainFeld.Length / 2;
             //dimension = mainFeld.Length;
         }
-        SpawnPortals();
         PrintCSV(mainFeld);
         //PrintArray(mainFeld);
         SpawnElements();
+        SpawnPortals();
         SpawnLights();
         SpawnWallDeko();
+    }
+
+    public void SpawnWallDeko()
+    {
+        GameObject[] sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
+        int count = _WallDekoAnzahl;
+        int rand;
+        int sockel;
+
+        while (count > 0)
+        {
+            sockel = Random.Range(0, sockelList.Length);
+            rand = Random.Range(0, _WallDekoListe.Length);
+            Vector3 tmp = new Vector3(sockelList[sockel].transform.position.x, 0, sockelList[sockel].transform.position.z);
+            Instantiate(_WallDekoListe[rand], tmp, sockelList[sockel].transform.rotation);
+            count--;
+            Destroy(sockelList[sockel]);
+        }
     }
 
     public void SpawnEnemies()
@@ -135,7 +139,7 @@ public class LabyrinthCreator : MonoBehaviour
 
         SpawnElement(_DekoListe[rand], i, j, r);
 
-        Debug.Log("Deko gespawned: " + _DekoListe[rand].name);
+        //Debug.Log("Deko gespawned: " + _DekoListe[rand].name);
     }
 
     private void SpawnLights()
@@ -160,21 +164,21 @@ public class LabyrinthCreator : MonoBehaviour
 
     private void SpawnPortals()
     {
-        int s = anzahlMinispiele;
-        int i, j;
-        while (s > 0)
+        int s = 0;
+
+        GameObject[] sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
+
+        int sockel;
+
+        while (s < _Portale.Length)
         {
-            i = Random.Range(0, (dimension - 1));
-            j = Random.Range(0, (dimension - 1));
-            if (mainFeld[i, j] == 1)
-            {
-                Instantiate(minispiel_portal, new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.identity);
-            }
-            else
-            {
-                continue;
-            }
-            s--;
+            sockel = Random.Range(0, sockelList.Length);
+
+            Vector3 tmp = new Vector3(sockelList[sockel].transform.position.x, 0, sockelList[sockel].transform.position.z);
+
+            Instantiate(_Portale[s], tmp, sockelList[sockel].transform.rotation);
+
+            s++;
         }
     }
     internal void SetMainFeld(int[,] mainFeld)
@@ -396,10 +400,8 @@ public class LabyrinthCreator : MonoBehaviour
         _DekoRatio--;
         if (_DekoRatio < 0)
         {
-            Debug.Log("i < 0: " + i);
             _DekoRatio = _DekoRatioMax;
             SpawnDeko(i, j, r);
-            Debug.Log("i new Value: " + i);
         }
     }
 
