@@ -66,7 +66,7 @@ public class BossController : MonoBehaviour
             Destroy(gameObject);
             GameObject explosion = Instantiate(_DieVFX, transform.position, Quaternion.identity);
             Destroy(explosion, 4f);
-            MinigameControlOld.instance.EnemyKilled();
+            KampfMinigameController.Instance.ChallengeCompleted();
         }
         else
         {

@@ -177,7 +177,7 @@ public class LabyrinthCreator : MonoBehaviour
             Vector3 tmp = new Vector3(sockelList[sockel].transform.position.x, 0, sockelList[sockel].transform.position.z);
 
             Instantiate(_Portale[s], tmp, sockelList[sockel].transform.rotation);
-
+            Destroy(sockelList[sockel]);
             s++;
         }
     }

@@ -354,8 +354,12 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: minispiel_portal
+      value: 
+      objectReference: {fileID: 4422158401103843142, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Portale.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _DekoListe.Array.size
@@ -363,6 +367,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Portale.Array.data[0]
+      value: 
+      objectReference: {fileID: 1498697634455658422, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _Portale.Array.data[1]
+      value: 
+      objectReference: {fileID: 1498697634455658422, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _Portale.Array.data[2]
       value: 
       objectReference: {fileID: 1498697634455658422, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
@@ -405,6 +417,10 @@ PrefabInstance:
       propertyPath: _WallDekoListe.Array.data[5]
       value: 
       objectReference: {fileID: 4422158401103843142, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+    - target: {fileID: 4651296428044860339, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _Minigame_3_Controller
+      value: 
+      objectReference: {fileID: 2489015121182201494, guid: 333ec3bc2b05cc44f9c4e309bc5d63fa, type: 3}
     - target: {fileID: 4651296428044860349, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: m_Name
       value: GameControl

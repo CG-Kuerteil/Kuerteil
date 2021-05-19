@@ -31,6 +31,12 @@ public class GameControl : MonoBehaviour
 
     public bool _GameOver { get; private set; }
 
+    #region keyManagement
+
+    private List<KeyType> _keyList = new List<KeyType>();
+
+    #endregion
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -56,11 +62,6 @@ public class GameControl : MonoBehaviour
     {
         arraySpawner = gameObject.GetComponent<LabyrinthCreator>();
 
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            arraySpawner.InitializeGeneration();
-        }
-
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
             player = Instantiate(playerPref, new Vector3(-2f, 0f, -2f), Quaternion.identity);
@@ -71,6 +72,12 @@ public class GameControl : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
             player.transform.position = new Vector3(-2f, 0f, -2f);
         }
+        
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            arraySpawner.InitializeGeneration();
+        }
+
 
         DontDestroyOnLoad(player);
         player.GetComponent<FirstPersonController>().canLook = true;
@@ -80,15 +87,13 @@ public class GameControl : MonoBehaviour
     public void SceneWechseln(int index)
     {
         SceneManager.LoadScene(index);
-        //InitComponents();
+        Debug.Log("Scene Loading...");
         InitControllers(index);
         if (index == 1)
         {
             _GameOver = false;
             Destroy(gameObject);
         }
-        //InitControllers(index);
-        //InitComponents();
     }
 
     public void GameOver()
@@ -133,18 +138,15 @@ public class GameControl : MonoBehaviour
         if (index == 3)
         {
             Debug.Log("Instanciated minig ame_3...");
-            Instantiate(_Minigame_3_Controller, Vector3.zero, Quaternion.identity);
+            var s = Instantiate(_Minigame_3_Controller, Vector3.zero, Quaternion.identity);
+            //s.GetComponent<KampfMinigameController>().MinigameSceneIndex = 3;
+            //s.GetComponent<KampfMinigameController>().NumberOfTries = _NumberOfTries;
             _NumberOfTries--;
         }
         if (index == 4)
         {
             Instantiate(_Minigame_4_Controller, Vector3.zero, Quaternion.identity);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void Save()
@@ -215,6 +217,21 @@ public class GameControl : MonoBehaviour
         {
             Destroy(labs[i]);
         }
+    }
+
+    internal void addKey(KeyType keyType)
+    {
+        if (_keyList.Contains(keyType) == false)
+        {
+            _keyList.Add(keyType);
+            Debug.Log("KeyCollected: "+keyType);
+           ///Todo: notify UI
+        }
+        else
+        {
+            Debug.Log("Key schon vorhanden...");
+        }
+        
     }
 }
 

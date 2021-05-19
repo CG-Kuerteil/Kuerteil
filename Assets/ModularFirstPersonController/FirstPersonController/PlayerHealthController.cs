@@ -64,7 +64,7 @@ public class PlayerHealthController : MonoBehaviour
             Debug.Log("Player dead...");
             if (SceneManager.GetActiveScene().buildIndex == 3)
             {
-                MinigameControlOld.instance.Died();
+                KampfMinigameController.Instance.Died();
                 Revive();
             }
             else if (SceneManager.GetActiveScene().buildIndex == 1)
@@ -82,6 +82,6 @@ public class PlayerHealthController : MonoBehaviour
     public void Revive()
     {
         _HP = _HP_Max;
-        _Slider.value = _HP;
+        _Slider.value = _HP-1;
     }
 }

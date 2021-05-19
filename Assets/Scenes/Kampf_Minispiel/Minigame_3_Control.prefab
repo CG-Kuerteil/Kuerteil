@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2489015121182201496}
-  - component: {fileID: 2489015121182201497}
+  - component: {fileID: -8584829196069028218}
   m_Layer: 0
-  m_Name: MinigameControl
+  m_Name: Minigame_3_Control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2489015121182201497
+--- !u!114 &-8584829196069028218
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,8 +40,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2489015121182201494}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c17fc2b2e34b13a4b95261e18647d6f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 370f3cb6f3ff778458cc86f55345e18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TeleporterPref: {fileID: 4270496966783855576, guid: d972bb045625a1641be32779e57d666b, type: 3}
-  _Player: {fileID: 0}
+  _TeleporterPref: {fileID: 1498697634455658422, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+  _NumberOfTries: 0
+  _PortalSpawnLocation: {x: 4, y: 0, z: 4}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0cc843b6449fe7a49b4c1bf7d272ad48
+guid: c595840a1b35c2c4ea55f4fb6b7def8b
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable: []
@@ -7,18 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Cube_Cube.001_Material.001Mat
+    second: {fileID: -3033667219593020291, guid: c017df551bdb3c543923eddd57089ef7, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Cube_Cube.001_RingeMat
     second: {fileID: 2100000, guid: dec79994033cc2d428f93ed3908530cf, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Plane.001_Plane.003_PortalMat
-    second: {fileID: 2100000, guid: 7cd54ff14f025ed448bc67a952780209, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Plane_Plane.002_PortalMat
-    second: {fileID: 2100000, guid: 7cd54ff14f025ed448bc67a952780209, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
