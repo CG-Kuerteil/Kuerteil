@@ -21,4 +21,8 @@ public class KampfMinigameController : AbstractMinigameController<KampfMinigameC
             Instance = this;
         }
     }
+
+    private void Start()
+    {
+    }
 }

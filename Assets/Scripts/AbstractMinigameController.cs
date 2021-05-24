@@ -73,7 +73,7 @@ public abstract class AbstractMinigameController<T> : MonoBehaviour where T : Mo
     /// <summary>
     /// Called by ChallengeCompleted. For extra funcionality. Is opitonal.
     /// </summary>
-    protected abstract void Hook();
+    protected virtual void Hook() { }
 
     /// <summary>
     /// Isntantiates a TeleporterPrefab. Is calles When the Minigame Challenge is completed

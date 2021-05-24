@@ -8,17 +8,6 @@ public abstract class Collectable : MonoBehaviour
     /// Called when collided with "Player" tag GO
     /// </summary>
     protected abstract void OnCollect();
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider collision)
     {
