@@ -20,7 +20,8 @@ public class NavMeshGenerator : MonoBehaviour
     {
         if (navMeshRoot == null) { 
             navMeshRoot = new GameObject("NavMeshRoot");
-            //navMeshRoot.tag = "labb";
+            navMeshRoot.tag = "lab";
+            navMeshRoot.transform.tag = "lab";
         }
     }
 
@@ -29,7 +30,8 @@ public class NavMeshGenerator : MonoBehaviour
         if (navMeshRoot == null)
         {
             navMeshRoot = new GameObject("NavMeshRoot");
-            //navMeshRoot.tag = "labb";
+            navMeshRoot.tag = "lab";
+            navMeshRoot.transform.tag = "lab";
         }
     }
 

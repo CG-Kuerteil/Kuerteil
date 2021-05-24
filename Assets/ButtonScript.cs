@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,14 @@ public class ButtonScript : MonoBehaviour
     void Update()
     {
         SaveBtn.onClick.AddListener(GameControl.instance.Save);
-        LoadBtn.onClick.AddListener(GameControl.instance.Load);
+        LoadBtn.onClick.AddListener(Load);
         ExitBtn.onClick.AddListener(GameControl.instance.Exit);
+    }
+
+    private void Load()
+    {
+        Debug.Log("Laod button presssed...");
+        LoadBtn.onClick.RemoveAllListeners();
+        GameControl.instance.Load();
     }
 }

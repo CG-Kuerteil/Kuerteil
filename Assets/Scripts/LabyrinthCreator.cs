@@ -25,7 +25,8 @@ public class LabyrinthCreator : MonoBehaviour
     public int dimension = 21;
     public int _Iterations = 20;
     public int gangWahrscheinlichkeit = 5;
-    public string filepath;
+    [SerializeField]
+    private static string filepath =  "CSVData.csv";
 
     public Transform gangSmall;
     public Transform hub1;
@@ -46,9 +47,16 @@ public class LabyrinthCreator : MonoBehaviour
 
     private float offsetLengthNormal = 4f;
 
-    public int[,] GetMainFeld()
+    public int[,] MainField
     {
-        return this.mainFeld;
+        get
+        {
+            return mainFeld;
+        }
+        set
+        {
+            mainFeld = value;
+        }
     }
 
     // Start is called before the first frame update
@@ -63,7 +71,6 @@ public class LabyrinthCreator : MonoBehaviour
     public void InitializeGeneration()
     {
         _DekoRatioMax = _DekoRatio;
-        filepath = "CSVData.csv";
         if (mainFeld == null)
         {
             mainFeld = new int[dimension, dimension];
@@ -84,15 +91,16 @@ public class LabyrinthCreator : MonoBehaviour
         }
         else
         {
-            mitte = mainFeld.Length / 2;
-            //dimension = mainFeld.Length;
+            mitte = mainFeld.GetLength(0) / 2;
         }
         PrintCSV(mainFeld);
-        //PrintArray(mainFeld);
+        PrintArray(mainFeld);
+        Debug.Log("LEngth of MainField: " + mainFeld.GetLength(0));
         SpawnElements();
         SpawnPortals();
         SpawnLights();
         SpawnWallDeko();
+
     }
 
     public void SpawnWallDeko()
@@ -137,9 +145,7 @@ public class LabyrinthCreator : MonoBehaviour
     {
         int rand = Random.Range(0, _DekoListe.Length);
 
-        SpawnElement(_DekoListe[rand], i, j, r);
-
-        //Debug.Log("Deko gespawned: " + _DekoListe[rand].name);
+        Instantiate(_DekoListe[rand], new Vector3((i * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2), 0, (j * offsetLengthNormal) - ((dimension * offsetLengthNormal) / 2)), Quaternion.Euler(new Vector3(0, r, 0)));
     }
 
     private void SpawnLights()
@@ -180,10 +186,6 @@ public class LabyrinthCreator : MonoBehaviour
             Destroy(sockelList[sockel]);
             s++;
         }
-    }
-    internal void SetMainFeld(int[,] mainFeld)
-    {
-        this.mainFeld = mainFeld;
     }
 
     private void InitSnake()
@@ -572,6 +574,7 @@ public class LabyrinthCreator : MonoBehaviour
                         }
                     }
                     #endregion
+
                     continue;
                 }
                 #endregion
@@ -674,7 +677,7 @@ public class LabyrinthCreator : MonoBehaviour
         }
     }
 
-    private void PrintArray(int[,] m)
+    public static void PrintArray(int[,] m)
     {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < m.GetLength(1); i++)
@@ -689,7 +692,7 @@ public class LabyrinthCreator : MonoBehaviour
         Debug.Log(sb.ToString());
     }
 
-    private void PrintCSV(int[,] m)
+    private static void PrintCSV(int[,] m)
     {
         StreamWriter writer = new StreamWriter(filepath);
 
@@ -705,9 +708,7 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 sb.Append(Convert.ToString(m[i, j]));
             }
-            //writer.Write(sb.ToString());
             writer.WriteLine(sb.ToString());
-            //Debug.Log(sb.ToString());
             sb = new StringBuilder();
         }
         writer.Close();

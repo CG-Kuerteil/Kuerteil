@@ -155,6 +155,7 @@ public class GameControl : MonoBehaviour
     {
 
         BinaryFormatter bf = new BinaryFormatter();
+        
         FileStream fs = File.Open(Application.persistentDataPath + "/gameData.dat", FileMode.OpenOrCreate);
 
         GameData gameData = new GameData();
@@ -163,10 +164,14 @@ public class GameControl : MonoBehaviour
         gameData.palyerPosition = player.transform.position;
 
         gameData.palyerRotation = player.transform.rotation;
-        
-        gameData.mainFeld = arraySpawner.GetMainFeld();
+
+        gameData.mainFeld = arraySpawner.MainField;
+        Debug.Log("Save: mainField length: " + gameData.mainFeld.GetLength(0));
+
+
         bf.Serialize(fs, gameData);
         fs.Close();
+
         Debug.Log("SAVED...");
     }
 
@@ -184,21 +189,27 @@ public class GameControl : MonoBehaviour
             //DestroyObjects("Player");
             DestroyObjects("lab");
             DestroyObjects("Ground");
+            DestroyObjects("Deko");
+            DestroyObjects("Enemy");
 
             player = GameObject.FindGameObjectWithTag("Player");
-            arraySpawner.SetMainFeld(gameData.mainFeld);
+            arraySpawner.MainField = (int[,])gameData.mainFeld.Clone();
+            Debug.Log("Load: mainField length: " + gameData.mainFeld.GetLength(0));
+            Debug.Log("Laod->Creator: mainField length: " + arraySpawner.MainField.GetLength(0));
+            Debug.Log("Laod->Dimension: " + arraySpawner.dimension);
+            
             arraySpawner.InitializeGeneration();
 
             //Create NavMesh
-            GetComponent<NavMeshGenerator>().BuildNavRoot();
-            List<GameObject> tempList = new List<GameObject>();
-            tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
-            GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
-            GetComponent<NavMeshGenerator>().BuildNavMesh();
+            //GetComponent<NavMeshGenerator>().BuildNavRoot();
+            //List<GameObject> tempList = new List<GameObject>();
+            //tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
+            //GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
+            //GetComponent<NavMeshGenerator>().BuildNavMesh();
 
 
             player.transform.position = gameData.palyerPosition;
-            player.transform.position = new Vector3(player.transform.position.x, 1.2f, player.transform.position.z);
+            
             player.transform.rotation = gameData.palyerRotation;
 
             //playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
@@ -247,4 +258,9 @@ class GameData
     public SVector3 palyerPosition = new SVector3();
 
     public SQuaternion palyerRotation = new SQuaternion();
+
+    public string GetString()
+    {
+        return "Hello";
+    }
 }

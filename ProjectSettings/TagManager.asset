@@ -11,6 +11,8 @@ TagManager:
   - MenuView
   - HP_UP
   - WandSockel
+  - Deko
+  - Enemy
   layers:
   - Default
   - TransparentFX
