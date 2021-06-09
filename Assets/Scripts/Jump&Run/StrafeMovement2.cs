@@ -122,7 +122,7 @@ public class StrafeMovement2 : MonoBehaviour
         correctVelocity += GetJumpVelocity(velocity.y);
 
         //Return
-        return correctVelocity;
+        return correctVelocity * 2;
     }
 
     /// <summary>

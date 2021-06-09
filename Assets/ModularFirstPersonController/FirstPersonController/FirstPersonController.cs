@@ -63,7 +63,7 @@ public class FirstPersonController : MonoBehaviour
 
     public bool playerCanMove = true;
     public float walkSpeed = 5f;
-    public float maxVelocityChange = 10f;
+    public float maxVelocityChange = 20f;
 
     // Internal Variables
     private bool isWalking = false;
@@ -505,11 +505,11 @@ public class FirstPersonController : MonoBehaviour
     // Sets isGrounded based on a raycast sent straigth down from the player object
     private void CheckGround()
     {
-        //Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
-        Vector3 origin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
+        //Vector3 origin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         Vector3 direction = transform.TransformDirection(Vector3.down);
         CapsuleCollider collider = GetComponent<CapsuleCollider>();
-        //float distance = .75f;
+        //float distance = 0.75f;
         float distance = collider.height * 0.5f + 0.0001f;
 
         /*if (Physics.CapsuleCast(transform.position + (transform.up * 0.5f), transform.position + (transform.up * -0.5f), collider.radius, direction, 0.1f))
@@ -523,19 +523,7 @@ public class FirstPersonController : MonoBehaviour
             isGrounded = false;
         }*/
 
-        /*if (Physics.CapsuleCast(transform.position + (transform.up * 0.5f), transform.position + (transform.up * -0.5f), collider.radius, direction, 0.1f))
-        {
-            Debug.DrawRay(origin, direction * distance, Color.red);
-            isGrounded = true;
-        }
-        else
-        {
-            Debug.DrawRay(origin, direction * distance, Color.green);
-            isGrounded = false;
-        }*/
-
-
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
+        if (Physics.CapsuleCast(transform.position + (transform.up * 0.5f), transform.position + (transform.up * -0.5f), collider.radius - 0.01f, direction, 0.1f))
         {
             Debug.DrawRay(origin, direction * distance, Color.red);
             isGrounded = true;
@@ -545,7 +533,19 @@ public class FirstPersonController : MonoBehaviour
             Debug.DrawRay(origin, direction * distance, Color.green);
             isGrounded = false;
         }
-        Debug.Log(isGrounded);
+
+
+        /*if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
+        {
+            Debug.DrawRay(origin, direction * distance, Color.red);
+            isGrounded = true;
+        }
+        else
+        {
+            Debug.DrawRay(origin, direction * distance, Color.green);
+            isGrounded = false;
+        }
+        Debug.Log(isGrounded);*/
     }
 
     private void Jump()
