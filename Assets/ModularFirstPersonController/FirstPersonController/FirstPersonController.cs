@@ -338,13 +338,14 @@ public class FirstPersonController : MonoBehaviour
 
             #region Jump
 
-            CheckGround();
             // Gets input and calls jump method
-            if(enableJump && (Input.GetKeyDown(jumpKey) || Input.GetAxis("Mouse ScrollWheel") > 0.0f) && isGrounded)
+            if (enableJump && (Input.GetKeyDown(jumpKey) || Input.GetAxis("Mouse ScrollWheel") > 0.0f) && isGrounded)
+            //if (enableJump && (Input.GetAxis("Jump") != 0.0f && isGrounded))
             {
                 Jump();
             }
 
+            CheckGround();
             #endregion
 
             #region Crouch
