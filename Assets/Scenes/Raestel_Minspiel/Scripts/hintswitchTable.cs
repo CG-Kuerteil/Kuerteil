@@ -8,6 +8,7 @@ public class hintswitchTable : MonoBehaviour
     public GameObject light2;
     public GameObject text;
     bool trigger = false;
+    [SerializeField] private Animator controller;
 
     private void Start()
     {
@@ -24,6 +25,7 @@ public class hintswitchTable : MonoBehaviour
             light2.SetActive(true);
             text.SetActive(true);
             trigger = true;
+            controller.SetBool("click", true);
         }
     }
 }
