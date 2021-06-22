@@ -160,7 +160,7 @@ public class FirstPersonController : MonoBehaviour
     {
         #region AudioSetp
         audioSource = GetComponent<AudioSource>();
-
+        
         #endregion
 
         if (lockCursor)

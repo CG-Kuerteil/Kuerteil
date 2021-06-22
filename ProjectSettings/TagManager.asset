@@ -11,6 +11,7 @@ TagManager:
   - MenuView
   - HP_UP
   - WandSockel
+  - Ladder
   layers:
   - Default
   - TransparentFX
