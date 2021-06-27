@@ -30,10 +30,9 @@ public class InteractionScript : MonoBehaviour
                 if (hit.transform.tag == "Button")
                 {
                     Debug.Log("Hit: " + hit.transform.tag);
+                    hit.transform.gameObject.GetComponent<AbstractButton>().PushButton();
                 }
-
-                //Todo:
-                //hit.gameObject.GetComponent<KeyxScuipr>().Moveadsadsad
+                
             }
         }
     }

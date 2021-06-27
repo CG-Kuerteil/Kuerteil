@@ -7,7 +7,9 @@ public class lightswitch : MonoBehaviour
 
     public GameObject light;
     bool trigger = false;
-    [SerializeField] private Animator controller;
+
+    [SerializeField]
+    private Animator controller;
 
     private void Start()
     {
