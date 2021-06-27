@@ -8018,31 +8018,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 17.16
+      value: 19.7
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.69
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30.220001
+      value: 13.5
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8050,7 +8050,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1892564751057020032, guid: a944d461f9014794c91556144e10b181, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -8754,8 +8754,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9245283, g: 0.8684935, b: 0.25729796, a: 1}
-  m_Intensity: 1
-  m_Range: 15
+  m_Intensity: 5
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
