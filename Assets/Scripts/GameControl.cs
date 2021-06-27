@@ -147,7 +147,10 @@ public class GameControl : MonoBehaviour
         }
         if (index == 4)
         {
-            Instantiate(_Minigame_4_Controller, Vector3.zero, Quaternion.identity);
+            var s = Instantiate(_Minigame_4_Controller, Vector3.zero, Quaternion.identity);
+            s.GetComponent<RaetselMinigameController>().MinigameSceneIndex = 3;
+            s.GetComponent<RaetselMinigameController>().NumberOfTries = _NumberOfTries;
+            _NumberOfTries--;
         }
     }
 

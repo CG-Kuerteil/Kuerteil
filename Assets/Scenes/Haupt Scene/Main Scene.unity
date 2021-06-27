@@ -319,15 +319,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: dimension
-      value: 51
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _DekoRatio
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Iterations
-      value: 3000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: anzahlLights
@@ -339,7 +339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _AnzahlGegner
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _DekoRatioMax
@@ -347,7 +347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _WallDekoAnzahl
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: anzahlMinispiele
@@ -368,15 +368,15 @@ PrefabInstance:
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Portale.Array.data[0]
       value: 
-      objectReference: {fileID: 1498697634455658422, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+      objectReference: {fileID: 1498697634455658422, guid: 3d4e29f1f8c5d2b40b73c94784f03c74, type: 3}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Portale.Array.data[1]
       value: 
-      objectReference: {fileID: 1498697634455658422, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+      objectReference: {fileID: 1498697634455658422, guid: db9999a8f184ddb43979af2b3c961e1f, type: 3}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Portale.Array.data[2]
       value: 
-      objectReference: {fileID: 1498697634455658422, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+      objectReference: {fileID: 1498697634455658422, guid: 6fe7e4f6dd0a5c642b36eb8f85301166, type: 3}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _DekoListe.Array.data[0]
       value: 

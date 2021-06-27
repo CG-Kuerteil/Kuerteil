@@ -18,6 +18,7 @@ public class SuccesButton : AbstractButton
         Text.SetActive(true);
         trigger = true;
         controller.SetBool("click", true);
+        RaetselMinigameController.Instance.ChallengeCompleted();
     }
 
     // Start is called before the first frame update
