@@ -107,11 +107,12 @@ public class GameControl : MonoBehaviour
 
         SceneManager.LoadScene(index);
         //Debug.Log("Scene Loading...");
+
         InitControllers(index);
         if (index == 1)
         {
             _GameOver = false;
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
@@ -153,6 +154,7 @@ public class GameControl : MonoBehaviour
 
             arraySpawner.SpawnEnemies();
         }
+        portalPositionen = new List<SVector3>();
     }
 
     private void InitControllers(int index)
@@ -177,6 +179,8 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    List<SVector3> portalPositionen;
+
     public void Save()
     {
 
@@ -187,6 +191,9 @@ public class GameControl : MonoBehaviour
         GameData gameData = new GameData();
 
         #region Saving Data
+
+        gameData.PortalPositionen = portalPositionen;
+        
         gameData.health = 100f;
 
         gameData.playerPosition = player.transform.position;
@@ -227,7 +234,14 @@ public class GameControl : MonoBehaviour
             Debug.Log("Load: mainField length: " + gameData.mainFeld.GetLength(0));
             Debug.Log("Laod->Creator: mainField length: " + arraySpawner.MainField.GetLength(0));
             Debug.Log("Laod->Dimension: " + arraySpawner.dimension);
-            
+
+            List<Vector3> newPositionen = new List<Vector3>();
+            foreach (var position in gameData.PortalPositionen)
+            {
+                newPositionen.Add(position);
+            }
+            arraySpawner.PortalPositionen = newPositionen;
+
             arraySpawner.InitializeGeneration();
 
             //Create NavMesh
@@ -262,25 +276,46 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    internal void addKey(KeyType keyType)
+    public void addKey(KeyType keyType)
     {
         if (_keyList.Contains(keyType) == false)
         {
             _keyList.Add(keyType);
             Debug.Log("KeyCollected: "+keyType);
-           ///Todo: notify UI
+            //Todo: notify UI
         }
         else
         {
             Debug.Log("Key schon vorhanden...");
         }
-        
+    }
+
+    enum Objects
+    {
+        Deko1, Deko2, Deko3, Portal1, Portal2, Portal3
+    }
+
+
+
+    public void SavePortalPositionen(List<Vector3> positionen)
+    {
+        if (portalPositionen == null)
+        {
+            portalPositionen = new List<SVector3>();
+        }
+        foreach (var position in positionen)
+        {
+            portalPositionen.Add(position);
+        }
     }
 }
+
 
 [Serializable]
 class GameData
 {
+    public List<SVector3> PortalPositionen;
+
     public float health;
 
     public int[,] mainFeld;
