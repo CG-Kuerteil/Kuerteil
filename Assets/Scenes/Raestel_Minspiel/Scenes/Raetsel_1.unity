@@ -4504,7 +4504,7 @@ GameObject:
   - component: {fileID: 384579127}
   m_Layer: 0
   m_Name: animatedDecisionSwitch1
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4694,7 +4694,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mot right
+  m_Text: Not right
 --- !u!222 &396858767
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6302,7 +6302,7 @@ GameObject:
   - component: {fileID: 529511888}
   m_Layer: 0
   m_Name: animatedDecisionSwitch2
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7279,10 +7279,11 @@ GameObject:
   - component: {fileID: 594458381}
   - component: {fileID: 594458380}
   - component: {fileID: 594458379}
+  - component: {fileID: 594458384}
   - component: {fileID: 594458378}
   m_Layer: 0
   m_Name: animatedLightSwitch
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7294,7 +7295,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594458377}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbc7b5b446df043b9ae75366a188371c, type: 3}
   m_Name: 
@@ -7398,6 +7399,21 @@ Transform:
   m_Father: {fileID: 1855394923}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 345}
+--- !u!114 &594458384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594458377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909072084d550aa419ef966b0a22fa7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Light: {fileID: 66959990}
+  Text: {fileID: 396858764}
+  controller: {fileID: 594458379}
 --- !u!1 &594998169
 GameObject:
   m_ObjectHideFlags: 0
@@ -9231,7 +9247,7 @@ GameObject:
   - component: {fileID: 756411736}
   m_Layer: 0
   m_Name: animatedDecisionSwitchDestination
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16894,7 +16910,7 @@ GameObject:
   - component: {fileID: 1568940456}
   m_Layer: 0
   m_Name: animatedTableSwitch
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
