@@ -14,6 +14,7 @@ TagManager:
   - Deko
   - Enemy
   - Button
+  - Ladder
   layers:
   - Default
   - TransparentFX
