@@ -21,15 +21,30 @@ public class ButtonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SaveBtn.onClick.AddListener(GameControl.instance.Save);
+        /*SaveBtn.onClick.AddListener(Save);
         LoadBtn.onClick.AddListener(Load);
-        ExitBtn.onClick.AddListener(GameControl.instance.Exit);
+        ExitBtn.onClick.AddListener(Exit);*/
     }
 
-    private void Load()
+    public void Exit()
+    {
+        GameControl.instance.Exit();
+    }
+
+    public void Load()
+    {
+        GameControl.instance.Load();
+    }
+
+    public void Save()
+    {
+        GameControl.instance.Save();
+    }
+
+    /*private void Load()
     {
         Debug.Log("Laod button presssed...");
         LoadBtn.onClick.RemoveAllListeners();
         GameControl.instance.Load();
-    }
+    }*/
 }

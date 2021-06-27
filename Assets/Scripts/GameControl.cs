@@ -89,8 +89,24 @@ public class GameControl : MonoBehaviour
 
     public void SceneWechseln(int index)
     {
+        if (SceneManager.GetActiveScene().buildIndex != 0 && index == 1)
+        {
+            Load();
+            Debug.Log("Scene Loading...");
+        }
+        if (SceneManager.GetActiveScene().buildIndex > 1 && index == 1)
+        {
+            Load();
+            Debug.Log("Scene Loading...");
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 1 && index > 1)
+        {
+            Save();
+            Debug.Log("Saving Scene...");
+        }
+
         SceneManager.LoadScene(index);
-        Debug.Log("Scene Loading...");
+        //Debug.Log("Scene Loading...");
         InitControllers(index);
         if (index == 1)
         {
@@ -106,15 +122,22 @@ public class GameControl : MonoBehaviour
     }
     public void Exit()
     {
+        /*#if UNITY_EDITOR
+                // Application.Quit() does not work in the editor so
+                // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                 Application.Quit();
+        #endif*/
+        SceneManager.LoadScene(0);
         _GameOver = true;
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-
             //Save();
         }
-        Destroy(GameObject.FindGameObjectWithTag("Player"));
         Cursor.lockState = CursorLockMode.None;
-        SceneManager.LoadScene(0);
+
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
         Destroy(instance.gameObject);
     }
 
@@ -162,13 +185,17 @@ public class GameControl : MonoBehaviour
         FileStream fs = File.Open(Application.persistentDataPath + "/gameData.dat", FileMode.OpenOrCreate);
 
         GameData gameData = new GameData();
+
+        #region Saving Data
         gameData.health = 100f;
 
-        gameData.palyerPosition = player.transform.position;
+        gameData.playerPosition = player.transform.position;
 
-        gameData.palyerRotation = player.transform.rotation;
+        gameData.playerRotation = player.transform.rotation;
 
         gameData.mainFeld = arraySpawner.MainField;
+        #endregion
+
         Debug.Log("Save: mainField length: " + gameData.mainFeld.GetLength(0));
 
 
@@ -211,13 +238,13 @@ public class GameControl : MonoBehaviour
             //GetComponent<NavMeshGenerator>().BuildNavMesh();
 
 
-            player.transform.position = gameData.palyerPosition;
+            player.transform.position = gameData.playerPosition;
             
-            player.transform.rotation = gameData.palyerRotation;
+            player.transform.rotation = gameData.playerRotation;
 
             //playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
 
-            Debug.Log(gameData.palyerPosition);
+            Debug.Log(gameData.playerPosition);
         }
         else
         {
@@ -258,9 +285,9 @@ class GameData
 
     public int[,] mainFeld;
 
-    public SVector3 palyerPosition = new SVector3();
+    public SVector3 playerPosition = new SVector3();
 
-    public SQuaternion palyerRotation = new SQuaternion();
+    public SQuaternion playerRotation = new SQuaternion();
 
     public string GetString()
     {
