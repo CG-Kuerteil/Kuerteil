@@ -426,7 +426,7 @@ public class LabyrinthCreator : MonoBehaviour
                         }
                         else if (mainFeld[i + 1, j] == 1 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 0)
                         {
-                            SpawnElement(hub3, i, j, 90f);
+                            SpawnElement(hub2, i, j, 90f);
                         }
                         else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i - 1, j] == 1)
                         {
@@ -494,7 +494,7 @@ public class LabyrinthCreator : MonoBehaviour
                         {
                             SpawnElement(hub2, i, j, 90);
                         }
-                        else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j + 1] == 1 && mainFeld[i, j + 1] == 1)
+                        else if (mainFeld[i + 1, j] == 0 && mainFeld[i, j - 1] == 1 && mainFeld[i, j + 1] == 1)
                         {
                             SpawnElement(gangSmall, i, j, 90);
                         }
