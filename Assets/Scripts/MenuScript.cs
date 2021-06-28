@@ -41,28 +41,6 @@ public class MenuScript : MonoBehaviour
                 Time.timeScale = 1f;
                 GameControl.Instance.player.gameObject.GetComponent<FirstPersonController>().canLook = true;
             }
-            //Debug.Log("Menu state " + GameControl.instance._MenuState);
         }
     }
-
-    /*private void OnGUI()
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        { 
-            if (GUI.Button(new Rect(10, 100, 100, 40), "Save"))
-            {
-                GameControl.instance.Save();
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            if (GUI.Button(new Rect(10, 160, 100, 40), "Load"))
-            {
-                GameControl.instance.Load();
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            if (GUI.Button(new Rect(10, 220, 100, 40), "Exit"))
-            {
-                SceneManager.LoadScene(0);
-            }
-        }
-    }*/
 }

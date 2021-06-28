@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class KampfMinigameController : AbstractMinigameController<KampfMinigameController>
 {
-    
-    protected override void Hook()
-    {
-        Debug.Log("Spawned KampfMinigameController");
-    }
-
     private void Awake()
     {
         if (Instance != this && Instance != null)
@@ -20,9 +14,5 @@ public class KampfMinigameController : AbstractMinigameController<KampfMinigameC
         {
             Instance = this;
         }
-    }
-
-    private void Start()
-    {
     }
 }

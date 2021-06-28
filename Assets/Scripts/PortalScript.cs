@@ -5,17 +5,6 @@ using UnityEngine;
 public class PortalScript : MonoBehaviour
 {
     public int _SceneToTravelTo = 1;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider collision)
     {

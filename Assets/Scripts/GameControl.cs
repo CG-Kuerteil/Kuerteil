@@ -29,7 +29,6 @@ public class GameControl : MonoBehaviour
     public GameObject player;
     public AudioFiles audio;
 
-    //Scene 3 - Kampf
     public float _FireDamage = 1f;
     public float _HP_Pickup = 40f;
 
@@ -37,7 +36,6 @@ public class GameControl : MonoBehaviour
     public GameObject _Minigame_2_Controller;
     public GameObject _Minigame_4_Controller;
 
-    //false = menu closed vv
     public bool _MenuState = false;
 
     public int _NumberOfTries = 3;
@@ -53,6 +51,7 @@ public class GameControl : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        //Check if Isntance is Singleton
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -95,6 +94,10 @@ public class GameControl : MonoBehaviour
         audio = GetComponent<AudioFiles>();
     }
 
+    /// <summary>
+    /// Wechselt die Scene in eine Andere
+    /// </summary>
+    /// <param name="index">Der Index der neuen Scene</param>
     public void SceneWechseln(int index)
     {
         if (SceneManager.GetActiveScene().buildIndex != 0 && index == 1)
@@ -119,11 +122,18 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Beendet das Spiel
+    /// </summary>
     public void GameOver()
     {
         Debug.Log("GameOver...");
         Exit();
     }
+
+    /// <summary>
+    /// Beendet das Spiel
+    /// </summary>
     public void Exit()
     {
         /*#if UNITY_EDITOR
@@ -187,6 +197,9 @@ public class GameControl : MonoBehaviour
 
     Vector3[] portalPositionen;
 
+    /// <summary>
+    /// Speichert den Spielstand ab
+    /// </summary>
     public void Save()
     {
 
@@ -215,6 +228,9 @@ public class GameControl : MonoBehaviour
         fs.Close();
     }
 
+    /// <summary>
+    /// Laedt den zuletzt ghespeicherten Spielstand
+    /// </summary>
     public void Load()
     {
         if (File.Exists(Application.persistentDataPath + "/gameData.dat"))
@@ -265,6 +281,10 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fuegt einen -aufgehobenen- Schluessel zum "Inventar" hinzu
+    /// </summary>
+    /// <param name="keyType"></param>
     public void addKey(KeyType keyType)
     {
         if (_keyList.Contains(keyType) == false)
@@ -279,13 +299,10 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    enum Objects
-    {
-        Deko1, Deko2, Deko3, Portal1, Portal2, Portal3
-    }
-
-
-
+    /// <summary>
+    /// Speichert die Positionen der Generierten Portale privat ab.
+    /// </summary>
+    /// <param name="positionen"></param>
     public void SavePortalPositionen(Vector3[] positionen)
     {
         if (portalPositionen == null)
@@ -295,6 +312,11 @@ public class GameControl : MonoBehaviour
         portalPositionen = positionen;
     }
 
+    /// <summary>
+    /// Gibt das Array als String zurueck. Für Test Zwecke
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
     public static string PrintArray(Vector3[] list)
     {
         string tmp = "[";
@@ -306,7 +328,9 @@ public class GameControl : MonoBehaviour
     }
 }
 
-
+/// <summary>
+/// Eine GameData klasse wird intern benutzt, um alle relevanten Daten Konsistent im speicher zu halten.
+/// </summary>
 [Serializable]
 class GameData
 {
@@ -322,9 +346,4 @@ class GameData
     
 
     public SQuaternion playerRotation = new SQuaternion();
-
-    public string GetString()
-    {
-        return "Hello";
-    }
 }
