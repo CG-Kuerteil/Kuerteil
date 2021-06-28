@@ -27,27 +27,28 @@ public class LabyrinthCreator : MonoBehaviour
         _portalPositionen = position;
     }
 
-    [SerializeField]
-    private Transform[] _WallDekoListe;
+    [Header("Deko")]
     [SerializeField]
     private int _WallDekoAnzahl;
-
     [SerializeField]
-    private Transform[] _DekoListe;
-    
+    private Transform[] _WallDekoListe;
     private int _DekoRatio;
     [SerializeField]
     private int _DekoRatioMax;
+    [SerializeField]
+    private Transform[] _DekoListe;
 
-    public GameObject _EnemyOne;
-    public int _AnzahlGegner;
+    [Space]
+    [Header("Portale")]
+    [SerializeField]
+    private GameObject[] _Portale;
 
+    [Space]
+    [Header("General Settings")]
     public int dimension = 21;
     public int _Iterations = 20;
     public int gangWahrscheinlichkeit = 5;
-    [SerializeField]
-    private static string filepath =  "CSVData.csv";
-
+    private static string filepath = "CSVData.csv";
     public Transform gangSmall;
     public Transform hub1;
     public Transform hub2;
@@ -56,11 +57,16 @@ public class LabyrinthCreator : MonoBehaviour
 
     public Transform minispiel_portal;
     [SerializeField]
-    private GameObject[] _Portale;
+    
     public int anzahlMinispiele;
-
     public Transform _Light;
     public int anzahlLights = 20;
+
+    [Space]
+    [Header("Gegner")]
+    public GameObject _EnemyOne;
+    public int _AnzahlGegner;
+    
     private int[,] mainFeld;
 
     private int mitte;
@@ -118,7 +124,6 @@ public class LabyrinthCreator : MonoBehaviour
         }
         PrintCSV(mainFeld);
         PrintArray(mainFeld);
-        //Debug.Log("LEngth of MainField: " + mainFeld.GetLength(0));
         SpawnElements();
         SpawnPortals();
         SpawnLights();
@@ -126,8 +131,6 @@ public class LabyrinthCreator : MonoBehaviour
 
         //Add PortalPositions to Saving queue
         GameControl.Instance.SavePortalPositionen(_portalPositionen);
-
-        Debug.Log("LC:\tPortalpositionen nach speichern: " + GameControl.PrintArray(_portalPositionen));
     }
 
     public static string PrintList(List<Vector3> list)
@@ -211,16 +214,11 @@ public class LabyrinthCreator : MonoBehaviour
         {
             _portalPositionen = new Vector3[3];
         }
-        else
-        {
-            Debug.Log("LC:\tPortalpositionen vor Generieren: " + GameControl.PrintArray(_portalPositionen));
-        }
+
         GameObject[] sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
 
         if (_portalPositionen[0] != Vector3.zero)
         {
-            //Debug.Log("Portalposiitonen.LEngth: " + _portalPositionen.Count);
-
             for (int j = 0; j < _portalPositionen.Length; j++)
             {
                 Vector3 tmp = new Vector3(_portalPositionen[j].x, 0, _portalPositionen[j].z);
@@ -240,7 +238,6 @@ public class LabyrinthCreator : MonoBehaviour
                 {
                     if (_portalPositionen[l].x == sockelListe[k].transform.position.x && _portalPositionen[l].z == sockelListe[k].transform.position.z)
                     {
-                        //Debug.Log("PortalPositionen Contains sockel at: "+k);
                         Destroy(sockelListe[k]);
                     }
 
@@ -260,7 +257,6 @@ public class LabyrinthCreator : MonoBehaviour
             sockel = Random.Range(0, sockelList.Length);
 
             _portalPositionen[s] = (sockelList[sockel].transform.position);
-            Debug.Log("LC:\tSaved Position: " + s + " with: " + _portalPositionen[s]);
             Vector3 tmp = new Vector3(sockelList[sockel].transform.position.x, 0, sockelList[sockel].transform.position.z);
 
             Instantiate(_Portale[s], tmp, sockelList[sockel].transform.rotation);

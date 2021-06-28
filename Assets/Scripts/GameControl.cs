@@ -100,27 +100,22 @@ public class GameControl : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex != 0 && index == 1)
         {
             GameControl.Instance.Load();
-            Debug.Log("Scene Loading...");
         }
         if (SceneManager.GetActiveScene().buildIndex > 1 && index == 1)
         {
             GameControl.Instance.Load();
-            Debug.Log("Scene Loading...");
         }
         if (SceneManager.GetActiveScene().buildIndex == 1 && index > 1)
         {
             GameControl.Instance.Save();
-            Debug.Log("Saving Scene...");
         }
 
         SceneManager.LoadScene(index);
-        //Debug.Log("Scene Loading...");
 
         InitControllers(index);
         if (index == 1)
         {
             _GameOver = false;
-            //Destroy(gameObject);
         }
     }
 
@@ -207,7 +202,6 @@ public class GameControl : MonoBehaviour
         gameData.portalPosition2 = portalPositionen[1];
         gameData.portalPosition3 = portalPositionen[2];
 
-        Debug.Log(gameObject.GetInstanceID() + " GC:\tGespeicherte Position 1: " + gameData.portalPosition1);
         gameData.health = 100f;
 
         gameData.playerPosition = player.transform.position;
@@ -217,13 +211,8 @@ public class GameControl : MonoBehaviour
         gameData.mainFeld = arraySpawner.MainField;
         #endregion
 
-        //Debug.Log("Save: mainField length: " + gameData.mainFeld.GetLength(0));
-
-
         bf.Serialize(fs, gameData);
         fs.Close();
-
-        Debug.Log("SAVED...");
     }
 
     public void Load()
@@ -236,7 +225,6 @@ public class GameControl : MonoBehaviour
             GameData gameData = (GameData)bf.Deserialize(fs);
             fs.Close();
 
-            //DestroyObjects("Player");
             DestroyObjects("lab");
             DestroyObjects("Ground");
             DestroyObjects("Deko");
@@ -244,9 +232,6 @@ public class GameControl : MonoBehaviour
 
             player = GameObject.FindGameObjectWithTag("Player");
             arraySpawner.MainField = (int[,])gameData.mainFeld.Clone();
-            //Debug.Log("Load: mainField length: " + gameData.mainFeld.GetLength(0));
-            //Debug.Log("Laod->Creator: mainField length: " + arraySpawner.MainField.GetLength(0));
-            //Debug.Log("Laod->Dimension: " + arraySpawner.dimension);
 
             if (portalPositionen == null)
             {
@@ -256,27 +241,13 @@ public class GameControl : MonoBehaviour
             portalPositionen[1] = gameData.portalPosition2;
             portalPositionen[2] = gameData.portalPosition3;
 
-            Debug.Log("GC:\tGeladene Positionen: " + PrintArray(portalPositionen));
             arraySpawner.PortalPositionen = portalPositionen;
 
             arraySpawner.InitializeGeneration();
 
-            //Create NavMesh
-            //GetComponent<NavMeshGenerator>().BuildNavRoot();
-            //List<GameObject> tempList = new List<GameObject>();
-            //tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
-            //GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
-            //GetComponent<NavMeshGenerator>().BuildNavMesh();
-
-
             player.transform.position = gameData.playerPosition;
             
             player.transform.rotation = gameData.playerRotation;
-
-            //playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
-
-            Debug.Log(gameData.playerPosition);
-            Debug.Log("LOADED...");
         }
         else
         {
@@ -317,27 +288,11 @@ public class GameControl : MonoBehaviour
 
     public void SavePortalPositionen(Vector3[] positionen)
     {
-        Debug.Log("GC:\tList to Save: " + PrintArray(positionen));
-
         if (portalPositionen == null)
         {
-            Debug.Log("GC:\tHave to create new List<>");
             portalPositionen = new Vector3[3];
         }
         portalPositionen = positionen;
-
-        Debug.Log(gameObject.GetInstanceID() + " GC:\tList that was Saved: " + PrintArray(portalPositionen));
-        StartCoroutine(Printer());
-    }
-
-    IEnumerator Printer()
-    {
-        Debug.Log("Coroutine: printing Array:: " + PrintArray(GameControl.Instance.portalPositionen));
-        while (true)
-        {
-            yield return 2f;
-            Debug.Log("Coroutine: printing Array: " + PrintArray(GameControl.Instance.portalPositionen));
-        }
     }
 
     public static string PrintArray(Vector3[] list)
