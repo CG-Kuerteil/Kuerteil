@@ -9,7 +9,7 @@ public class MinimapCam : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _Target = GameControl.instance.player.transform;
+        _Target = GameControl.Instance.player.transform;
     }
 
     // Update is called once per frame

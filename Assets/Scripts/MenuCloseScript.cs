@@ -18,7 +18,7 @@ public class MenuCloseScript : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Debug.Log("Menu Closed...");
-        GameControl.instance._MenuState = false;
+        GameControl.Instance._MenuState = false;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

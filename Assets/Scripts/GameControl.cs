@@ -12,7 +12,16 @@ public class GameControl : MonoBehaviour
     [SerializeField]
     public Vector3 PlayerSpawnPosition = new Vector3(-2, 1, -2);
 
-    public static GameControl instance;
+    private static GameControl _instance;
+
+    public static GameControl Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
+
 
     public GameObject playerPref;
     private LabyrinthCreator arraySpawner;
@@ -44,18 +53,17 @@ public class GameControl : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance == null)
+        if (_instance != null && _instance != this)
         {
-            instance = this;
-
+            Destroy(this.gameObject);
+            Debug.Log("DESTROYED GO!!!");
         }
-        else if (instance != this)
+        else
         {
-            Destroy(gameObject);
-            return;
+            _instance = this;
         }
 
-        DontDestroyOnLoad(instance);
+        DontDestroyOnLoad(Instance);
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -69,7 +77,7 @@ public class GameControl : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
             player = Instantiate(playerPref, PlayerSpawnPosition, Quaternion.identity);
-            Debug.Log("Player Spawned!");
+            //Debug.Log("Player Spawned!");
         }
         else
         {
@@ -91,17 +99,17 @@ public class GameControl : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex != 0 && index == 1)
         {
-            Load();
+            GameControl.Instance.Load();
             Debug.Log("Scene Loading...");
         }
         if (SceneManager.GetActiveScene().buildIndex > 1 && index == 1)
         {
-            Load();
+            GameControl.Instance.Load();
             Debug.Log("Scene Loading...");
         }
         if (SceneManager.GetActiveScene().buildIndex == 1 && index > 1)
         {
-            Save();
+            GameControl.Instance.Save();
             Debug.Log("Saving Scene...");
         }
 
@@ -139,7 +147,7 @@ public class GameControl : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         Destroy(GameObject.FindGameObjectWithTag("Player"));
-        Destroy(instance.gameObject);
+        Destroy(Instance.gameObject);
     }
 
     private void Start()
@@ -154,7 +162,10 @@ public class GameControl : MonoBehaviour
 
             arraySpawner.SpawnEnemies();
         }
-        portalPositionen = new List<SVector3>();
+        if (portalPositionen == null)
+        {
+            portalPositionen = new Vector3[3];
+        }
     }
 
     private void InitControllers(int index)
@@ -179,7 +190,7 @@ public class GameControl : MonoBehaviour
         }
     }
 
-    List<SVector3> portalPositionen;
+    Vector3[] portalPositionen;
 
     public void Save()
     {
@@ -192,8 +203,11 @@ public class GameControl : MonoBehaviour
 
         #region Saving Data
 
-        gameData.PortalPositionen = portalPositionen;
-        
+        gameData.portalPosition1 = portalPositionen[0];
+        gameData.portalPosition2 = portalPositionen[1];
+        gameData.portalPosition3 = portalPositionen[2];
+
+        Debug.Log(gameObject.GetInstanceID() + " GC:\tGespeicherte Position 1: " + gameData.portalPosition1);
         gameData.health = 100f;
 
         gameData.playerPosition = player.transform.position;
@@ -203,7 +217,7 @@ public class GameControl : MonoBehaviour
         gameData.mainFeld = arraySpawner.MainField;
         #endregion
 
-        Debug.Log("Save: mainField length: " + gameData.mainFeld.GetLength(0));
+        //Debug.Log("Save: mainField length: " + gameData.mainFeld.GetLength(0));
 
 
         bf.Serialize(fs, gameData);
@@ -220,7 +234,6 @@ public class GameControl : MonoBehaviour
             FileStream fs = File.Open(Application.persistentDataPath + "/gameData.dat", FileMode.Open);
 
             GameData gameData = (GameData)bf.Deserialize(fs);
-            Debug.Log("LOADED...");
             fs.Close();
 
             //DestroyObjects("Player");
@@ -231,16 +244,20 @@ public class GameControl : MonoBehaviour
 
             player = GameObject.FindGameObjectWithTag("Player");
             arraySpawner.MainField = (int[,])gameData.mainFeld.Clone();
-            Debug.Log("Load: mainField length: " + gameData.mainFeld.GetLength(0));
-            Debug.Log("Laod->Creator: mainField length: " + arraySpawner.MainField.GetLength(0));
-            Debug.Log("Laod->Dimension: " + arraySpawner.dimension);
+            //Debug.Log("Load: mainField length: " + gameData.mainFeld.GetLength(0));
+            //Debug.Log("Laod->Creator: mainField length: " + arraySpawner.MainField.GetLength(0));
+            //Debug.Log("Laod->Dimension: " + arraySpawner.dimension);
 
-            List<Vector3> newPositionen = new List<Vector3>();
-            foreach (var position in gameData.PortalPositionen)
+            if (portalPositionen == null)
             {
-                newPositionen.Add(position);
+                portalPositionen = new Vector3[3];
             }
-            arraySpawner.PortalPositionen = newPositionen;
+            portalPositionen[0] = gameData.portalPosition1;
+            portalPositionen[1] = gameData.portalPosition2;
+            portalPositionen[2] = gameData.portalPosition3;
+
+            Debug.Log("GC:\tGeladene Positionen: " + PrintArray(portalPositionen));
+            arraySpawner.PortalPositionen = portalPositionen;
 
             arraySpawner.InitializeGeneration();
 
@@ -259,6 +276,7 @@ public class GameControl : MonoBehaviour
             //playerObj = Instantiate(player, gameData.palyerPosition, gameData.palyerRotation);
 
             Debug.Log(gameData.playerPosition);
+            Debug.Log("LOADED...");
         }
         else
         {
@@ -297,16 +315,39 @@ public class GameControl : MonoBehaviour
 
 
 
-    public void SavePortalPositionen(List<Vector3> positionen)
+    public void SavePortalPositionen(Vector3[] positionen)
     {
+        Debug.Log("GC:\tList to Save: " + PrintArray(positionen));
+
         if (portalPositionen == null)
         {
-            portalPositionen = new List<SVector3>();
+            Debug.Log("GC:\tHave to create new List<>");
+            portalPositionen = new Vector3[3];
         }
-        foreach (var position in positionen)
+        portalPositionen = positionen;
+
+        Debug.Log(gameObject.GetInstanceID() + " GC:\tList that was Saved: " + PrintArray(portalPositionen));
+        StartCoroutine(Printer());
+    }
+
+    IEnumerator Printer()
+    {
+        Debug.Log("Coroutine: printing Array:: " + PrintArray(GameControl.Instance.portalPositionen));
+        while (true)
         {
-            portalPositionen.Add(position);
+            yield return 2f;
+            Debug.Log("Coroutine: printing Array: " + PrintArray(GameControl.Instance.portalPositionen));
         }
+    }
+
+    public static string PrintArray(Vector3[] list)
+    {
+        string tmp = "[";
+        foreach (var item in list)
+        {
+            tmp += ", " + item.ToString();
+        }
+        return tmp + "]";
     }
 }
 
@@ -314,13 +355,16 @@ public class GameControl : MonoBehaviour
 [Serializable]
 class GameData
 {
-    public List<SVector3> PortalPositionen;
+    public SVector3 portalPosition1 = new SVector3();
+    public SVector3 portalPosition2 = new SVector3();
+    public SVector3 portalPosition3 = new SVector3();
 
     public float health;
 
     public int[,] mainFeld;
 
     public SVector3 playerPosition = new SVector3();
+    
 
     public SQuaternion playerRotation = new SQuaternion();
 

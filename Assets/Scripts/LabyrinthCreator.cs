@@ -8,9 +8,9 @@ using Random = UnityEngine.Random;
 
 public class LabyrinthCreator : MonoBehaviour
 {
-    private List<Vector3> _portalPositionen;
+    private Vector3[] _portalPositionen;
 
-    public List<Vector3> PortalPositionen
+    public Vector3[] PortalPositionen
     {
         get
         {
@@ -22,12 +22,9 @@ public class LabyrinthCreator : MonoBehaviour
         }
     }
 
-    public void AddPortalPosition(Vector3 position)
+    public void AddPortalPosition(Vector3[] position)
     {
-        if (!_portalPositionen.Contains(position))
-        {
-            _portalPositionen.Add(position);
-        }
+        _portalPositionen = position;
     }
 
     [SerializeField]
@@ -37,8 +34,9 @@ public class LabyrinthCreator : MonoBehaviour
 
     [SerializeField]
     private Transform[] _DekoListe;
-    [SerializeField]
+    
     private int _DekoRatio;
+    [SerializeField]
     private int _DekoRatioMax;
 
     public GameObject _EnemyOne;
@@ -83,7 +81,10 @@ public class LabyrinthCreator : MonoBehaviour
 
     private void Awake()
     {
-        _portalPositionen = new List<Vector3>();
+        if (_portalPositionen == null)
+        {
+            _portalPositionen = new Vector3[3];
+        }
     }
 
     /// <summary>
@@ -92,7 +93,7 @@ public class LabyrinthCreator : MonoBehaviour
     /// </summary>
     public void InitializeGeneration()
     {
-        _DekoRatioMax = _DekoRatio;
+        _DekoRatio = _DekoRatioMax;
         if (mainFeld == null)
         {
             mainFeld = new int[dimension, dimension];
@@ -117,14 +118,26 @@ public class LabyrinthCreator : MonoBehaviour
         }
         PrintCSV(mainFeld);
         PrintArray(mainFeld);
-        Debug.Log("LEngth of MainField: " + mainFeld.GetLength(0));
+        //Debug.Log("LEngth of MainField: " + mainFeld.GetLength(0));
         SpawnElements();
         SpawnPortals();
         SpawnLights();
         SpawnWallDeko();
 
         //Add PortalPositions to Saving queue
-        GameControl.instance.SavePortalPositionen(_portalPositionen);
+        GameControl.Instance.SavePortalPositionen(_portalPositionen);
+
+        Debug.Log("LC:\tPortalpositionen nach speichern: " + GameControl.PrintArray(_portalPositionen));
+    }
+
+    public static string PrintList(List<Vector3> list)
+    {
+        string tmp = "[";
+        foreach (var item in list)
+        {
+            tmp += ", " + item.ToString();
+        }
+        return tmp + "]";
     }
 
     public void SpawnWallDeko()
@@ -196,39 +209,49 @@ public class LabyrinthCreator : MonoBehaviour
     {
         if (_portalPositionen == null)
         {
-            _portalPositionen = new List<Vector3>();
+            _portalPositionen = new Vector3[3];
         }
-
-        if (_portalPositionen.Count > 0)
+        else
         {
-            Debug.Log("Portalposiitonen.LEngth: " + _portalPositionen.Count);
+            Debug.Log("LC:\tPortalpositionen vor Generieren: " + GameControl.PrintArray(_portalPositionen));
+        }
+        GameObject[] sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
 
-            for (int j = 0; j < _portalPositionen.Count; j++)
+        if (_portalPositionen[0] != Vector3.zero)
+        {
+            //Debug.Log("Portalposiitonen.LEngth: " + _portalPositionen.Count);
+
+            for (int j = 0; j < _portalPositionen.Length; j++)
             {
-                for (int i = 0; i < _Portale.Length; i++)
+                Vector3 tmp = new Vector3(_portalPositionen[j].x, 0, _portalPositionen[j].z);
+
+                for (int k = 0; k < sockelList.Length; k++)
                 {
-                    Vector3 tmp = new Vector3(_portalPositionen[j].x, 0, _portalPositionen[j].z);
-
-                    Instantiate(_Portale[i], tmp, Quaternion.identity);
-
+                    if (_portalPositionen[j] == sockelList[k].transform.position)
+                    {
+                        Instantiate(_Portale[j], tmp, sockelList[k].transform.rotation);
+                    }
                 }
             }
             GameObject[] sockelListe = GameObject.FindGameObjectsWithTag("WandSockel");
             for (int k = 0; k < sockelListe.Length; k++)
             {
-                if (_portalPositionen.Contains(sockelListe[k].transform.position))
+                for (int l = 0; l < _portalPositionen.Length; l++)
                 {
-                    Debug.Log("PortalPositionen Contains sockel at: "+k);
-                    Destroy(sockelListe[k]);
+                    if (_portalPositionen[l].x == sockelListe[k].transform.position.x && _portalPositionen[l].z == sockelListe[k].transform.position.z)
+                    {
+                        //Debug.Log("PortalPositionen Contains sockel at: "+k);
+                        Destroy(sockelListe[k]);
+                    }
+
                 }
             }
             return;
-
         }
         //TODO: speichere Sockelpositionen beim generieren und vor dem löschen des jeweiligen sockels.
         int s = 0;
 
-        GameObject[] sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
+        sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
 
         int sockel;
 
@@ -236,8 +259,8 @@ public class LabyrinthCreator : MonoBehaviour
         {
             sockel = Random.Range(0, sockelList.Length);
 
-            _portalPositionen.Add(sockelList[sockel].transform.position);
-
+            _portalPositionen[s] = (sockelList[sockel].transform.position);
+            Debug.Log("LC:\tSaved Position: " + s + " with: " + _portalPositionen[s]);
             Vector3 tmp = new Vector3(sockelList[sockel].transform.position.x, 0, sockelList[sockel].transform.position.z);
 
             Instantiate(_Portale[s], tmp, sockelList[sockel].transform.rotation);
@@ -747,7 +770,7 @@ public class LabyrinthCreator : MonoBehaviour
             }
             sb.AppendLine();
         }
-        Debug.Log(sb.ToString());
+        //Debug.Log(sb.ToString());
     }
 
     private static void PrintCSV(int[,] m)

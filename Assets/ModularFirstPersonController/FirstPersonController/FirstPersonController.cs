@@ -432,7 +432,7 @@ public class FirstPersonController : MonoBehaviour
                 {
                     if (!audioSource.isPlaying)
                     {
-                        audioSource.PlayOneShot(GameControl.instance.audio.PickRandom());
+                        audioSource.PlayOneShot(GameControl.Instance.audio.PickRandom());
                     }
                 }
 
@@ -477,7 +477,7 @@ public class FirstPersonController : MonoBehaviour
                 {
                     if (!audioSource.isPlaying)
                     {
-                        audioSource.PlayOneShot(GameControl.instance.audio.PickRandomLong());
+                        audioSource.PlayOneShot(GameControl.Instance.audio.PickRandomLong());
                     }
                 }
 

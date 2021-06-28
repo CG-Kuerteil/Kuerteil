@@ -17,7 +17,7 @@ public class MenuScript : MonoBehaviour
     }
     private void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex != 0 && GameControl.instance._GameOver == false)
+        if (SceneManager.GetActiveScene().buildIndex != 0 && GameControl.Instance._GameOver == false)
         {
             if (Input.GetKeyUp(KeyCode.Tab) && _MenuView.GetComponent<Animator>().GetBool("menuOpen") == false)
             {
@@ -29,19 +29,19 @@ public class MenuScript : MonoBehaviour
                 _MenuView.GetComponent<Animator>().Play("MenuClosingState");
                 _MenuView.GetComponent<Animator>().SetBool("menuOpen", false);
             }
-            if (GameControl.instance._MenuState == true)
+            if (GameControl.Instance._MenuState == true)
             {
-                GameControl.instance.player.gameObject.GetComponent<FirstPersonController>().canLook = false;
+                GameControl.Instance.player.gameObject.GetComponent<FirstPersonController>().canLook = false;
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0f;
             }
-            else if (GameControl.instance._MenuState == false)
+            else if (GameControl.Instance._MenuState == false)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1f;
-                GameControl.instance.player.gameObject.GetComponent<FirstPersonController>().canLook = true;
+                GameControl.Instance.player.gameObject.GetComponent<FirstPersonController>().canLook = true;
             }
-            Debug.Log("Menu state " + GameControl.instance._MenuState);
+            //Debug.Log("Menu state " + GameControl.instance._MenuState);
         }
     }
 

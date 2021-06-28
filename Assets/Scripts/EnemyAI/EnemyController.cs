@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
         {
             if (!audioSource.isPlaying)
             {
-                audioSource.PlayOneShot(GameControl.instance.audio.PickRandom());
+                audioSource.PlayOneShot(GameControl.Instance.audio.PickRandom());
             }
         }
         if (_ShootRayCast == true)

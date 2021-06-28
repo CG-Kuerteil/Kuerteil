@@ -28,17 +28,17 @@ public class ButtonScript : MonoBehaviour
 
     public void Exit()
     {
-        GameControl.instance.Exit();
+        GameControl.Instance.Exit();
     }
 
     public void Load()
     {
-        GameControl.instance.Load();
+        GameControl.Instance.Load();
     }
 
     public void Save()
     {
-        GameControl.instance.Save();
+        GameControl.Instance.Save();
     }
 
     /*private void Load()

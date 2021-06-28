@@ -93,11 +93,11 @@ public abstract class AbstractMinigameController<T> : MonoBehaviour where T : Mo
         _NumberOfTries--;
         if (_NumberOfTries < 0)
         {
-            GameControl.instance.GameOver();
+            GameControl.Instance.GameOver();
         }
         else
         {
-            GameControl.instance.SceneWechseln(_MinigameSceneIndex);
+            GameControl.Instance.SceneWechseln(_MinigameSceneIndex);
         }
     }
 }

@@ -20,8 +20,8 @@ public class PlayerHealthController : MonoBehaviour
         _Slider.minValue = 0f;
         _Slider.maxValue = _HP;
         _Slider.value = _HP;
-        _HP_Pickup_Amount = GameControl.instance._HP_Pickup;
-        _Damage = GameControl.instance._FireDamage;
+        _HP_Pickup_Amount = GameControl.Instance._HP_Pickup;
+        _Damage = GameControl.Instance._FireDamage;
     }
 
     // Update is called once per frame
@@ -69,7 +69,7 @@ public class PlayerHealthController : MonoBehaviour
             }
             else if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                GameControl.instance.Exit();
+                GameControl.Instance.Exit();
             }
             _Slider.value = 0f;
         }

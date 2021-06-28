@@ -343,7 +343,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _DekoRatioMax
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _WallDekoAnzahl

@@ -8,7 +8,7 @@ public class FireDamagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _FireDamage = GameControl.instance._FireDamage;
+        _FireDamage = GameControl.Instance._FireDamage;
     }
 
     // Update is called once per frame

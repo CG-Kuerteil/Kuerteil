@@ -25,16 +25,16 @@ public class BossController : MonoBehaviour
         _HPSlider.maxValue = _HP;
         _HPSlider.value = _HP;
         agent = GetComponent<NavMeshAgent>();
-        _Target = GameControl.instance.player.transform;
+        _Target = GameControl.Instance.player.transform;
         _Animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameControl.instance._GameOver == false)
+        if (GameControl.Instance._GameOver == false)
         {
-            _HPSlider.GetComponentInParent<Transform>().rotation = Quaternion.LookRotation(GameControl.instance.player.transform.position, Vector3.up);
+            _HPSlider.GetComponentInParent<Transform>().rotation = Quaternion.LookRotation(GameControl.Instance.player.transform.position, Vector3.up);
             
             if (Vector3.Distance(transform.position, _Target.position) <= _AttackDistance)
             {

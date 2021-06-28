@@ -8,7 +8,7 @@ public class Key : Collectable
     public KeyType _keyType;
     protected override void OnCollect()
     {
-        GameControl.instance.addKey(_keyType);
+        GameControl.Instance.addKey(_keyType);
         Destroy(gameObject);
     }
 

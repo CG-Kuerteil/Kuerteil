@@ -25,7 +25,7 @@ public class MenuSetOpen : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Debug.Log("Menu Opened...");
-        GameControl.instance._MenuState = true;
+        GameControl.Instance._MenuState = true;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

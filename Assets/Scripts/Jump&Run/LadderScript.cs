@@ -15,11 +15,11 @@ public class LadderScript : MonoBehaviour
 		//FPSInput = GetComponent<FirstPersonController>();
 		if (FPSInput != null)
         {
-			Debug.Log("The class was loaded:");
+			//Debug.Log("The class was loaded:");
         }
         else
         {
-			Debug.Log("The class was not loaded");
+			//Debug.Log("The class was not loaded");
         }
 		inside = false;
 	}

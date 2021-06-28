@@ -22,7 +22,7 @@ public class PortalScript : MonoBehaviour
         if (collision.tag == "Player")
         {
             Debug.Log("Loading Scene: " + _SceneToTravelTo);
-            GameControl.instance.SceneWechseln(_SceneToTravelTo);
+            GameControl.Instance.SceneWechseln(_SceneToTravelTo);
             Debug.Log("Minigame done! new Scene: "+_SceneToTravelTo);
         }
     }
