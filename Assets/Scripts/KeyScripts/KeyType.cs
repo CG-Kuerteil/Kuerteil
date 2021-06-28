@@ -5,5 +5,5 @@ using UnityEngine;
 [System.Flags]
 public enum KeyType
 {
-    RedKey, BlueKey, WhiteKey
+    RedKey, BlueKey, GreenKey
 }

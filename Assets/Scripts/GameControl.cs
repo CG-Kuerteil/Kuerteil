@@ -291,6 +291,9 @@ public class GameControl : MonoBehaviour
         {
             _keyList.Add(keyType);
             Debug.Log("KeyCollected: "+keyType);
+
+            GameObject.FindObjectOfType<KeyUIManager>().KeyPickedUp(keyType);
+
             //Todo: notify UI
         }
         else

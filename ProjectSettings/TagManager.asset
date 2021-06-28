@@ -16,6 +16,7 @@ TagManager:
   - Button
   - Ladder
   - CheckPoint
+  - KeyManagerView
   layers:
   - Default
   - TransparentFX

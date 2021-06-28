@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class MenuScript : MonoBehaviour
 {
     public GameObject _MenuView;
+    public GameObject _KeyManagerView;
+
     private bool menuOn;
 
     private void Start()
@@ -14,20 +16,32 @@ public class MenuScript : MonoBehaviour
         {
             _MenuView = GameObject.FindGameObjectWithTag("MenuView");
         }
+        if (_KeyManagerView == null)
+        {
+            _KeyManagerView = GameObject.FindGameObjectWithTag("KeyManagerView");
+        }
     }
     private void Update()
     {
         if (SceneManager.GetActiveScene().buildIndex != 0 && GameControl.Instance._GameOver == false)
         {
-            if (Input.GetKeyUp(KeyCode.Tab) && _MenuView.GetComponent<Animator>().GetBool("menuOpen") == false)
+            if (Input.GetKeyUp(KeyCode.Tab) && _MenuView.GetComponent<Animator>().GetBool("menuOpen") == false && _KeyManagerView.GetComponent<Animator>().GetBool("menuOpen") == false)
             {
+                _KeyManagerView.GetComponent<Animator>().Play("MenuOpeningState");
                 _MenuView.GetComponent<Animator>().Play("MenuOpeningState");
                 _MenuView.GetComponent<Animator>().SetBool("menuOpen", true);
+                _KeyManagerView.GetComponent<Animator>().SetBool("menuOpen", true);
+                //KeyManager:
+
             }
-            else if (Input.GetKeyUp(KeyCode.Tab) && _MenuView.GetComponent<Animator>().GetBool("menuOpen") == true)
+            else if (Input.GetKeyUp(KeyCode.Tab) && _MenuView.GetComponent<Animator>().GetBool("menuOpen") == true && _KeyManagerView.GetComponent<Animator>().GetBool("menuOpen") == true)
             {
+                _KeyManagerView.GetComponent<Animator>().Play("MenuClosingState");
                 _MenuView.GetComponent<Animator>().Play("MenuClosingState");
+
                 _MenuView.GetComponent<Animator>().SetBool("menuOpen", false);
+                //KeyManager:
+                _KeyManagerView.GetComponent<Animator>().SetBool("menuOpen", false);
             }
             if (GameControl.Instance._MenuState == true)
             {
