@@ -27,8 +27,16 @@ public abstract class AbstractMinigameController<T> : MonoBehaviour where T : Mo
 
     [SerializeField]
     protected GameObject _TeleporterPref;
-
     
+    [SerializeField]
+    protected Mesh _TeleporterMeshForDebug;
+
+    [SerializeField]
+    protected GameObject _keyObject;
+
+    [SerializeField]
+    protected Mesh _keyMeshForDebug;
+
     private int _NumberOfTries;
 
     public int NumberOfTries
@@ -99,5 +107,14 @@ public abstract class AbstractMinigameController<T> : MonoBehaviour where T : Mo
         {
             GameControl.Instance.SceneWechseln(_MinigameSceneIndex);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireMesh(_TeleporterMeshForDebug, _PortalSpawnLocation);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireMesh(_keyMeshForDebug, _PortalSpawnLocation);
     }
 }

@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TeleporterPref: {fileID: 1498697634455658422, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
-  _NumberOfTries: 0
-  _PortalSpawnLocation: {x: 4, y: 0, z: 4}
+  _TeleporterMeshForDebug: {fileID: 0}
+  _keyObject: {fileID: 0}
+  _keyMeshForDebug: {fileID: 0}
+  _PortalSpawnLocation: {x: 16.8, y: 0, z: -14.69}

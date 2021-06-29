@@ -10,7 +10,7 @@ public class SpawnPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _SpawnPosition = GetComponent<Transform>().position;
+        //_SpawnPosition = GetComponent<Transform>().position;
 
         if (GameObject.FindGameObjectWithTag("Player") == null)
         {
@@ -18,13 +18,13 @@ public class SpawnPlayer : MonoBehaviour
         }
         else
         {
-            GameObject.FindGameObjectWithTag("Player").transform.position = transform.position;
+            GameObject.FindGameObjectWithTag("Player").transform.position = _SpawnPosition;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDrawGizmos()
     {
-        
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(_SpawnPosition + Vector3.up, new Vector3(1, 2, 1));
     }
 }

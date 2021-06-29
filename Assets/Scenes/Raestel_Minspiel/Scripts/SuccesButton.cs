@@ -12,25 +12,34 @@ public class SuccesButton : AbstractButton
     [SerializeField]
     private Animator controller;
 
+    [Header("Key Management")]
+    public GameObject Key;
+
+    [SerializeField]
+    public Vector3 KeySpawnPosition;
+
+    public Mesh KeyMesh;
+
     public override void PushButton()
     {
-        Light.SetActive(true);
-        Text.SetActive(true);
+        //Light.SetActive(true);
+        //Text.SetActive(true);
         trigger = true;
         controller.SetBool("click", true);
-        RaetselMinigameController.Instance.ChallengeCompleted();
+        //RaetselMinigameController.Instance.ChallengeCompleted();
+        Instantiate(Key, KeySpawnPosition, Quaternion.identity);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Light.SetActive(false);
-        Text.SetActive(false);
+        //Light.SetActive(false);
+        //Text.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDrawGizmos()
     {
-
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireMesh(KeyMesh, KeySpawnPosition);
     }
 }

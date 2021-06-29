@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Collectable : MonoBehaviour
 {
+    [SerializeField]
+    protected string PlayerTag = "Player";
     /// <summary>
     /// Called when collided with "Player" tag GO
     /// </summary>
@@ -11,7 +13,7 @@ public abstract class Collectable : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.tag == "Player")
+        if (collision.transform.tag == PlayerTag)
         {
             OnCollect();
         }

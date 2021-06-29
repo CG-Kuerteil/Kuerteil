@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9199580937131160000}
   - component: {fileID: 1998128280699537884}
   m_Layer: 0
-  m_Name: RedKey
+  m_Name: GreenKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerTag: Player
-  _keyType: 0
+  _keyType: 2
 --- !u!114 &9199580937131160000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +146,7 @@ PrefabInstance:
     - target: {fileID: -7635826562936255635, guid: c33ccc94831d38b42a57f1f68fd862b4, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b39409f174691ef479b86a7c44d23c53, type: 2}
+      objectReference: {fileID: 2100000, guid: 99a157d4275f67948bc7000955bca096, type: 2}
     - target: {fileID: 919132149155446097, guid: c33ccc94831d38b42a57f1f68fd862b4, type: 3}
       propertyPath: m_Name
       value: key

@@ -18,6 +18,14 @@ public class BossController : MonoBehaviour
     public Slider _HPSlider;
     public GameObject _DieVFX;
     public bool _GameOver = false;
+
+    public GameObject Key;
+
+    [SerializeField]
+    public Vector3 KeySpawnPosition;
+
+    public Mesh KeyMesh;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +66,12 @@ public class BossController : MonoBehaviour
         }
     }
 
+    private void ChallengeCompleted()
+    {
+        Instantiate(Key, KeySpawnPosition, Quaternion.identity);
+        //KampfMinigameController.Instance.ChallengeCompleted();
+    }
+
     public void TakeDamage(float d)
     {
         if (_HP - d <= 0)
@@ -66,7 +80,7 @@ public class BossController : MonoBehaviour
             Destroy(gameObject);
             GameObject explosion = Instantiate(_DieVFX, transform.position, Quaternion.identity);
             Destroy(explosion, 4f);
-            KampfMinigameController.Instance.ChallengeCompleted();
+            ChallengeCompleted();
         }
         else
         {
@@ -91,5 +105,11 @@ public class BossController : MonoBehaviour
         {
             _InRange = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireMesh(KeyMesh, KeySpawnPosition);
     }
 }
