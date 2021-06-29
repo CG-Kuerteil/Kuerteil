@@ -74,7 +74,7 @@ public class PlayerHealthController : MonoBehaviour
             }
             else if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                GameControl.Instance.Exit();
+                GameControl.Instance.GameOver();
             }
             _Slider.value = 0f;
         }

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Raestel_Minspiel/Scenes/Raetsel_1.unity
     guid: 6750a097698d27a46817c21f459570ef
+  - enabled: 1
+    path: Assets/Scenes/Haupt Menu/EndMenu.unity
+    guid: 2eb33ed12498923409f446d2d1e94b74
   m_configObjects: {}

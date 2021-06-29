@@ -8,25 +8,32 @@ using Random = UnityEngine.Random;
 public class EnemyController : MonoBehaviour
 {
     private AudioFiles audioFiles;
+    [SerializeField]
     private AudioSource audioSource;
 
     private GameObject[] _AvailablePaths;
     public float _LookRadius = 10f;
     public Transform _PositionMarker;
     GameObject target;
+    [SerializeField]
     NavMeshAgent agent;
     private SphereCollider col;
     bool _ShootRayCast = false;
     private Vector3 _LastKnownPosition;
+
+
+    [SerializeField]
     private Animator animator;
+
+    private bool _attacking = false;
 
     // Start is called before the first frame update
     void Start()
     {
         Physics2D.queriesStartInColliders = false;
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player");
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
         col = GetComponent<SphereCollider>();
 
         #region AudioSetp
@@ -56,7 +63,7 @@ public class EnemyController : MonoBehaviour
                     float distance = Vector3.Distance(target.transform.position, transform.position);
                     agent.isStopped = false;
                     agent.SetDestination(target.transform.position);
-                    animator.Play("Run");
+                    //animator.Play("Run");
                     if (distance <= agent.stoppingDistance)
                     {
                         //TODO: Attack the target
@@ -68,7 +75,10 @@ public class EnemyController : MonoBehaviour
                 {
                     if (agent.transform.position == _LastKnownPosition)
                     {
-                        animator.Play("Walk");
+                        if (!_attacking)
+                        {
+                            animator.Play("Walk");
+                        }
                     }
                     Debug.Log("raycast not hit, gameObject: " + hit.collider.GetInstanceID()+". name: "+hit.collider.transform.name);
 
@@ -142,6 +152,20 @@ public class EnemyController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             _ShootRayCast = false;
+        }
+    }
+
+    public void Attack(bool state)
+    {
+        if (state)
+        {
+            animator.Play("Attack");
+            _attacking = true;
+        }
+        else
+        {
+            animator.Play("Walk");
+            _attacking = false;
         }
     }
 

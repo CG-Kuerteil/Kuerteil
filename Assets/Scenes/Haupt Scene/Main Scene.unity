@@ -318,6 +318,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: Door
+      value: 
+      objectReference: {fileID: 4422158401103843142, guid: 2d8cc615a73ab284b8ba3680739c16e0, type: 3}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _EnemyOne
       value: 
       objectReference: {fileID: 559624715636395165, guid: 5cb37872ffca64f41a55a0ecda495081, type: 3}

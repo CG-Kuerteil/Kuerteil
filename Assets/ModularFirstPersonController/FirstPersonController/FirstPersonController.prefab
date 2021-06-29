@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1372967951}
   - component: {fileID: 1372967950}
   - component: {fileID: 1372967949}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

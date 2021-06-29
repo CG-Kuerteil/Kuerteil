@@ -46,6 +46,14 @@ public class GameControl : MonoBehaviour
 
     private List<KeyType> _keyList = new List<KeyType>();
 
+    public List<KeyType> KeyList
+    {
+        get
+        {
+            return _keyList;
+        }
+    }
+
     #endregion
 
     // Start is called before the first frame update
@@ -84,8 +92,9 @@ public class GameControl : MonoBehaviour
             player.transform.position = PlayerSpawnPosition;
         }
         
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 1 && !_dontGenerate)
         {
+            Debug.Log("----------------neu generiert...-----------------");
             arraySpawner.InitializeGeneration();
         }
 
@@ -93,6 +102,8 @@ public class GameControl : MonoBehaviour
         player.GetComponent<FirstPersonController>().canLook = true;
         audio = GetComponent<AudioFiles>();
     }
+
+    private bool _dontGenerate = false;
 
     /// <summary>
     /// Wechselt die Scene in eine Andere
@@ -102,20 +113,19 @@ public class GameControl : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex != 0 && index == 1)
         {
+            _dontGenerate = true;
+            SceneManager.LoadScene(index);
             GameControl.Instance.Load();
+            
         }
-        if (SceneManager.GetActiveScene().buildIndex > 1 && index == 1)
-        {
-            GameControl.Instance.Load();
-        }
-        if (SceneManager.GetActiveScene().buildIndex == 1 && index > 1)
+        else if (SceneManager.GetActiveScene().buildIndex == 1 && index > 1)
         {
             GameControl.Instance.Save();
+            SceneManager.LoadScene(index);
         }
 
-        SceneManager.LoadScene(index);
-
         InitControllers(index);
+
         if (index == 1)
         {
             _GameOver = false;
@@ -128,7 +138,13 @@ public class GameControl : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("GameOver...");
-        Exit();
+        //Load try again...
+        SceneManager.LoadScene(5);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Destroy(Instance.gameObject);
+        //Exit();
     }
 
     /// <summary>
@@ -198,6 +214,14 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called when Door has been openened and Game is Won
+    /// </summary>
+    public void GameWon()
+    {
+        SceneManager.LoadScene(5);
+    }
+
     Vector3[] portalPositionen;
 
     /// <summary>
@@ -225,6 +249,24 @@ public class GameControl : MonoBehaviour
         gameData.playerRotation = player.transform.rotation;
 
         gameData.mainFeld = arraySpawner.MainField;
+
+        foreach (var key in KeyList)
+        {
+            switch (key)
+            {
+                case KeyType.RedKey:
+                    gameData.Schluessel[0] = true;
+                    break;
+                case KeyType.BlueKey:
+                    gameData.Schluessel[1] = true;
+                    break;
+                case KeyType.GreenKey:
+                    gameData.Schluessel[2] = true;
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
 
         bf.Serialize(fs, gameData);
@@ -260,11 +302,25 @@ public class GameControl : MonoBehaviour
             portalPositionen[1] = gameData.portalPosition2;
             portalPositionen[2] = gameData.portalPosition3;
 
+            if (gameData.Schluessel[0] == true)
+            {
+                _keyList.Add(KeyType.RedKey);
+            }
+            if (gameData.Schluessel[1] == true)
+            {
+                _keyList.Add(KeyType.BlueKey);
+            }
+            if (gameData.Schluessel[2] == true)
+            {
+                _keyList.Add(KeyType.GreenKey);
+            }
+
             arraySpawner.PortalPositionen = portalPositionen;
 
             arraySpawner.InitializeGeneration();
 
-            player.transform.position = gameData.playerPosition;
+            player.transform.position = PlayerSpawnPosition;
+            //player.transform.position = gameData.playerPosition;
             
             player.transform.rotation = gameData.playerRotation;
         }
@@ -337,6 +393,7 @@ public class GameControl : MonoBehaviour
 /// <summary>
 /// Eine GameData klasse wird intern benutzt, um alle relevanten Daten Konsistent im speicher zu halten.
 /// </summary>
+/// 
 [Serializable]
 class GameData
 {
@@ -344,12 +401,18 @@ class GameData
     public SVector3 portalPosition2 = new SVector3();
     public SVector3 portalPosition3 = new SVector3();
 
+    /// <summary>
+    /// [0] = redKey
+    /// [1] = blueKey
+    /// [2] = greeenKey
+    /// </summary>
+    public bool[] Schluessel = new bool[3];
+
     public float health;
 
     public int[,] mainFeld;
 
     public SVector3 playerPosition = new SVector3();
     
-
     public SQuaternion playerRotation = new SQuaternion();
 }

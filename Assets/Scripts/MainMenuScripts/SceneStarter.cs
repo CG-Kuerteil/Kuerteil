@@ -16,7 +16,14 @@ public class SceneStarter : MonoBehaviour
 
     void start()
     {
-        SceneManager.LoadScene(1);
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }
     }
     // Update is called once per frame
     void Update()

@@ -85,6 +85,11 @@ public class LabyrinthCreator : MonoBehaviour
         }
     }
 
+    [Space]
+    [Header("Door Settings")]
+    public Transform Door;
+
+
     private void Awake()
     {
         if (_portalPositionen == null)
@@ -128,9 +133,19 @@ public class LabyrinthCreator : MonoBehaviour
         SpawnPortals();
         SpawnLights();
         SpawnWallDeko();
+        SpawnDoor();
 
         //Add PortalPositions to Saving queue
         GameControl.Instance.SavePortalPositionen(_portalPositionen);
+    }
+
+    private void SpawnDoor()
+    {
+        GameObject[] sockelList = GameObject.FindGameObjectsWithTag("WandSockel");
+        int r = Random.Range(0, sockelList.Length);
+
+        Vector3 tmp = new Vector3(sockelList[r].transform.position.x, 0, sockelList[r].transform.position.z);
+        Instantiate(Door, tmp, sockelList[r].transform.rotation);
     }
 
     public static string PrintList(List<Vector3> list)

@@ -17,6 +17,7 @@ TagManager:
   - Ladder
   - CheckPoint
   - KeyManagerView
+  - FinalDoor
   layers:
   - Default
   - TransparentFX

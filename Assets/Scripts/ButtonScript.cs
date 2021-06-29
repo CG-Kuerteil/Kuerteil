@@ -12,11 +12,6 @@ public class ButtonScript : MonoBehaviour
     private Button LoadBtn;
     [SerializeField]
     private Button ExitBtn;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -40,11 +35,4 @@ public class ButtonScript : MonoBehaviour
     {
         GameControl.Instance.Save();
     }
-
-    /*private void Load()
-    {
-        Debug.Log("Laod button presssed...");
-        LoadBtn.onClick.RemoveAllListeners();
-        GameControl.instance.Load();
-    }*/
 }

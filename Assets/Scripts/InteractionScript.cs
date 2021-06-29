@@ -32,6 +32,13 @@ public class InteractionScript : MonoBehaviour
                     Debug.Log("Hit: " + hit.transform.tag);
                     hit.transform.gameObject.GetComponent<AbstractButton>().PushButton();
                 }
+                else if (hit.transform.tag == "FinalDoor")
+                {
+                    if (GameControl.Instance.KeyList.Count == 1)
+                    {
+                        hit.transform.GetComponent<DoorManager>().OpenDoor();
+                    }
+                }
                 
             }
         }
