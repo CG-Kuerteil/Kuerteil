@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour
         {
             if (!audioSource.isPlaying)
             {
-                audioSource.PlayOneShot(GameControl.Instance.audio.PickRandom());
+                //audioSource.PlayOneShot(GameControl.Instance.audio.PickRandom());
             }
         }
         if (_ShootRayCast == true)
@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
                     float distance = Vector3.Distance(target.transform.position, transform.position);
                     agent.isStopped = false;
                     agent.SetDestination(target.transform.position);
-                    animator.Play("Walking");
+                    animator.Play("Run");
                     if (distance <= agent.stoppingDistance)
                     {
                         //TODO: Attack the target
@@ -68,9 +68,9 @@ public class EnemyController : MonoBehaviour
                 {
                     if (agent.transform.position == _LastKnownPosition)
                     {
-                        animator.Play("EvilSlayer");
+                        animator.Play("Walk");
                     }
-                    //Debug.Log("raycast not hit, gameObject: " + hit.collider.GetInstanceID());
+                    Debug.Log("raycast not hit, gameObject: " + hit.collider.GetInstanceID()+". name: "+hit.collider.transform.name);
 
                 }
             }
@@ -133,6 +133,7 @@ public class EnemyController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             _ShootRayCast = true;
+            Debug.Log("player in Trigger");
         }
     }
 

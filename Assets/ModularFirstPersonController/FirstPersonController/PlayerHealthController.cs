@@ -67,6 +67,11 @@ public class PlayerHealthController : MonoBehaviour
                 KampfMinigameController.Instance.Died();
                 Revive();
             }
+            if (SceneManager.GetActiveScene().buildIndex == 4)
+            {
+                RaetselMinigameController.Instance.Died();
+                Revive();
+            }
             else if (SceneManager.GetActiveScene().buildIndex == 1)
             {
                 GameControl.Instance.Exit();

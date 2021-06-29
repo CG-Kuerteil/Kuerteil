@@ -177,7 +177,10 @@ public class GameControl : MonoBehaviour
     {
         if (index == 2)
         {
-            Instantiate(_Minigame_2_Controller, Vector3.zero, Quaternion.identity);
+            var s = Instantiate(_Minigame_2_Controller, Vector3.zero, Quaternion.identity);
+            s.GetComponent<JumpMinigameController>().MinigameSceneIndex = 2;
+            s.GetComponent<JumpMinigameController>().NumberOfTries = _NumberOfTries;
+            _NumberOfTries--;
         }
         if (index == 3)
         {
@@ -189,7 +192,7 @@ public class GameControl : MonoBehaviour
         if (index == 4)
         {
             var s = Instantiate(_Minigame_4_Controller, Vector3.zero, Quaternion.identity);
-            s.GetComponent<RaetselMinigameController>().MinigameSceneIndex = 3;
+            s.GetComponent<RaetselMinigameController>().MinigameSceneIndex = 4;
             s.GetComponent<RaetselMinigameController>().NumberOfTries = _NumberOfTries;
             _NumberOfTries--;
         }

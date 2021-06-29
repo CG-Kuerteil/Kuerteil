@@ -318,8 +318,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _EnemyOne
+      value: 
+      objectReference: {fileID: 559624715636395165, guid: 5cb37872ffca64f41a55a0ecda495081, type: 3}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: dimension
-      value: 51
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _DekoRatio
@@ -327,11 +331,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Iterations
-      value: 5000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: anzahlLights
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _AnzahlDekoGO
@@ -339,15 +343,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _AnzahlGegner
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _DekoRatioMax
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _WallDekoAnzahl
-      value: 30
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: anzahlMinispiele
@@ -417,6 +421,10 @@ PrefabInstance:
       propertyPath: _WallDekoListe.Array.data[5]
       value: 
       objectReference: {fileID: 4422158401103843142, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+    - target: {fileID: 4651296428044860339, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _Minigame_2_Controller
+      value: 
+      objectReference: {fileID: 2489015121182201494, guid: 5035777f22b061e43bef08180a69069f, type: 3}
     - target: {fileID: 4651296428044860339, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: _Minigame_3_Controller
       value: 
