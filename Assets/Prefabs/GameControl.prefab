@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 4651296428044860337}
   - component: {fileID: 4651296428044860343}
   - component: {fileID: 4651296428044860342}
+  - component: {fileID: 1353296728}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -175,21 +176,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ab1d443b65ecd4eb56657882f57e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _EnemyOne: {fileID: 7348245365452054008, guid: 3d6bef2e63d6157438389c39250693bf, type: 3}
-  _AnzahlGegner: 3
-  dimension: 51
-  iterations: 4000
+  _WallDekoAnzahl: 15
+  _WallDekoListe:
+  - {fileID: 4422158401103843142, guid: de4520cfa39e2704f8b6c5e39482149d, type: 3}
+  - {fileID: 4422158401103843142, guid: 3c7fb8b87d8155a4899b8c572eddd542, type: 3}
+  - {fileID: 4422158401103843142, guid: f7dec2cd4035d61428940c88d87cc81b, type: 3}
+  - {fileID: 4422158401103843142, guid: 8d84c0804c6bdc747a4458525dc42ea5, type: 3}
+  - {fileID: 4422158401103843142, guid: b4137325b5a158d4c96199f3dadbec38, type: 3}
+  _DekoRatioMax: 15
+  _DekoListe:
+  - {fileID: 4422158401103843142, guid: 685bf061ea417324c97e814c7b097e87, type: 3}
+  - {fileID: 4422158401103843142, guid: d4b609122ace2a7489f7c99f7234bdfe, type: 3}
+  _Portale:
+  - {fileID: 1498697634455658422, guid: 3d4e29f1f8c5d2b40b73c94784f03c74, type: 3}
+  - {fileID: 1498697634455658422, guid: db9999a8f184ddb43979af2b3c961e1f, type: 3}
+  - {fileID: 1498697634455658422, guid: 6fe7e4f6dd0a5c642b36eb8f85301166, type: 3}
+  dimension: 11
+  _Iterations: 100
   gangWahrscheinlichkeit: 9
-  filepath: 
   gangSmall: {fileID: 7249444258092820612, guid: 381ca76a1d020cb40afe25ad21595b59, type: 3}
   hub1: {fileID: 3156753243952553884, guid: dd0857cdd8d8b234488b7f6e1a4387df, type: 3}
   hub2: {fileID: 3156753243952553884, guid: fd1c38784b19fe041902c9c2381d373e, type: 3}
   hub3: {fileID: 2821006182528058619, guid: 4066e708c7a0bb64cb2a8b7f2e36c703, type: 3}
   hub4: {fileID: 2273242263581137075, guid: 1505f0174b78cf546893cc64e8853955, type: 3}
-  minispiel_portal: {fileID: 5418309560198272943, guid: ea9445a749846b64fa0c41187c4e2ddc, type: 3}
-  anzahlMinispiele: 5
+  minispiel_portal: {fileID: 4422158401103843142, guid: af07b89c99ae50140ad88e44901df8a6, type: 3}
+  anzahlMinispiele: 3
   _Light: {fileID: 448369543855398297, guid: c606663ffbc87044cb3e05aec4d91903, type: 3}
-  anzahlLights: 40
+  anzahlLights: 20
+  _EnemyOne: {fileID: 559624715636395165, guid: 5cb37872ffca64f41a55a0ecda495081, type: 3}
+  _AnzahlGegner: 1
+  Door: {fileID: 4422158401103843142, guid: 2d8cc615a73ab284b8ba3680739c16e0, type: 3}
 --- !u!114 &4651296428044860339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,13 +218,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d7dd193207d4a46bf40a28608e1808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerSpawnPosition: {x: -2, y: 1, z: -2}
   playerPref: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
   player: {fileID: 0}
   audio: {fileID: 0}
   _FireDamage: 1
   _HP_Pickup: 40
-  _Minigame_3_Controller: {fileID: 2489015121182201494, guid: 5035777f22b061e43bef08180a69069f, type: 3}
-  _Minigame_2_Controller: {fileID: 2489015121182201494, guid: 333ec3bc2b05cc44f9c4e309bc5d63fa, type: 3}
+  _Minigame_3_Controller: {fileID: 2489015121182201494, guid: 333ec3bc2b05cc44f9c4e309bc5d63fa, type: 3}
+  _Minigame_2_Controller: {fileID: 2489015121182201494, guid: 5035777f22b061e43bef08180a69069f, type: 3}
   _Minigame_4_Controller: {fileID: 2489015121182201494, guid: f9b9ba465f7ec1b48955cb61ea4fd29e, type: 3}
   _MenuState: 0
   _NumberOfTries: 3
@@ -225,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _MenuView: {fileID: 0}
+  _KeyManagerView: {fileID: 0}
 --- !u!114 &4651296428044860343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,3 +278,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5ebfb76a83ba6b048b2a69ada70ea0c0, type: 3}
   - {fileID: 8300000, guid: 9f5b29ff82e57c84491f0cdd0565c6e4, type: 3}
   - {fileID: 8300000, guid: 4106723d96ef43d48a8dee2ced23ddfd, type: 3}
+--- !u!114 &1353296728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651296428044860349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 1977d44de088714418aafc2e03eb5e4c, type: 2}

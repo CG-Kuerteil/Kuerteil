@@ -72,9 +72,11 @@ public class GameControl : MonoBehaviour
 
         DontDestroyOnLoad(Instance);
 
-        Cursor.lockState = CursorLockMode.Locked;
-
-        InitComponents();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            InitComponents();
+        }
     }
 
     private void InitComponents()
