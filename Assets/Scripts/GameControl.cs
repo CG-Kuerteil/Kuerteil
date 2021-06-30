@@ -22,6 +22,7 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    public bool SceneLoading = false;
 
     public GameObject playerPref;
     private LabyrinthCreator arraySpawner;
@@ -62,8 +63,9 @@ public class GameControl : MonoBehaviour
         //Check if Isntance is Singleton
         if (_instance != null && _instance != this)
         {
+            Debug.Log("DESTROYED GO!!! WITH id. "+gameObject.GetInstanceID());
             Destroy(this.gameObject);
-            Debug.Log("DESTROYED GO!!!");
+            return;
         }
         else
         {
@@ -96,7 +98,7 @@ public class GameControl : MonoBehaviour
         
         if (SceneManager.GetActiveScene().buildIndex == 1 && !_dontGenerate)
         {
-            Debug.Log("----------------neu generiert...-----------------");
+            Debug.Log("----------------neu generiert...----------------- with ID: "+gameObject.GetInstanceID());
             arraySpawner.InitializeGeneration();
         }
 
@@ -113,16 +115,15 @@ public class GameControl : MonoBehaviour
     /// <param name="index">Der Index der neuen Scene</param>
     public void SceneWechseln(int index)
     {
-        if (SceneManager.GetActiveScene().buildIndex != 0 && index == 1)
+        if (SceneManager.GetActiveScene().buildIndex > 1 && index == 1)
         {
             _dontGenerate = true;
             SceneManager.LoadScene(index);
-            GameControl.Instance.Load();
-            
+            StartCoroutine(WaitIfLoaded(index));
         }
         else if (SceneManager.GetActiveScene().buildIndex == 1 && index > 1)
         {
-            GameControl.Instance.Save();
+            _instance.Save();
             SceneManager.LoadScene(index);
         }
 
@@ -132,6 +133,21 @@ public class GameControl : MonoBehaviour
         {
             _GameOver = false;
         }
+    }
+
+    IEnumerator WaitIfLoaded(int index)
+    {
+        if (SceneManager.GetActiveScene().buildIndex != index)
+        {
+            SceneLoading = true;
+        }
+        while(SceneManager.GetActiveScene().buildIndex != index)
+        {
+            yield return new WaitForSeconds(1f);
+        }
+        GameControl.Instance.Load();
+        SceneLoading = false;
+        yield return null;
     }
 
     /// <summary>
@@ -175,6 +191,12 @@ public class GameControl : MonoBehaviour
 
     private void Start()
     {
+        if (_instance != null && _instance != this)
+        {
+            Debug.Log("DESTROYED GO!!! WITH id. " + gameObject.GetInstanceID());
+            Destroy(this.gameObject);
+            return;
+        }
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             //Create NavMesh
@@ -280,6 +302,12 @@ public class GameControl : MonoBehaviour
     /// </summary>
     public void Load()
     {
+        if (_instance != null && _instance != this)
+        {
+            Debug.Log("DESTROYED GO!!! WITH id. " + gameObject.GetInstanceID());
+            Destroy(this.gameObject);
+            return;
+        }
         if (File.Exists(Application.persistentDataPath + "/gameData.dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -325,6 +353,10 @@ public class GameControl : MonoBehaviour
             //player.transform.position = gameData.playerPosition;
             
             player.transform.rotation = gameData.playerRotation;
+
+
+            Debug.Log("SaveGame Loaded: with ID: "+gameObject.GetInstanceID());
+            Debug.Log(gameData.ToString());
         }
         else
         {
@@ -417,4 +449,15 @@ class GameData
     public SVector3 playerPosition = new SVector3();
     
     public SQuaternion playerRotation = new SQuaternion();
+
+    public override string ToString()
+    {
+        string tmp = "\n";
+
+        tmp += "health: " + health + "\n";
+        tmp += "pPosition: "+ playerPosition + "\n";
+        tmp += "pRotation: " + playerRotation + "\n";
+        tmp += "Schluessel: [" + Schluessel[0] + ", " + Schluessel[1] + ", " + Schluessel[2] + "]\n";
+        return tmp;
+    }
 }

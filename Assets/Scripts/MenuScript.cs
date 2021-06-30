@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MenuScript : MonoBehaviour
 {
     public GameObject _MenuView;
     public GameObject _KeyManagerView;
+
+    public GameObject BackgroundImage;
 
     private bool menuOn;
 
@@ -19,6 +22,11 @@ public class MenuScript : MonoBehaviour
         if (_KeyManagerView == null)
         {
             _KeyManagerView = GameObject.FindGameObjectWithTag("KeyManagerView");
+        }
+        if (BackgroundImage == null)
+        {
+            BackgroundImage = GameObject.FindGameObjectWithTag("BackgroundImage");
+            BackgroundImage.gameObject.SetActive(false);
         }
     }
     private void Update()
@@ -46,14 +54,22 @@ public class MenuScript : MonoBehaviour
             if (GameControl.Instance._MenuState == true)
             {
                 GameControl.Instance.player.gameObject.GetComponent<FirstPersonController>().canLook = false;
-                Cursor.lockState = CursorLockMode.None;
+                UnityEngine.Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0f;
             }
             else if (GameControl.Instance._MenuState == false)
             {
-                Cursor.lockState = CursorLockMode.Locked;
+                UnityEngine.Cursor.lockState = CursorLockMode.Locked;
                 Time.timeScale = 1f;
                 GameControl.Instance.player.gameObject.GetComponent<FirstPersonController>().canLook = true;
+            }
+            if (GameControl.Instance.SceneLoading == true)
+            {
+                BackgroundImage.gameObject.SetActive(true);
+            }
+            else
+            {
+                BackgroundImage.gameObject.SetActive(false);
             }
         }
     }

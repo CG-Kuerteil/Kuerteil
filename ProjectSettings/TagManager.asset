@@ -18,6 +18,7 @@ TagManager:
   - CheckPoint
   - KeyManagerView
   - FinalDoor
+  - BackgroundImage
   layers:
   - Default
   - TransparentFX
