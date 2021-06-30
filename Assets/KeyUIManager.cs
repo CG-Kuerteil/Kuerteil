@@ -5,16 +5,16 @@ using UnityEngine.UI;
 
 public class KeyUIManager : MonoBehaviour
 {
-    public CanvasRenderer RedPanel;
-    public CanvasRenderer GreenPanel;
-    public CanvasRenderer BluePanel;
+    public GameObject RedPanel;
+    public GameObject GreenPanel;
+    public GameObject BluePanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        RedPanel.SetAlpha(0f);
-        GreenPanel.SetAlpha(0f);
-        BluePanel.SetAlpha(0f);
+        RedPanel.SetActive(false);
+        GreenPanel.SetActive(false);
+        BluePanel.SetActive(false);
     }
 
     public void KeyPickedUp(KeyType type)
@@ -22,13 +22,13 @@ public class KeyUIManager : MonoBehaviour
         switch (type)
         {
             case KeyType.RedKey:
-                RedPanel.SetAlpha(1f);
+                RedPanel.SetActive(true);
                 break;
             case KeyType.BlueKey:
-                BluePanel.SetAlpha(1f);
+                BluePanel.SetActive(true);
                 break;
             case KeyType.GreenKey:
-                GreenPanel.SetAlpha(1f);
+                GreenPanel.SetActive(true);
                 break;
             default:
                 break;

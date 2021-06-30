@@ -7,7 +7,8 @@ using UnityEngine.AI;
 public class NavMeshGenerator : MonoBehaviour
 {
 
-    [SerializeField] private GameObject navMeshRoot = null;
+    [SerializeField] 
+    private GameObject navMeshRoot = null;
 
     private List<GameObject> navMeshElements = new List<GameObject>();
     public void SetNavMeshElements(List<GameObject> values)
@@ -27,12 +28,12 @@ public class NavMeshGenerator : MonoBehaviour
 
     public void BuildNavRoot()
     {
-        if (navMeshRoot == null)
-        {
+        //if (navMeshRoot == null)
+        //{
             navMeshRoot = new GameObject("NavMeshRoot");
             navMeshRoot.tag = "lab";
             navMeshRoot.transform.tag = "lab";
-        }
+        //}
     }
 
     public void BuildNavMesh()

@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Player")
                 {
-                    Debug.Log("player in sight!!!");
+                    //Debug.Log("player in sight!!!");
                     float distance = Vector3.Distance(target.transform.position, transform.position);
                     agent.isStopped = false;
                     agent.SetDestination(target.transform.position);
@@ -80,7 +80,7 @@ public class EnemyController : MonoBehaviour
                             animator.Play("Walk");
                         }
                     }
-                    Debug.Log("raycast not hit, gameObject: " + hit.collider.GetInstanceID()+". name: "+hit.collider.transform.name);
+                    //Debug.Log("raycast not hit, gameObject: " + hit.collider.GetInstanceID()+". name: "+hit.collider.transform.name);
 
                 }
             }
@@ -121,8 +121,8 @@ public class EnemyController : MonoBehaviour
         Vector3 nextPos = _AvailablePaths[_NextPoint].transform.position;
         agent.SetDestination(nextPos);
         
-        Instantiate(_PositionMarker, nextPos, Quaternion.identity);
-        Debug.Log("new position generated...");
+        //Instantiate(_PositionMarker, nextPos, Quaternion.identity);
+        //Debug.Log("new position generated...");
     }
 
     private void FaceTarget()

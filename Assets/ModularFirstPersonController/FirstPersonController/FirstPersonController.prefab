@@ -1291,9 +1291,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b925cc2f01d7546939fc7e66391b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RedPanel: {fileID: 4682638083025409744}
-  GreenPanel: {fileID: 4772554965050807594}
-  BluePanel: {fileID: 9113882653681428395}
+  RedPanel: {fileID: 4436662961690555477}
+  GreenPanel: {fileID: 8272338242383903291}
+  BluePanel: {fileID: 6032553055801217281}
 --- !u!95 &1592158064908690561
 Animator:
   serializedVersion: 3

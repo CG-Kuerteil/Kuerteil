@@ -135,6 +135,11 @@ public class GameControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Waits for the GameControl Object to Laod the SaveGame until the Scene 'Index' is fully loaded
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     IEnumerator WaitIfLoaded(int index)
     {
         if (SceneManager.GetActiveScene().buildIndex != index)
@@ -358,6 +363,14 @@ public class GameControl : MonoBehaviour
             
             player.transform.rotation = gameData.playerRotation;
 
+            //Create NavMesh
+            List<GameObject> tempList = new List<GameObject>();
+            tempList.AddRange(GameObject.FindGameObjectsWithTag("Ground"));
+            GetComponent<NavMeshGenerator>().SetNavMeshElements(tempList);
+            GetComponent<NavMeshGenerator>().BuildNavRoot();
+            GetComponent<NavMeshGenerator>().BuildNavMesh();
+
+            arraySpawner.SpawnEnemies();
 
             Debug.Log("SaveGame Loaded: with ID: "+gameObject.GetInstanceID());
             Debug.Log(gameData.ToString());
