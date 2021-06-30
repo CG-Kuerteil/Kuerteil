@@ -243,7 +243,11 @@ public class GameControl : MonoBehaviour
     /// </summary>
     public void GameWon()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(6);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Destroy(Instance.gameObject);
     }
 
     Vector3[] portalPositionen;
@@ -409,7 +413,7 @@ public class GameControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Gibt das Array als String zurueck. Für Test Zwecke
+    /// Gibt das Array als String zurueck. F?r Test Zwecke
     /// </summary>
     /// <param name="list"></param>
     /// <returns></returns>
