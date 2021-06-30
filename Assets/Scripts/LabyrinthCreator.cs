@@ -125,6 +125,7 @@ public class LabyrinthCreator : MonoBehaviour
         }
         else
         {
+            //Wenn die Labyrinth Matrix manuell gesetzt wurde
             mitte = mainFeld.GetLength(0) / 2;
         }
         PrintCSV(mainFeld);
@@ -146,16 +147,7 @@ public class LabyrinthCreator : MonoBehaviour
 
         Vector3 tmp = new Vector3(sockelList[r].transform.position.x, 0, sockelList[r].transform.position.z);
         Instantiate(Door, tmp, sockelList[r].transform.rotation);
-    }
-
-    public static string PrintList(List<Vector3> list)
-    {
-        string tmp = "[";
-        foreach (var item in list)
-        {
-            tmp += ", " + item.ToString();
-        }
-        return tmp + "]";
+        Destroy(sockelList[r]);
     }
 
     public void SpawnWallDeko()
@@ -280,6 +272,9 @@ public class LabyrinthCreator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Main Algorithm ti contruct the 2D Matrix represeting the Labyrinth
+    /// </summary>
     private void InitSnake()
     {
         Vector3Int direction = Vector3Int.left;
@@ -294,7 +289,7 @@ public class LabyrinthCreator : MonoBehaviour
             int rand = Random.Range(0, 11);
 
             //\\+-----+-----+-----+[Randbedingungen]+-----+-----+-----+//\\
-            //linke kante
+            #region linke kante
             if (j == 0 && i > 0 && i < dimension-1 && direction == Vector3Int.back)
             {
                 rand = Random.Range(0, 2);
@@ -308,7 +303,9 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 alreadyTurned = true;
             }
-            //obere kante
+            #endregion linke kante
+
+            #region obere kante
             if (i == 0 && j > 0 && j < dimension - 1 && direction == Vector3Int.left)
             {
                 rand = Random.Range(0, 2);
@@ -322,7 +319,9 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 alreadyTurned = true;
             }
-            //rechte kante
+            #endregion obere kante
+
+            #region rechte kante
             if (j == dimension-1 && i > 0 && i < dimension - 1 && direction == Vector3Int.forward)
             {
                 rand = Random.Range(0, 2);
@@ -336,7 +335,9 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 alreadyTurned = true;
             }
-            //untere kante
+            #endregion rechte kante
+
+            #region untere kante
             if (i == dimension - 1 && j > 0 && j < dimension - 1 && direction == Vector3Int.right)
             {
                 rand = Random.Range(0, 2);
@@ -350,7 +351,9 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 alreadyTurned = true;
             }
-            //obere linke ecke
+            #endregion untere kante
+
+            #region obere linke ecke
             if (i == 0 && j == 0 && (direction == Vector3Int.left || direction == Vector3Int.back))
             {
                 if (direction == Vector3Int.left)
@@ -363,7 +366,9 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 alreadyTurned = true;
             }
-            //untere linke ecke
+            #endregion obere linke ecke
+
+            #region untere linke ecke
             if (i == dimension-1 && j == 0 && (direction == Vector3Int.right || direction == Vector3Int.back))
             {
                 if (direction == Vector3Int.right)
@@ -376,7 +381,9 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 alreadyTurned = true;
             }
-            //untere rechte ecke
+            #endregion untere linke ecke
+
+            #region untere rechte ecke
             if (i == dimension-1 && j == dimension-1 && (direction == Vector3Int.right || direction == Vector3Int.forward))
             {
                 if (direction == Vector3Int.right)
@@ -389,7 +396,9 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 alreadyTurned = true;
             }
-            //obere rechte ecke
+            #endregion untere rechte ecke
+
+            #region obere rechte ecke
             if (i == 0 && j == dimension - 1 && (direction == Vector3Int.left || direction == Vector3Int.forward))
             {
                 if (direction == Vector3Int.left)
@@ -402,6 +411,7 @@ public class LabyrinthCreator : MonoBehaviour
                 }
                 alreadyTurned = true;
             }
+            #endregion obere rechte ecke
             //\\+-----+-----+-----+[Randbedingungen]+-----+-----+-----+//\\
 
             if (rand >= 0 && rand < gangWahrscheinlichkeit)
