@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class NavMeshGenerator : MonoBehaviour
 {
-
     [SerializeField] 
     private GameObject navMeshRoot = null;
 

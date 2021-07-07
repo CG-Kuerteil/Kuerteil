@@ -301,7 +301,7 @@ public class GameControl : MonoBehaviour
             }
         }
         #endregion
-
+        Debug.Log("GameData when savingd: " + gameData.ToString());
         bf.Serialize(fs, gameData);
         fs.Close();
     }
@@ -340,18 +340,19 @@ public class GameControl : MonoBehaviour
             portalPositionen[0] = gameData.portalPosition1;
             portalPositionen[1] = gameData.portalPosition2;
             portalPositionen[2] = gameData.portalPosition3;
+            Debug.Log("GameData when laoding: "+gameData.ToString());
 
             if (gameData.Schluessel[0] == true)
             {
-                _keyList.Add(KeyType.RedKey);
+                addKey(KeyType.RedKey);
             }
             if (gameData.Schluessel[1] == true)
             {
-                _keyList.Add(KeyType.BlueKey);
+                addKey(KeyType.BlueKey);
             }
             if (gameData.Schluessel[2] == true)
             {
-                _keyList.Add(KeyType.GreenKey);
+                addKey(KeyType.GreenKey);
             }
 
             arraySpawner.PortalPositionen = portalPositionen;
@@ -403,8 +404,6 @@ public class GameControl : MonoBehaviour
             Debug.Log("KeyCollected: "+keyType);
 
             GameObject.FindObjectOfType<KeyUIManager>().KeyPickedUp(keyType);
-
-            //Todo: notify UI
         }
         else
         {
