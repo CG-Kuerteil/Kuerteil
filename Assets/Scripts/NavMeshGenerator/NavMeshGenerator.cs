@@ -26,6 +26,9 @@ public class NavMeshGenerator : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void BuildNavRoot()
     {
         //if (navMeshRoot == null)
@@ -36,6 +39,9 @@ public class NavMeshGenerator : MonoBehaviour
         //}
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public void BuildNavMesh()
     {
         int agentTypeCount = NavMesh.GetSettingsCount();

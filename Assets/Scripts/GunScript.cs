@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class GunScript : MonoBehaviour
 {
     public float _Damage = 10f;
