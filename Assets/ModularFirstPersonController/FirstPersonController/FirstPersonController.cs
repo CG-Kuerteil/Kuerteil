@@ -502,26 +502,16 @@ public class FirstPersonController : MonoBehaviour
         }*/
     }
 
-    // Sets isGrounded based on a raycast sent straigth down from the player object
+    /// <summary>
+    /// Checks if the player is on the ground or not. (Uses CapsuleCast)
+    /// Sets isGrounded based on a cast sent straigth down from the player object
+    /// </summary>
     private void CheckGround()
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
-        //Vector3 origin = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         Vector3 direction = transform.TransformDirection(Vector3.down);
         CapsuleCollider collider = GetComponent<CapsuleCollider>();
-        //float distance = 0.75f;
         float distance = collider.height * 0.5f + 0.0001f;
-
-        /*if (Physics.CapsuleCast(transform.position + (transform.up * 0.5f), transform.position + (transform.up * -0.5f), collider.radius, direction, 0.1f))
-        {
-            Debug.DrawRay(origin, direction * distance, Color.red);
-            isGrounded = true;
-        }
-        else
-        {
-            Debug.DrawRay(origin, direction * distance, Color.green);
-            isGrounded = false;
-        }*/
 
         if (Physics.CapsuleCast(transform.position + (transform.up * 0.5f), transform.position + (transform.up * -0.5f), collider.radius - 0.01f, direction, 0.1f))
         {
@@ -534,20 +524,11 @@ public class FirstPersonController : MonoBehaviour
             isGrounded = false;
         }
 
-
-        /*if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
-        {
-            Debug.DrawRay(origin, direction * distance, Color.red);
-            isGrounded = true;
-        }
-        else
-        {
-            Debug.DrawRay(origin, direction * distance, Color.green);
-            isGrounded = false;
-        }
-        Debug.Log(isGrounded);*/
     }
 
+    /// <summary>
+    /// Jump-Method implements jumping behaviour
+    /// </summary>
     private void Jump()
     {   
         // if velocity.y is more than 1, dont jump
@@ -563,13 +544,11 @@ public class FirstPersonController : MonoBehaviour
             isGrounded = false;
         }
 
-        // When crouched and using toggle system, will uncrouch for a jump
-        /*if(isCrouched && !holdToCrouch)
-        {
-            Crouch();
-        }*/
     }
 
+    /// <summary>
+    /// Crouch-Method implements crouching behaviour
+    /// </summary>
     private void Crouch()
     {
         // Stands player up to full height
