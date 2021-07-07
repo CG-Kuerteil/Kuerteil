@@ -34,9 +34,13 @@ public class InteractionScript : MonoBehaviour
                 }
                 else if (hit.transform.tag == "FinalDoor")
                 {
-                    if (GameControl.Instance.KeyList.Count == 1)
+                    if (GameControl.Instance.KeyList.Count >= 3)
                     {
                         hit.transform.GetComponent<DoorManager>().OpenDoor();
+                    }
+                    else
+                    {
+                        Debug.Log(GameControl.Instance.KeyList.Count);
                     }
                 }
                 

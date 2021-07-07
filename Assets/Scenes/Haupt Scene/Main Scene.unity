@@ -295,6 +295,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: dimension
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _Iterations
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: anzahlLights
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _DekoRatioMax
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651296428044860338, guid: 30b513285376681439436f9b2ae5803c, type: 3}
+      propertyPath: _WallDekoAnzahl
+      value: 22
+      objectReference: {fileID: 0}
     - target: {fileID: 4651296428044860349, guid: 30b513285376681439436f9b2ae5803c, type: 3}
       propertyPath: m_Name
       value: GameControl
